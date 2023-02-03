@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HelloWorlds : MonoBehaviour {
+public class UnityCSTemplate : MonoBehaviour
+{
     // Start is called before the first frame update
-    void Start() {
-        Debug.Log($"Hello from scene!");
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
-    void Update(){}
+    void Update()
+    {
+        
+    }
 }

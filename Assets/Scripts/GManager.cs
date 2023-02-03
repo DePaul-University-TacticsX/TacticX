@@ -28,12 +28,19 @@ public class GManager : MonoBehaviour {
       mgr.StartUp();
     }   
 
-    // implement a check on the manager's status, before completing this?
+    // TODO: implement a check on the manager's status, before completing this?
 
-    Debug.Log("... All Managers have started");
-    
+    Debug.Log("... all Managers have started");
 
     yield return null;
+  }
+
+  // Update is called once per frame
+  void Update() {
+  
+    if (Time.frameCount % 1200 == 0) {    // shift about every 20 secs if its 60fps?
+      scenes.NextScene();
+    }
   }
 
 
