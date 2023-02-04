@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class SelectionManager
     {

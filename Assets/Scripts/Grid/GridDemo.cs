@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using TacticsX.Grid;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class GridDemo : MonoBehaviour
     {
         private Grid grid;
         private AssetFactory factory;
         private SelectionManager selectionManager;
+        private GridCameraManager cameraManager;
         private Node selectedNode;
         private List<Cell> selectedCells;
         private bool canSetNode;
+
+        private int row;
+        private int column;
 
         void Start()
         {
@@ -20,12 +24,72 @@ namespace TacticsX.GridDemo
 
             factory = new AssetFactory();
             selectionManager = new SelectionManager();
+            cameraManager = new GridCameraManager();
 
             selectedCells = new List<Cell>();
+
+            cameraManager.SetCameraPosition(4, 4);
 
             InputManager.AddListenerMouseMove(OnMouseMoveAction);
             InputManager.AddListenerMouseClick(OnMouseClickAction);
             SelectionManager.AddListenerSelectPiece(OnSelectPieceAction);
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                MoveLeft();
+            }
+
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                MoveRight();
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                MoveUp();
+            }
+
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                MoveDown();
+            }
+        }
+
+        void MoveLeft()
+        {
+            column--;
+            if (column < 0) column = 0;
+            else SetPosition();
+        }
+
+        void MoveRight()
+        {
+            column++;
+            if (column > 4) column = 4;
+            else SetPosition();
+        }
+
+        void MoveUp()
+        {
+            row--;
+            if (row < 0) row = 0;
+            else SetPosition();
+        }
+
+        void MoveDown()
+        {
+            row++;
+            if (row > 4) row = 4;
+            else SetPosition();
+        }
+
+        [ContextMenu("Move Camera")]
+        public void SetPosition()
+        {
+            cameraManager.MoveToPosition(row, column);
         }
 
         void OnMouseMoveAction(Vector3 v)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TacticsX.Grid;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class GridCell : Cell
     {
@@ -22,6 +22,11 @@ namespace TacticsX.GridDemo
             renderer = gameObject.GetComponent<Renderer>();
 
             SetState(CellStateType.Normal);
+        }
+
+        public Vector3 GetPosition()
+        {
+            return gameObject.transform.position;
         }
 
         public override void SetPosition(int x, int y)

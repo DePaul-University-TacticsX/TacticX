@@ -1,4 +1,4 @@
-﻿namespace TacticsX.GridDemo
+﻿namespace TacticsX.GridImplementation
 {
     public class CellStateOpen : CellState
     {

@@ -1,14 +1,17 @@
 ﻿using TacticsX.Grid;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class Grid : GridManager
     {
+        public static Grid Instance;
+
         CellStateFactory stateFactory;
 
         public Grid(int size) 
             : base(size)
         {
+            Instance = this;
             Init();
         }
 
@@ -21,6 +24,11 @@ namespace TacticsX.GridDemo
         void Init()
         {
             stateFactory = new CellStateFactory();
+        }
+
+        public GridCell FindGridCell(int row, int column)
+        {
+            return (GridCell)base.Find(row, column);
         }
 
         protected override Cell CreateCell(int row, int column)

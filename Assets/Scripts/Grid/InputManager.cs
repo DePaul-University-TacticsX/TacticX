@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class InputManager : MonoBehaviour
     {

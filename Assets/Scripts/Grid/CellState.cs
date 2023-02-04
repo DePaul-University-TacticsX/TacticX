@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public abstract class CellState 
     {

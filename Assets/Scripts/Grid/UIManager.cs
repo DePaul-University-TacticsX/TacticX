@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class UIManager : MonoBehaviour
     {

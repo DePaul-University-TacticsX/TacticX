@@ -2,7 +2,7 @@
 using UnityEngine;
 using TacticsX.Grid;
 
-namespace TacticsX.GridDemo
+namespace TacticsX.GridImplementation
 {
     public class AssetFactory
     {
