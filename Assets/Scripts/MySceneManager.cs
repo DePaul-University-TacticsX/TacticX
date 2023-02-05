@@ -3,17 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine.SceneManagement;    // contains SceneManager class
+
+using System;   // for System.InvalidOperationException
+
 // needs namespace?
 
 public class MySceneManager : MonoBehaviour, IManager {
 
-  public ManagerStatus status;
+  public ManagerStatus MStatus;
   public Scenes CurrentScene;
   public Scenes EndScene;
   public LoadStatus LStatus;
 
   IEnumerator SceneIter;
-
 
   public void StartUp() {
     Debug.Log("Scene Manager is starting at Scene 1 ... ");
@@ -26,35 +28,31 @@ public class MySceneManager : MonoBehaviour, IManager {
     this.SceneIter = SceneArray.GetEnumerator(); 
     
     // set the statuses
+    this.MStatus = ManagerStatus.ON;
     this.CurrentScene = Scenes.Scene1;
     this.EndScene = Scenes.Scene3;
-    this.status = ManagerStatus.ON;
     this.LStatus = LoadStatus.COMPLETE;
 
   }
 
-  public ManagerStatus GetStatus() {
-    return this.status;
-  }
-
-  public LoadStatus GetLoadStatus() {
-    return this.LStatus;
-  }
-
-  public void NextScene() {
-
-    // do nothing if at the last scene
-    if ((Scenes) this.CurrentScene == this.EndScene) {
-      return; 
-    }  
-
-    // set the load status
-    this.LStatus = LoadStatus.LOADING;
+  public void NextScene() {  
 
     // shift to the next scene in the iterator and hold on to it
     this.SceneIter.MoveNext();
-    Scenes next = (Scenes) this.SceneIter.Current;
     
+    // try to grab the current Scene from iterator
+    Scenes next;
+    try {
+      next = (Scenes) this.SceneIter.Current;
+    }
+    catch(InvalidOperationException e) { 
+      Debug.Log($"{e.Message}: Next Scene is not available");
+      return;
+    }
+    
+    // set the load status
+    this.LStatus = LoadStatus.LOADING;
+
     Debug.Log($"Loading {next} ... ");
     
     // set the current scene
@@ -65,11 +63,16 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     // loading has completed
     this.LStatus = LoadStatus.COMPLETE;
-
-    
+     Debug.Log($"Loading {next} is complete ... ");
 
   }
 
+  public bool isLoadingComplete() {
+    if (this.LStatus == LoadStatus.COMPLETE) {
+      return true;
+    }
+    return false;
+  }
   
 }
 
