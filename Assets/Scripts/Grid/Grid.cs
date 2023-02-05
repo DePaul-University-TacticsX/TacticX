@@ -4,7 +4,7 @@ namespace TacticsX.GridImplementation
 {
     public class Grid : GridManager
     {
-        public static Grid Instance;
+        public static Grid Instance { get; private set; }
 
         CellStateFactory stateFactory;
 
@@ -28,12 +28,12 @@ namespace TacticsX.GridImplementation
 
         public GridCell FindGridCell(int row, int column)
         {
-            return (GridCell)base.Find(row, column);
+            return (GridCell)Find(row, column);
         }
 
         protected override Cell CreateCell(int row, int column)
         {
-            return new GridCell(row, column, stateFactory);
+            return new GridCell(row, column,1f, stateFactory);
         }
     }
 }

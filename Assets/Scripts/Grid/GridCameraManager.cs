@@ -25,14 +25,13 @@ namespace TacticsX.GridImplementation
 
         public void SetCameraPosition(int row, int column)
         {
-            cam.transform.position = GetTargetPostion(row, column);
-           
+            cam.transform.position = GetTargetPostion(row, column);           
         }
 
         private Vector3 GetTargetPostion(int row, int column)
         {
             GridCell cell = Grid.Instance.FindGridCell(row, column);
-            Vector3 cellPosition = cell.GetPosition() + new Vector3(0, 0.5f, 0);
+            Vector3 cellPosition = cell.GetPosition();
             Vector3 newPosition = cellPosition + (anchorDir * distance);
             return newPosition;
         }

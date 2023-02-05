@@ -8,11 +8,13 @@ namespace TacticsX.GridImplementation
         private Renderer renderer;
         private GameObject gameObject;
         private CellStateFactory stateFactory;
+        private Vector3 positionOffset;
 
-        public GridCell(int row, int column, CellStateFactory stateFactory) 
+        public GridCell(int row, int column, float height, CellStateFactory stateFactory) 
             : base(row, column)
         {
             this.stateFactory = stateFactory;
+            this.positionOffset = new Vector3(0, height/2, 0);
 
             //I'm using a full 1x1 cube for my prefab, but painting
             //a full terrain with cubes is difficult so you could
@@ -21,12 +23,14 @@ namespace TacticsX.GridImplementation
             gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
             renderer = gameObject.GetComponent<Renderer>();
 
+            gameObject.transform.localPosition = new Vector3(1, height, 1);
+
             SetState(CellStateType.Normal);
         }
 
         public Vector3 GetPosition()
         {
-            return gameObject.transform.position;
+            return gameObject.transform.position + positionOffset;
         }
 
         public override void SetPosition(int x, int y)

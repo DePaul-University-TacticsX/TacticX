@@ -7,12 +7,16 @@ namespace TacticsX.GridImplementation
     public class GridDemo : MonoBehaviour
     {
         private Grid grid;
-        private AssetFactory factory;
-        private SelectionManager selectionManager;
+        //private AssetFactory factory;
+        //private SelectionManager selectionManager;
         private GridCameraManager cameraManager;
-        private Node selectedNode;
+        private CursorManager cursorManager;
+
+        private GridCell selectedCell;
+
+        /*private Node selectedNode;
         private List<Cell> selectedCells;
-        private bool canSetNode;
+        private bool canSetNode;*/
 
         private int row;
         private int column;
@@ -22,17 +26,17 @@ namespace TacticsX.GridImplementation
             grid = new Grid(5);
             grid.Build();
 
-            factory = new AssetFactory();
-            selectionManager = new SelectionManager();
+            //factory = new AssetFactory();
+            //selectionManager = new SelectionManager();
             cameraManager = new GridCameraManager();
-
-            selectedCells = new List<Cell>();
+            cursorManager = new CursorManager();
+            //selectedCells = new List<Cell>();
 
             cameraManager.SetCameraPosition(4, 4);
 
-            InputManager.AddListenerMouseMove(OnMouseMoveAction);
-            InputManager.AddListenerMouseClick(OnMouseClickAction);
-            SelectionManager.AddListenerSelectPiece(OnSelectPieceAction);
+            //InputManager.AddListenerMouseMove(OnMouseMoveAction);
+            //InputManager.AddListenerMouseClick(OnMouseClickAction);
+            //SelectionManager.AddListenerSelectPiece(OnSelectPieceAction);
         }
 
         private void Update()
@@ -89,12 +93,19 @@ namespace TacticsX.GridImplementation
         [ContextMenu("Move Camera")]
         public void SetPosition()
         {
+            selectedCell = grid.FindGridCell(row, column);
             cameraManager.MoveToPosition(row, column);
+            cursorManager.SetCursorPosition(row, column);
+        }
+
+        public GridCell GetSelectedCell()
+        {
+            return selectedCell;
         }
 
         void OnMouseMoveAction(Vector3 v)
         {
-            for(int i = 0; i < selectedCells.Count; i++)
+            /*for(int i = 0; i < selectedCells.Count; i++)
             {
                 selectedCells[i].SetState(CellStateType.Normal);
             }
@@ -140,12 +151,12 @@ namespace TacticsX.GridImplementation
             else
             {
                 selectedNode.Hide();
-            }
+            }*/
         }
 
         void OnMouseClickAction(Vector3 v)
         {
-            if (selectedNode == null) return;
+            /*if (selectedNode == null) return;
 
             if(canSetNode)
             {
@@ -159,13 +170,13 @@ namespace TacticsX.GridImplementation
                 selectedNode.Hide();
             }
 
-            selectedNode = null;
+            selectedNode = null;*/
         }
 
         void OnSelectPieceAction(GamePieceType piece)
         {
-            selectedNode = factory.Get(piece);
-            selectedNode.Hide();
+            /*selectedNode = factory.Get(piece);
+            selectedNode.Hide();*/
         }
     }
 }

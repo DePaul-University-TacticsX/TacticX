@@ -52,6 +52,12 @@
             return NODES[GetCellIndex(cell)] == null;
         }
 
+        public Node GetNode(Cell cell)
+        {
+            int index = GetCellIndex(cell);
+            return NODES[index] ?? null;
+        }
+
         public void SetNode(Node node, Cell cell)
         {
             NODES[GetCellIndex(cell)] = node;
