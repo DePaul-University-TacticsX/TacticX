@@ -12,7 +12,7 @@ public class TXGameManager : MonoBehaviour {
   private static List<IManager> ManagerOrder;
 
   void Awake() {
-    DontDestroyOnLoad(gameObject);   // keeps a GManager object alive between scenes (normally they are destroyed)
+    DontDestroyOnLoad(this.gameObject);   // keeps a GManager object alive between scenes (normally they are destroyed)
     
     // grab the Scene Manager object in Scene1
     scenes = GetComponent<MySceneManager>();
@@ -53,14 +53,14 @@ public class TXGameManager : MonoBehaviour {
       
       // shift about every 20 secs if its 60fps?
       // also is there a scene currently loading
-      if (Time.frameCount % 1200 == 0 && scenes.isLoadingComplete()) {   
+      if (Time.frameCount % 600 == 0 && scenes.isLoadingComplete()) {   
         scenes.NextScene();
       }
     }
 
-
-
   }
 
-
+  public static MySceneManager GetScenes() {
+    return scenes;
+  } 
 }

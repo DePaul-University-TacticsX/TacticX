@@ -14,10 +14,12 @@ public class MySceneManager : MonoBehaviour, IManager {
   public Scenes CurrentScene;
   public Scenes EndScene;
   public LoadStatus LStatus;
+  public Animator transition;
 
-  IEnumerator SceneIter;
+  private IEnumerator SceneIter;
 
-  public void StartUp() {
+  public void StartUp() { 
+
     Debug.Log("Scene Manager is starting at Scene 1 ... ");
 
     // GManager is a gameObject in Scene1, so by default the game starts in scene1
@@ -26,7 +28,8 @@ public class MySceneManager : MonoBehaviour, IManager {
     
     // grab the iterator
     this.SceneIter = SceneArray.GetEnumerator(); 
-    
+  
+
     // set the statuses
     this.MStatus = ManagerStatus.ON;
     this.CurrentScene = Scenes.Scene1;
@@ -35,7 +38,7 @@ public class MySceneManager : MonoBehaviour, IManager {
 
   }
 
-  public void NextScene() {  
+  IEnumerator Next() {  
 
     // shift to the next scene in the iterator and hold on to it
     this.SceneIter.MoveNext();
@@ -47,9 +50,9 @@ public class MySceneManager : MonoBehaviour, IManager {
     }
     catch(InvalidOperationException e) { 
       Debug.Log($"{e.Message}: Next Scene is not available");
-      return;
+      yield break;
     }
-    
+
     // set the load status
     this.LStatus = LoadStatus.LOADING;
 
@@ -58,13 +61,23 @@ public class MySceneManager : MonoBehaviour, IManager {
     // set the current scene
     this.CurrentScene = next;
 
+    // "Start" condition to transition fades start fade -> end fade
+    this.transition.SetTrigger("Start");
+
+    // pause only this routine
+    yield return new WaitForSeconds(1f);
+
     // actually load it in Unity
     SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
 
     // loading has completed
     this.LStatus = LoadStatus.COMPLETE;
-     Debug.Log($"Loading {next} is complete ... ");
+    Debug.Log($"Loading {next} is complete ... ");
 
+  }
+
+  public void NextScene() {
+    StartCoroutine(Next());
   }
 
   public bool isLoadingComplete() {
@@ -72,6 +85,10 @@ public class MySceneManager : MonoBehaviour, IManager {
       return true;
     }
     return false;
+  }
+
+  public void SetAnimator(Animator transition) {
+    this.transition = transition;
   }
   
 }
