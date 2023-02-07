@@ -6,7 +6,7 @@ using UnityEngine;
 public class Warrior : CharacterEntity
 {
 
-    public Warrior(float speed) : base(speed, new Component()) {}
+    public Warrior(float speed) : base(speed, "Warrior") {}
 
     public override void Attack()
     {

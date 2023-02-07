@@ -5,27 +5,24 @@ using UnityEngine;
 
 public class RealTimeController : MonoBehaviour
 {
-
-    public RTManager manager;
-
-
     // Start is called before the first frame update
     void Start()
-    {
-        this.manager = new RTManager();
-    }
+    {}
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z >= -5.0f) {
-            this.manager.getActive().changeDirection();
+        // Move is always tested for.
+        RTManager.getActive().Move();
+
+        // if user tries to swap, go ahead and swap
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            RTManager.next_in_line();
         }
 
-        if (transform.position.z <= -10.0f) {
-            this.manager.getActive().changeDirection();
+        // Update for Attack
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            RTManager.getActive().Attack();
         }
-
-        this.manager.getActive().Move();
     }
 }
