@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine.SceneManagement;    // contains SceneManager class
-
 using System;   // for System.InvalidOperationException
 
 // needs namespace?
@@ -11,14 +10,17 @@ using System;   // for System.InvalidOperationException
 public class MySceneManager : MonoBehaviour, IManager {
 
   public ManagerStatus MStatus;
-  public Scenes CurrentScene;
-  public Scenes EndScene;
+  public static Scenes CurrentScene;
+  public static Scenes EndScene;
   public LoadStatus LStatus;
   public Animator transition;
+  public static Action<Scenes> sceneLoaded;
 
   private IEnumerator SceneIter;
 
-  public void StartUp() { 
+  public void StartUp() {     // from IManager
+
+
 
     Debug.Log("Scene Manager is starting at Scene 1 ... ");
 
@@ -32,13 +34,13 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     // set the statuses
     this.MStatus = ManagerStatus.ON;
-    this.CurrentScene = Scenes.Scene1;
-    this.EndScene = Scenes.Scene3;
+    CurrentScene = Scenes.Scene1;
+    EndScene = Scenes.Scene3;
     this.LStatus = LoadStatus.COMPLETE;
 
   }
 
-  IEnumerator Next() {  
+  private IEnumerator Next() {  
 
     // shift to the next scene in the iterator and hold on to it
     this.SceneIter.MoveNext();
@@ -59,7 +61,7 @@ public class MySceneManager : MonoBehaviour, IManager {
     Debug.Log($"Loading {next} ... ");
     
     // set the current scene
-    this.CurrentScene = next;
+    CurrentScene = next;
 
     // "Start" condition to transition fades start fade -> end fade
     this.transition.SetTrigger("Start");

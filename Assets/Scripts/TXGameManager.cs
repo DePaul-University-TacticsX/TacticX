@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using System;
 
 [RequireComponent(typeof(MySceneManager))]     
 
@@ -10,6 +10,7 @@ public class TXGameManager : MonoBehaviour {
   // only need one shared scene manager and manager execution order (for now)
   private static MySceneManager scenes;
   private static List<IManager> ManagerOrder;
+  
 
   void Awake() {
     DontDestroyOnLoad(this.gameObject);   // keeps a GManager object alive between scenes (normally they are destroyed)
@@ -49,7 +50,7 @@ public class TXGameManager : MonoBehaviour {
   
     // switch scenes on a rough timer
     // NextScene handles an exception, if there are no more scenes left 
-    if (scenes.CurrentScene != scenes.EndScene) {
+    if (MySceneManager.CurrentScene != MySceneManager.EndScene) {
       
       // shift about every 20 secs if its 60fps?
       // also is there a scene currently loading
