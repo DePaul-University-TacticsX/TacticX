@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class HelloObj : MonoBehaviour {
+public class HelloObj : MonoBehaviour, IOnSceneLoad {
     
     void Awake() {
       MySceneManager.sceneLoaded += OnSceneLoad;
     }
 
     // should turn into a Coroutine()?
-    void OnSceneLoad(Scenes scene) {
+    public void OnSceneLoad(Scenes scene) {     // IOnSceneLoad
     
       // loading complete, now unsubscribe
       MySceneManager.sceneLoaded -= OnSceneLoad;
