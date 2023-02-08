@@ -8,11 +8,9 @@ public class TimerScript : MonoBehaviour
     Image timerBar;
     public float maxTime = 15f;
     float timeLeft;
-    bool hasWon;
     // Start is called before the first frame update
     void Start()
     {
-        hasWon = false;
         timerBar = GetComponent<Image>();
         timeLeft = maxTime;
     }
@@ -26,8 +24,11 @@ public class TimerScript : MonoBehaviour
             timerBar.fillAmount = timeLeft / maxTime;
         } else
         {
-            hasWon= true;
             Time.timeScale = 0;
+            if (FindObjectOfType<DodgeBallManager>().State == DodgeBallState.MovePlayer)
+            {
+                FindObjectOfType<DodgeBallManager>().UpdateDodgeBallState(DodgeBallState.Win);
+            }
         }
     }
 }

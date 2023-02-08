@@ -1,21 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class RedLightGreenLightManager : MonoBehaviour
+public class DodgeBallManager : MonoBehaviour
 {
-    [SerializeField] private Image redLight;
-    [SerializeField] private Image greenLight;
-    [SerializeField] private GameObject player;
-    [SerializeField] private GameObject finish;
-    public GameObject LosePrefab, WinPrefab;
-    public RLGLState State;
+    public DodgeBallState State;
 
-    public static RedLightGreenLightManager manager;
-    public static event Action<RLGLState> OnStateChanged;
+    public static DodgeBallManager manager;
+    public static event Action<DodgeBallState> OnStateChanged;
 
 
     private void Awake()
@@ -32,19 +25,19 @@ public class RedLightGreenLightManager : MonoBehaviour
 
     }
 
-    public void UpdateRLGLState(RLGLState newState)
+    public void UpdateDodgeBallState(DodgeBallState newState)
     {
         State = newState;
 
-        switch(newState)
+        switch (newState)
         {
-            case RLGLState.MovePlayer:
+            case DodgeBallState.MovePlayer:
                 MovePlayerHandler();
                 break;
-            case RLGLState.Win:
+            case DodgeBallState.Win:
                 HandleWin();
                 break;
-            case RLGLState.Lose:
+            case DodgeBallState.Lose:
                 HandleLose();
                 break;
             default:
@@ -57,18 +50,16 @@ public class RedLightGreenLightManager : MonoBehaviour
 
     private void HandleWin()
     {
-        WinPrefab = Resources.Load<GameObject>("Win Prefab");
         //logic to place powerup into players inventory
         //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpEarned);
-        Instantiate(WinPrefab);
+        Instantiate(Resources.Load<GameObject>("Win Prefab"));
     }
 
     private void HandleLose()
     {
-        LosePrefab = Resources.Load<GameObject>("Lose Prefab");
         //logic to penilize player for losing minigame
         //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpLost);
-        Instantiate(LosePrefab);
+        Instantiate(Resources.Load<GameObject>("Lose Prefab"));
     }
 
     private void MovePlayerHandler()
@@ -79,27 +70,17 @@ public class RedLightGreenLightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UpdateRLGLState(RLGLState.MovePlayer);
+        UpdateDodgeBallState(DodgeBallState.MovePlayer);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(State != RLGLState.MovePlayer)
-        {
-            return;
-        }
-        else
-        {
-            if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.UpArrow)) && redLight.color == Color.red)
-            {
-                UpdateRLGLState(RLGLState.Lose);
-            }
-        }
+
     }
 }
 
-public enum RLGLState
+public enum DodgeBallState
 {
     MovePlayer,
     Win,

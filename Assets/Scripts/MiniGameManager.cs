@@ -8,7 +8,6 @@ public class MiniGameManager : MonoBehaviour
 {
     [SerializeField] private GameObject PlayButton;
     [SerializeField] private GameObject QuitButton;
-    public GameObject RLGLprefab, MiniGameMenuPrefab;
     public static event Action<MiniGameState> OnStateChanged;
     public static MiniGameManager manager;
     public MiniGameState State;
@@ -54,8 +53,14 @@ public class MiniGameManager : MonoBehaviour
 
     private void PlayMiniGameHandler()
     {
-        RLGLprefab = Resources.Load<GameObject>("Red Light Green Light Prefab");
-        Instantiate(RLGLprefab);
+        int i = UnityEngine.Random.Range(1, 3);
+        if (i == 1)
+        {
+            Instantiate(Resources.Load<GameObject>("Red Light Green Light Prefab"));
+        } else if (i == 2)
+        {
+            Instantiate(Resources.Load<GameObject>("Dodgeball Prefab"));
+        }
     }
 
     // Start is called before the first frame update

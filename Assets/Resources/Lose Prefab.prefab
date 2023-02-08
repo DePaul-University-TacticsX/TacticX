@@ -403,7 +403,7 @@ GameObject:
   - component: {fileID: 4969363015120841052}
   - component: {fileID: 4969363015120841054}
   - component: {fileID: 4969363015120841055}
-  - component: {fileID: 192642540967481365}
+  - component: {fileID: 7902801778499429127}
   m_Layer: 5
   m_Name: Quit Button Container
   m_TagString: Untagged
@@ -470,7 +470,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &192642540967481365
+--- !u!114 &7902801778499429127
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4969363015120841053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7617c0c6b15c61439aa3d84b8c94279, type: 3}
+  m_Script: {fileID: 11500000, guid: 44c99963b5618f646aa67019e36e9388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 4969363015174245366}

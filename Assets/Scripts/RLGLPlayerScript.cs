@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private float speed = 30f;
+    private float speed = 15f;
 
     private void Awake()
     {
@@ -24,9 +24,13 @@ public class PlayerScript : MonoBehaviour
             return;
         }
         else
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.UpArrow))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + (Time.deltaTime * speed), transform.position.z);
+            float x = Time.fixedDeltaTime * speed;
+
+            Vector3 newPosition = transform.position + Vector3.up * x;
+
+            transform.position = newPosition;
         }
     }
 

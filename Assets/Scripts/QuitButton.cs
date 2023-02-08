@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuitButton : MonoBehaviour
@@ -14,7 +13,7 @@ public class QuitButton : MonoBehaviour
     {
         btn.onClick.AddListener(OnButtonPress);
     }
-    
+
     public void OnButtonPress()
     {
         FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.ExitMiniGameMenu);

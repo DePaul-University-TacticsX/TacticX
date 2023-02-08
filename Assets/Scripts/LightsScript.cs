@@ -25,7 +25,7 @@ public class LightsScript : MonoBehaviour
 
     void ChangeLightColor()
     {
-        float delay = Random.Range(2, 5);
+        float delay = Random.Range(2.2f, 5.0f);
 
         if (greenLight.color == Color.green)
         {
