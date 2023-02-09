@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimerScript : MonoBehaviour
+public class TimerScriptDodgeBall : MonoBehaviour
 {
     Image timerBar;
     public float maxTime = 15f;

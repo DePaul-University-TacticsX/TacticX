@@ -17,5 +17,6 @@ public class PlayButtonScript : MonoBehaviour
     public void OnButtonPress()
     {
         FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.PlayMiniGame);
+        Destroy(btn);
     }
 }

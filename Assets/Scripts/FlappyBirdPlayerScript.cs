@@ -18,6 +18,8 @@ public class NewBehaviourScript : MonoBehaviour
 
     public float strength = 50f;
 
+    private bool throughOpening = false;
+
 
     private void Awake()
     {
@@ -53,25 +55,37 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name == "topBound")
+        if (FindObjectOfType<FlappyBirdManager>().State == FlappyBirdState.MovePlayer)
         {
-            direction = Vector3.down * 200f;
-            direction.y += gravity * Time.deltaTime;
-            transform.position += direction * Time.deltaTime;
+            if (other.gameObject.name == "topBound")
+            {
+                direction = Vector3.down * 200f;
+                direction.y += gravity * Time.deltaTime;
+                transform.position += direction * Time.deltaTime;
+            }
+            if (other.gameObject.name == "bottomBound")
+            {
+                direction = Vector3.up * 200f;
+                direction.y += gravity * Time.deltaTime;
+                transform.position += direction * Time.deltaTime;
+            }
+            if (other.gameObject.name == "opening")
+            {
+                throughOpening = true;
+                StartCoroutine(pipeTriggerDelay());
+            }
+            if (other.gameObject.name == "pipePart" && throughOpening == false)
+             {
+                FindObjectOfType<FlappyBirdManager>().UpdateFlappyBirdState(FlappyBirdState.Lose);
+                Destroy(this);
+             }
         }
-        if (other.gameObject.name == "bottomBound")
-        {
-            direction = Vector3.up * 200f;
-            direction.y += gravity * Time.deltaTime;
-            transform.position += direction * Time.deltaTime;
-        }
-        //if (other.gameObject.name == "ball" || other.gameObject.name == "ball(Clone)")
-        //{
-        //    if (FindObjectOfType<DodgeBallManager>().State == DodgeBallState.MovePlayer)
-        //    {
-        //        FindObjectOfType<DodgeBallManager>().UpdateDodgeBallState(DodgeBallState.Lose);
-        //    }
+    }
 
-        //}
+    IEnumerator pipeTriggerDelay()
+    {
+            yield return new WaitForSeconds(0.035f);
+            throughOpening = false;
+
     }
 }

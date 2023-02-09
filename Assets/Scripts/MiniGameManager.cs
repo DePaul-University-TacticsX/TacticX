@@ -53,13 +53,17 @@ public class MiniGameManager : MonoBehaviour
 
     private void PlayMiniGameHandler()
     {
-        int i = UnityEngine.Random.Range(1, 3);
+        int i = UnityEngine.Random.Range(1, 4);
         if (i == 1)
         {
             Instantiate(Resources.Load<GameObject>("Red Light Green Light Prefab"));
         } else if (i == 2)
         {
             Instantiate(Resources.Load<GameObject>("Dodgeball Prefab"));
+        }
+         else if(i == 3)
+        {
+            Instantiate(Resources.Load<GameObject>("Flappybird Prefab"));
         }
     }
 

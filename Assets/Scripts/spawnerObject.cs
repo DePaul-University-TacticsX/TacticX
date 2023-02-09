@@ -40,12 +40,12 @@ public class spawnerObject : MonoBehaviour
         if (other.gameObject.name == "leftBound")
         {
             switchDirection = true;
-            speed = Random.Range(100f, 200f);
+            speed = Random.Range(100f, 500f);
         }
         if (other.gameObject.name == "rightBound")
         {
             switchDirection = false;
-            speed = Random.Range(100f, 200f);
+            speed = Random.Range(100f, 500f);
 
         }
     }
@@ -55,6 +55,7 @@ public class spawnerObject : MonoBehaviour
         randomizeColor();
         GameObject newBall = Instantiate(ball, transform.position, transform.rotation);
         newBall.transform.SetParent(transform, true);
+        newBall.transform.localScale = new Vector3(1, 1, 1);
 
     }
 
@@ -64,7 +65,7 @@ public class spawnerObject : MonoBehaviour
         int i = Random.Range(0, 5);
         ball.GetComponent<Image>().color = colors[i];
         ball.GetComponent<Rigidbody2D>().gravityScale = Random.Range(6, 15);
-        ball.transform.SetSiblingIndex(1);
+        //ball.transform.SetSiblingIndex(1);
 
     }
 
