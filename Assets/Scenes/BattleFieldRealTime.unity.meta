@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes/BattleFieldRealTime.unity.meta
 guid: 20b7a2832c9ec74469a792900dc82263
+=======
+guid: 253c64aac20437b49821bd705f57e11f
+>>>>>>> 4b2eefd7468665b5d28d5c3d3ce71cc2e958ddb8:Assets/Scenes/SampleScene.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
