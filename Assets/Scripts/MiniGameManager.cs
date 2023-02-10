@@ -11,6 +11,7 @@ public class MiniGameManager : MonoBehaviour
     public static event Action<MiniGameState> OnStateChanged;
     public static MiniGameManager manager;
     public MiniGameState State;
+    public int selectedMiniGame;
 
     private void Awake()
     {
@@ -31,6 +32,9 @@ public class MiniGameManager : MonoBehaviour
 
         switch (newState)
         {
+            case MiniGameState.LoadMiniGameInstructions:
+                LoadMiniGameInstructionsHandler();
+                break;
             case MiniGameState.PlayMiniGame:
                 PlayMiniGameHandler();
                 break;
@@ -45,6 +49,23 @@ public class MiniGameManager : MonoBehaviour
         OnStateChanged?.Invoke(newState);
     }
 
+    private void LoadMiniGameInstructionsHandler()
+    {
+        selectedMiniGame = UnityEngine.Random.Range(1, 4);
+        if (selectedMiniGame == 1)
+        {
+            Instantiate(Resources.Load<GameObject>("Red Light Green Light Instructions Prefab"));
+        }
+        else if (selectedMiniGame == 2)
+        {
+            Instantiate(Resources.Load<GameObject>("Dodgeball Instructions Prefab"));
+        }
+        else if (selectedMiniGame == 3)
+        {
+            Instantiate(Resources.Load<GameObject>("Flappybird Instructions Prefab"));
+        }
+    }
+
     private void ExitMenuHandler()
     {
         Debug.Log("Todo - escape mini game menu and go back to main game.");
@@ -53,15 +74,14 @@ public class MiniGameManager : MonoBehaviour
 
     private void PlayMiniGameHandler()
     {
-        int i = UnityEngine.Random.Range(1, 4);
-        if (i == 1)
+        if (selectedMiniGame == 1)
         {
             Instantiate(Resources.Load<GameObject>("Red Light Green Light Prefab"));
-        } else if (i == 2)
+        } else if (selectedMiniGame == 2)
         {
             Instantiate(Resources.Load<GameObject>("Dodgeball Prefab"));
         }
-         else if(i == 3)
+         else if(selectedMiniGame == 3)
         {
             Instantiate(Resources.Load<GameObject>("Flappybird Prefab"));
         }
@@ -85,6 +105,7 @@ public class MiniGameManager : MonoBehaviour
 
 public enum MiniGameState
 {
+    LoadMiniGameInstructions,
     PlayMiniGame, 
     ExitMiniGameMenu
 }

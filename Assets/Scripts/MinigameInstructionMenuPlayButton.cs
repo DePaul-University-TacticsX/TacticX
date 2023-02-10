@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayButtonScript : MonoBehaviour
+public class MinigameInstructionMenuPlayButton : MonoBehaviour
 {
 
     [SerializeField]
@@ -13,10 +13,10 @@ public class PlayButtonScript : MonoBehaviour
     {
         btn.onClick.AddListener(OnButtonPress);
     }
-    
+
     public void OnButtonPress()
     {
-        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.LoadMiniGameInstructions);
+        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.PlayMiniGame);
         Destroy(btn);
     }
 }
