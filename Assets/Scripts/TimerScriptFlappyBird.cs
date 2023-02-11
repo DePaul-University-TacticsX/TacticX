@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TimerScriptFlappyBird : MonoBehaviour
 {
     Image timerBar;
-    public float maxTime = 30f;
+    public float maxTime = 38f;
     float timeLeft;
     // Start is called before the first frame update
     void Start()

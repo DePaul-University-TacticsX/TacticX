@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    private float speed = 15f;
+    public float speed = 30f;
 
     private void Awake()
     {

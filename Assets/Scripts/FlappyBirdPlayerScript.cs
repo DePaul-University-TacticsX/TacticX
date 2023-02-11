@@ -89,7 +89,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     IEnumerator pipeTriggerDelay()
     {
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
             throughOpening = false;
 
     }
