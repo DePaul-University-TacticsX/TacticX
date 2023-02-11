@@ -38,6 +38,11 @@ public class NewBehaviourScript : MonoBehaviour
 
         direction.y += gravity * Time.deltaTime;
         transform.position += direction * Time.deltaTime;
+
+        if(FindObjectOfType<FlappyBirdManager>().State != FlappyBirdState.MovePlayer)
+        {
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator Func_PlayAnimUI()
@@ -84,7 +89,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     IEnumerator pipeTriggerDelay()
     {
-            yield return new WaitForSeconds(0.035f);
+            yield return new WaitForSeconds(0.05f);
             throughOpening = false;
 
     }

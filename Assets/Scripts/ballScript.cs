@@ -13,7 +13,10 @@ public class ballScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (FindObjectOfType<DodgeBallManager>().State != DodgeBallState.MovePlayer)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

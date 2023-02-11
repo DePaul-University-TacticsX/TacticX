@@ -24,7 +24,6 @@ public class TimerScriptFlappyBird : MonoBehaviour
             timerBar.fillAmount = timeLeft / maxTime;
         } else
         {
-            Time.timeScale = 0;
             if (FindObjectOfType<FlappyBirdManager>().State == FlappyBirdState.MovePlayer)
             {
                 FindObjectOfType<FlappyBirdManager>().UpdateFlappyBirdState(FlappyBirdState.Win);
