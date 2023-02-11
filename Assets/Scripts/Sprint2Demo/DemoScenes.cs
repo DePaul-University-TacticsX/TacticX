@@ -4,5 +4,9 @@ using UnityEngine;
 
 public enum DemoScenes {
   Sprint2DemoMenu,
-  MiniGameMenu
+  MiniGameMenu,
+  GridDemo,
+  BattleFieldRealTime,
+  TeamBuilder,
+  TurnManagerDemo
 }

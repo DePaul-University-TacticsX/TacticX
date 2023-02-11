@@ -66,7 +66,8 @@ public class DemoSceneManager : MonoBehaviour, IManager {
     // this.transition.SetTrigger("Start");
 
     // pause only this routine
-    yield return new WaitForSeconds(1f);
+    yield return new WaitForSeconds(1f);   
+
 
     // actually load it in Unity
     SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
@@ -77,9 +78,41 @@ public class DemoSceneManager : MonoBehaviour, IManager {
 
   }
 
+  private IEnumerator Next(DemoScenes next) {
+    
+    // set the load status
+    this.LStatus = LoadStatus.LOADING;
+
+    Debug.Log($"Loading {next} ... ");
+
+    // set the current scene
+    CurrentScene = next;
+
+    // actually load it in Unity
+    SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
+
+    // loading has completed
+    this.LStatus = LoadStatus.COMPLETE;
+    Debug.Log($"Loading {next} is complete ... ");
+
+    yield return null;
+
+  }
+
   public void NextScene() {
     StartCoroutine(Next());
   }
+
+  public void NextScene(DemoScenes s) {
+    StartCoroutine(Next(s));
+  }
+
+  public void UnloadSceneAsync(DemoScenes scene) {
+    SceneManager.UnloadSceneAsync($"{scene}");
+  }
+
+  
+
 
   public bool isLoadingComplete() {
     if (this.LStatus == LoadStatus.COMPLETE) {

@@ -20,4 +20,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sprint2DemoMenu.unity
     guid: bb57d88bd8d5ac74eb865db9dcacbbfb
+  - enabled: 1
+    path: Assets/Scenes/GridDemo.unity
+    guid: b9b65829c11a8004bab4633c142da852
+  - enabled: 1
+    path: Assets/Scenes/BattleFieldRealTime.unity
+    guid: 20b7a2832c9ec74469a792900dc82263
+  - enabled: 1
+    path: Assets/Scenes/TeamBuilder.unity
+    guid: 68ad9747f56ddbf4cb2872f3c1f51689
+  - enabled: 1
+    path: Assets/Scenes/TurnManagerDemo.unity
+    guid: 7937973cd4c43cf43a31280106af3d4c
   m_configObjects: {}

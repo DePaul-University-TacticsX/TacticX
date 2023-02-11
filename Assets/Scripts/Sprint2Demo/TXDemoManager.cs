@@ -44,6 +44,16 @@ public class TXDemoManager : MonoBehaviour {
 
   }
 
+  void Update() {
+    
+    if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.M)) {
+      scenes.UnloadSceneAsync(DemoSceneManager.CurrentScene);
+      scenes.NextScene(DemoScenes.Sprint2DemoMenu);
+      Destroy(this.gameObject);   // destroys the old GameManager obj 
+      
+    }
+  }
+
 
   public static DemoSceneManager GetScenes() {
     return scenes;
