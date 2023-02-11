@@ -23,7 +23,7 @@ public class RedLightGreenLightManager : MonoBehaviour
         if (manager == null)
         {
             manager = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
         else if (manager == this)
         {
