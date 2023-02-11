@@ -78,7 +78,6 @@ namespace Michsky.UI.Freebie
                 if (windows[currentWindowIndex].titleObject != null)
                     windows[currentWindowIndex].titleObject.text = windows[currentWindowIndex].windowName;
             }
-
             else if (currentWindowIndex == 0)
             {
                 currentWindow = windows[currentWindowIndex].windowObject;

@@ -11,8 +11,11 @@ namespace Michsky.UI.Freebie
     public class CharacterSelectButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Header("CONTENT")]
-        public Sprite previewIcon;
-        public Sprite characterIcon;
+        public Sprite previewIcon0;
+        public Sprite previewIcon1;
+        public Sprite previewIcon2;
+        [HideInInspector] public Sprite characterIcon;
+        [HideInInspector] public bool isDesignatedForSelection = false;
         public string characterName = "Character";
         public string characterType = "Support";
         [TextArea] public string characterInfo = "Character info here.";
@@ -34,6 +37,7 @@ namespace Michsky.UI.Freebie
         public Animator objectAnimator;
         public CharacterSelectManager characterManager;
         public Image previewImage;
+        public Image characterImage;
         public TextMeshProUGUI characterText;
 
         [Header("SETTINGS")]
@@ -43,8 +47,19 @@ namespace Michsky.UI.Freebie
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
+        private Sprite[] previewIcons = new Sprite[3];
+        public int currentIconIndex = 0;
+
         void Start()
         {
+            //TODO possibly load player data here?
+
+            previewIcons[0] = previewIcon0;
+            previewIcons[1] = previewIcon1;
+            previewIcons[2] = previewIcon2;
+            characterIcon = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+
             if (useCustomContent == false)
                 UpdateUI();
         }
@@ -52,7 +67,37 @@ namespace Michsky.UI.Freebie
         public void UpdateUI()
         {
             characterText.text = characterName;
-            previewImage.sprite = previewIcon;
+            previewImage.sprite = previewIcons[currentIconIndex];
+        }
+
+        public void PrevCharacter() {
+            if (isDesignatedForSelection) {
+                if (currentIconIndex == 0)
+                    currentIconIndex = 2;
+                else {
+                    currentIconIndex--;
+                }
+
+                Debug.Log(characterName + " prev to " + currentIconIndex);
+
+                previewImage.sprite = previewIcons[currentIconIndex];
+                characterImage.sprite = previewIcons[currentIconIndex];
+            }
+        }
+
+        public void NextCharacter() {
+            if (isDesignatedForSelection) {
+                if (currentIconIndex == 2)
+                    currentIconIndex = 0;
+                else {
+                    currentIconIndex++;
+                }
+
+                Debug.Log(characterName + " next to " + currentIconIndex);
+
+                previewImage.sprite = previewIcons[currentIconIndex];
+                characterImage.sprite = previewIcons[currentIconIndex];
+            }
         }
 
         public void SelectCharacter()
@@ -83,6 +128,10 @@ namespace Michsky.UI.Freebie
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            isDesignatedForSelection = !isDesignatedForSelection;
+            if (isDesignatedForSelection)
+                Debug.Log(characterName + "is designated for selection");
+
             if (enableButtonSounds == true && useClickSound == true)
                 soundSource.PlayOneShot(clickSound);
 

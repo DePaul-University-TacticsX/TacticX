@@ -50,7 +50,6 @@ namespace Michsky.UI.Freebie
         {
             if (currentObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hover to Pressed"))
                 currentObjectAnimator.Play("Pressed to Normal");
-
             else if (currentObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pressed to Selected"))
                 currentObjectAnimator.Play("Selected to Normal");
         }
