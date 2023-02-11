@@ -763,7 +763,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pipePrefab: {fileID: 652724529963751757, guid: b168807079c774242859993ab84897e5, type: 3}
-  spawnRate: 1.6
+  spawnRate: 2
   openingMinHeight: -70
   openingMaxHeight: 70
 --- !u!1 &7521339088089699237

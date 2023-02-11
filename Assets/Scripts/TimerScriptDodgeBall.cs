@@ -24,7 +24,6 @@ public class TimerScriptDodgeBall : MonoBehaviour
             timerBar.fillAmount = timeLeft / maxTime;
         } else
         {
-            Time.timeScale = 0;
             if (FindObjectOfType<DodgeBallManager>().State == DodgeBallState.MovePlayer)
             {
                 FindObjectOfType<DodgeBallManager>().UpdateDodgeBallState(DodgeBallState.Win);
