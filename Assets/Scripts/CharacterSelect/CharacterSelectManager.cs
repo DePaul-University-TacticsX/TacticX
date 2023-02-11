@@ -134,7 +134,7 @@ namespace Michsky.UI.Freebie
         IEnumerator ChangeCharacterIcon()
         {
             yield return new WaitForSeconds(currentObjectAnimator.GetCurrentAnimatorStateInfo(0).length / 2);
-            characterImage.sprite = currentCharacter.characterIcon;
+            characterImage.sprite = currentCharacter.previewIcons[currentCharacter.currentIconIndex];
             StopCoroutine("ChangeCharacterIcon");
         }
 

@@ -47,12 +47,14 @@ namespace Michsky.UI.Freebie
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
-        private Sprite[] previewIcons = new Sprite[3];
+        [HideInInspector] public Sprite[] previewIcons = new Sprite[3];
         public int currentIconIndex = 0;
 
         void Start()
         {
             //TODO possibly load player data here?
+
+            isDesignatedForSelection = false;
 
             previewIcons[0] = previewIcon0;
             previewIcons[1] = previewIcon1;
@@ -67,7 +69,15 @@ namespace Michsky.UI.Freebie
         public void UpdateUI()
         {
             characterText.text = characterName;
-            previewImage.sprite = previewIcons[currentIconIndex];
+            // previewImage.sprite = previewIcons[currentIconIndex];
+        }
+
+        private void SetAllCharacterSelectButtonsUndesignated() {
+            for (int i = 0; i < 3; i++) {
+                CharacterSelectButton btn = transform.parent.GetChild(i).GetComponent<CharacterSelectButton>();
+                Debug.Log("Undesignating " + btn.characterName);
+                btn.isDesignatedForSelection = false;
+            }
         }
 
         public void PrevCharacter() {
@@ -80,8 +90,7 @@ namespace Michsky.UI.Freebie
 
                 Debug.Log(characterName + " prev to " + currentIconIndex);
 
-                previewImage.sprite = previewIcons[currentIconIndex];
-                characterImage.sprite = previewIcons[currentIconIndex];
+                UpdateIcons();
             }
         }
 
@@ -95,9 +104,13 @@ namespace Michsky.UI.Freebie
 
                 Debug.Log(characterName + " next to " + currentIconIndex);
 
-                previewImage.sprite = previewIcons[currentIconIndex];
-                characterImage.sprite = previewIcons[currentIconIndex];
+                UpdateIcons();
             }
+        }
+
+        private void UpdateIcons() {
+            previewImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
         }
 
         public void SelectCharacter()
@@ -128,9 +141,8 @@ namespace Michsky.UI.Freebie
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            isDesignatedForSelection = !isDesignatedForSelection;
-            if (isDesignatedForSelection)
-                Debug.Log(characterName + "is designated for selection");
+            SetAllCharacterSelectButtonsUndesignated();
+            isDesignatedForSelection = true;
 
             if (enableButtonSounds == true && useClickSound == true)
                 soundSource.PlayOneShot(clickSound);
@@ -138,7 +150,7 @@ namespace Michsky.UI.Freebie
             if (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pressed to Selected") &&
                 characterManager.enableSelecting == true)
             {
-                onCharacterClick.Invoke();
+                onCharacterClick.Invoke(); //TODO maybe check if this actually used to invoke something at some point
                 objectAnimator.Play("Hover to Pressed");
             }
 

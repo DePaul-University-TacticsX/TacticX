@@ -2961,7 +2961,7 @@ PrefabInstance:
     - target: {fileID: 6339321817677701586, guid: db429a0172a62464883a13005da79ca7, type: 3}
       propertyPath: previewImage
       value: 
-      objectReference: {fileID: 1637734882}
+      objectReference: {fileID: 1132730922}
     - target: {fileID: 6339321817677701586, guid: db429a0172a62464883a13005da79ca7, type: 3}
       propertyPath: thirdAbility
       value: Third ability description here.
@@ -2990,6 +2990,10 @@ PrefabInstance:
       propertyPath: useHoverSound
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6339321817677701586, guid: db429a0172a62464883a13005da79ca7, type: 3}
+      propertyPath: characterImage
+      value: 
+      objectReference: {fileID: 1637734882}
     - target: {fileID: 6339321817677701586, guid: db429a0172a62464883a13005da79ca7, type: 3}
       propertyPath: characterManager
       value: 
@@ -5376,6 +5380,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1086553724}
   m_CullTransparentMesh: 0
+--- !u!114 &1132730922 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6339321818443117001, guid: db429a0172a62464883a13005da79ca7, type: 3}
+  m_PrefabInstance: {fileID: 632277196}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1195181644
 PrefabInstance:
   m_ObjectHideFlags: 0
