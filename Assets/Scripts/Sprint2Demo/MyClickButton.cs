@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MyClickButton : MonoBehaviour {
 
-  public DemoScenes scene;
+  public Scenes scene;
 
   public void MyClick() {
     TXDemoManager.GetScenes().NextScene(scene);

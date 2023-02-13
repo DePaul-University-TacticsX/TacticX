@@ -13,7 +13,7 @@ public class MySceneManager : MonoBehaviour, IManager {
   public static Scenes CurrentScene;
   public static Scenes EndScene;
   public LoadStatus LStatus;
-  public Animator transition;
+  // public Animator transition;
   public static Action<Scenes> sceneLoaded;
 
   private IEnumerator SceneIter;
@@ -24,7 +24,6 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     Debug.Log("Scene Manager is starting at Scene 1 ... ");
 
-    // GManager is a gameObject in Scene1, so by default the game starts in scene1
     // rough collection of scenes, may need to be a List later
     Scenes[] SceneArray = {Scenes.Scene2, Scenes.Scene3};
     
@@ -64,7 +63,7 @@ public class MySceneManager : MonoBehaviour, IManager {
     CurrentScene = next;
 
     // "Start" condition to transition fades start fade -> end fade
-    this.transition.SetTrigger("Start");
+    // this.transition.SetTrigger("Start");
 
     // pause only this routine
     yield return new WaitForSeconds(1f);
@@ -82,6 +81,35 @@ public class MySceneManager : MonoBehaviour, IManager {
     StartCoroutine(Next());
   }
 
+  private IEnumerator Next(Scenes next) {
+    
+    // set the load status
+    this.LStatus = LoadStatus.LOADING;
+
+    Debug.Log($"Loading {next} ... ");
+
+    // set the current scene
+    CurrentScene = next;
+
+    // actually load it in Unity
+    SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
+
+    // loading has completed
+    this.LStatus = LoadStatus.COMPLETE;
+    Debug.Log($"Loading {next} is complete ... ");
+
+    yield return null;
+
+  }
+
+  public void NextScene(Scenes s) {
+    StartCoroutine(Next(s));
+  }
+
+  public void UnloadSceneAsync(Scenes scene) {
+    SceneManager.UnloadSceneAsync($"{scene}");
+  }
+
   public bool isLoadingComplete() {
     if (this.LStatus == LoadStatus.COMPLETE) {
       return true;
@@ -90,7 +118,7 @@ public class MySceneManager : MonoBehaviour, IManager {
   }
 
   public void SetAnimator(Animator transition) {
-    this.transition = transition;
+    // this.transition = transition;
   }
   
 }

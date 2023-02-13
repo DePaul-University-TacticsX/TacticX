@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b3f6286485c54db6db4b89472cdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 2
+  scene: 5
 --- !u!114 &213227865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b3f6286485c54db6db4b89472cdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 5
+  scene: 8
 --- !u!114 &543297292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,7 +1569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b3f6286485c54db6db4b89472cdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 4
+  scene: 7
 --- !u!114 &1208604326
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,8 +1765,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1797427224}
-  - component: {fileID: 1797427227}
   - component: {fileID: 1797427225}
+  - component: {fileID: 1797427226}
   m_Layer: 0
   m_Name: DemoManager
   m_TagString: Untagged
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9dd0c9ef38f89e42a319f0b5bc1c085, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1797427227
+--- !u!114 &1797427226
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1810,7 +1810,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1797427223}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8565b7c448db1f47bc8c0b5e295689c, type: 3}
+  m_Script: {fileID: 11500000, guid: ddc5613c8a1c6b840a7d2749ab7c5243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MStatus: 0
@@ -1962,7 +1962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b3f6286485c54db6db4b89472cdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 1
+  scene: 4
 --- !u!1 &1881231871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 850b3f6286485c54db6db4b89472cdf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 3
+  scene: 6
 --- !u!114 &1956124285
 MonoBehaviour:
   m_ObjectHideFlags: 0
