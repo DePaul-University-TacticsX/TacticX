@@ -16,7 +16,7 @@ public class TXGameManager : MonoBehaviour {
     DontDestroyOnLoad(this.gameObject);   // keeps a GManager object alive between scenes (normally they are destroyed)
     
     // grab the Scene Manager object in Scene1
-    scenes = GetComponent<MySceneManager>();
+    scenes = GetComponent<IterSceneManager>();    // IterScene inherits MySceneManager
 
     // add the managers to the list
     ManagerOrder = new List<IManager>();
@@ -40,7 +40,6 @@ public class TXGameManager : MonoBehaviour {
     Debug.Log("... all Managers have started");
 
     // yield tells Coroutines to temporarily pause, returning control to other unity processes, then pick up again in the future
-    // yield return new WaitForSeconds(1);     // process waits in seconds
     yield return null;   
 
   }
@@ -50,7 +49,7 @@ public class TXGameManager : MonoBehaviour {
   
     // switch scenes on a rough timer
     // NextScene handles an exception, if there are no more scenes left 
-    if (MySceneManager.CurrentScene != MySceneManager.EndScene) {
+    if (scenes.GetCurrent() != scenes.GetEnd()) {
       
       // shift about every 20 secs if its 60fps?
       // also is there a scene currently loading

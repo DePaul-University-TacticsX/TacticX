@@ -226,9 +226,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 784723671}
-  - component: {fileID: 784723670}
   - component: {fileID: 784723669}
-  - component: {fileID: 784723668}
+  - component: {fileID: 784723672}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -236,21 +235,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &784723668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784723667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc5613c8a1c6b840a7d2749ab7c5243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MStatus: 0
-  LStatus: 0
-  transition: {fileID: 0}
 --- !u!114 &784723669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,21 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a08b3fc5555349e4cb4770dcdba09f56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &784723670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 784723667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc5613c8a1c6b840a7d2749ab7c5243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MStatus: 0
-  LStatus: 0
-  transition: {fileID: 0}
 --- !u!4 &784723671
 Transform:
   m_ObjectHideFlags: 0
@@ -293,6 +262,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &784723672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784723667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac79785c65a220246b0604f8352de6f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MStatus: 0
+  CurrentScene: 0
+  EndScene: 0
+  LStatus: 0
+  transition: {fileID: 0}
 --- !u!4 &1349097746 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3413280485500925920, guid: b38dde869d8bd5940a847ec880d1bd73, type: 3}

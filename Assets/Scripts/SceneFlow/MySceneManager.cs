@@ -5,36 +5,34 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;    // contains SceneManager class
 using System;   // for System.InvalidOperationException
 
-// needs namespace?
 
 public class MySceneManager : MonoBehaviour, IManager {
 
   public ManagerStatus MStatus;
-  public static Scenes CurrentScene;
-  public static Scenes EndScene;
+  public Scenes CurrentScene;
+  public Scenes EndScene;
   public LoadStatus LStatus;
   public Animator transition;
   public static Action<Scenes> sceneLoaded;
 
-  private IEnumerator SceneIter;
+  public IEnumerator SceneIter;
 
-  public void StartUp() {     // from IManager
+  public Scenes GetCurrent() {
+    return this.CurrentScene;
+  }
 
+  public Scenes GetEnd() {
+    return this.EndScene;
+  }  
 
+  virtual public void StartUp() {     // from IManager
 
-    Debug.Log("Scene Manager is starting at Scene 1 ... ");
-
-    // rough collection of scenes, may need to be a List later
-    Scenes[] SceneArray = {Scenes.Scene2, Scenes.Scene3};
-    
-    // grab the iterator
-    this.SceneIter = SceneArray.GetEnumerator(); 
-  
+    Debug.Log("Sprint2 Scene Manager is starting ... ");
 
     // set the statuses
     this.MStatus = ManagerStatus.ON;
-    CurrentScene = Scenes.Scene1;
-    EndScene = Scenes.Scene3;
+    CurrentScene = Scenes.Sprint2DemoMenu;
+    
     this.LStatus = LoadStatus.COMPLETE;
 
   }
@@ -63,11 +61,11 @@ public class MySceneManager : MonoBehaviour, IManager {
     // set the current scene
     CurrentScene = next;
 
-    // "Start" condition to transition fades start fade -> end fade
     if (this.transition is null) {
       // TODO: throw a custom no transiton Exception instead?
       Debug.Log("Transition object is not set!");
     }
+    // "Start" condition to transition fades start fade -> end fade
     this.transition?.SetTrigger("Start");
 
     // pause only this routine
@@ -78,7 +76,6 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     // loading has completed
     this.LStatus = LoadStatus.COMPLETE;
-    Debug.Log($"Loading {next} is complete ... ");
 
   }
 
@@ -104,7 +101,6 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     // loading has completed
     this.LStatus = LoadStatus.COMPLETE;
-    Debug.Log($"Loading {next} is complete ... ");
 
     yield return null;
 

@@ -20,7 +20,7 @@ public class HelloObj : MonoBehaviour, IOnSceneLoad {
 
      // Start is called before the first frame update
     void Start() {
-      OnSceneLoad(MySceneManager.CurrentScene);  
+      OnSceneLoad(TXGameManager.GetScenes().GetCurrent());  
     }
 
     // Update is called once per frame

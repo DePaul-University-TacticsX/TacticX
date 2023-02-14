@@ -48,8 +48,16 @@ public class TXDemoManager : MonoBehaviour {
     
     if (Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.M)) {
       scenes.NextScene(Scenes.Sprint2DemoMenu);
-      Destroy(this.gameObject);   // destroys the old GameManager obj 
       
+      // if the other game manager is running then destroy it
+      GameObject OtherGame = GameObject.Find("GameManager");
+      if (OtherGame is not null) {
+        Destroy(OtherGame);
+      }
+
+      // destroys the old DemoManager obj 
+      Destroy(this.gameObject);   
+    
     }
   }
 
