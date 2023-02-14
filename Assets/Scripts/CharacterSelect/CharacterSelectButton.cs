@@ -75,7 +75,6 @@ namespace Michsky.UI.Freebie
         private void SetAllCharacterSelectButtonsUndesignated() {
             for (int i = 0; i < 3; i++) {
                 CharacterSelectButton btn = transform.parent.GetChild(i).GetComponent<CharacterSelectButton>();
-                Debug.Log("Undesignating " + btn.characterName);
                 btn.isDesignatedForSelection = false;
             }
         }
@@ -88,8 +87,6 @@ namespace Michsky.UI.Freebie
                     currentIconIndex--;
                 }
 
-                Debug.Log(characterName + " prev to " + currentIconIndex);
-
                 UpdateIcons();
             }
         }
@@ -101,8 +98,6 @@ namespace Michsky.UI.Freebie
                 else {
                     currentIconIndex++;
                 }
-
-                Debug.Log(characterName + " next to " + currentIconIndex);
 
                 UpdateIcons();
             }
