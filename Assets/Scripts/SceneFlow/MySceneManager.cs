@@ -13,7 +13,7 @@ public class MySceneManager : MonoBehaviour, IManager {
   public static Scenes CurrentScene;
   public static Scenes EndScene;
   public LoadStatus LStatus;
-  // public Animator transition;
+  public Animator transition;
   public static Action<Scenes> sceneLoaded;
 
   private IEnumerator SceneIter;
@@ -39,6 +39,7 @@ public class MySceneManager : MonoBehaviour, IManager {
 
   }
 
+  // Next() is called in TXGameManager and has transition elements added
   private IEnumerator Next() {  
 
     // shift to the next scene in the iterator and hold on to it
@@ -63,7 +64,11 @@ public class MySceneManager : MonoBehaviour, IManager {
     CurrentScene = next;
 
     // "Start" condition to transition fades start fade -> end fade
-    // this.transition.SetTrigger("Start");
+    if (this.transition is null) {
+      // TODO: throw a custom no transiton Exception instead?
+      Debug.Log("Transition object is not set!");
+    }
+    this.transition?.SetTrigger("Start");
 
     // pause only this routine
     yield return new WaitForSeconds(1f);
@@ -81,6 +86,7 @@ public class MySceneManager : MonoBehaviour, IManager {
     StartCoroutine(Next());
   }
 
+  // Next(next) is called in TXDemoManager, with no transition elements yet
   private IEnumerator Next(Scenes next) {
     
     // set the load status
@@ -90,6 +96,8 @@ public class MySceneManager : MonoBehaviour, IManager {
 
     // set the current scene
     CurrentScene = next;
+
+    // TODO: add fade transition here
 
     // actually load it in Unity
     SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
@@ -118,7 +126,7 @@ public class MySceneManager : MonoBehaviour, IManager {
   }
 
   public void SetAnimator(Animator transition) {
-    // this.transition = transition;
+    this.transition = transition;
   }
   
 }
