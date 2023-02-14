@@ -11,8 +11,11 @@ namespace Michsky.UI.Freebie
     public class CharacterSelectButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         [Header("CONTENT")]
-        public Sprite previewIcon;
-        public Sprite characterIcon;
+        public Sprite previewIcon0;
+        public Sprite previewIcon1;
+        public Sprite previewIcon2;
+        [HideInInspector] public Sprite characterIcon;
+        [HideInInspector] public bool isDesignatedForSelection = false;
         public string characterName = "Character";
         public string characterType = "Support";
         [TextArea] public string characterInfo = "Character info here.";
@@ -34,6 +37,7 @@ namespace Michsky.UI.Freebie
         public Animator objectAnimator;
         public CharacterSelectManager characterManager;
         public Image previewImage;
+        public Image characterImage;
         public TextMeshProUGUI characterText;
 
         [Header("SETTINGS")]
@@ -43,8 +47,21 @@ namespace Michsky.UI.Freebie
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
+        [HideInInspector] public Sprite[] previewIcons = new Sprite[3];
+        public int currentIconIndex = 0;
+
         void Start()
         {
+            //TODO possibly load player data here?
+
+            isDesignatedForSelection = false;
+
+            previewIcons[0] = previewIcon0;
+            previewIcons[1] = previewIcon1;
+            previewIcons[2] = previewIcon2;
+            characterIcon = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+
             if (useCustomContent == false)
                 UpdateUI();
         }
@@ -52,7 +69,43 @@ namespace Michsky.UI.Freebie
         public void UpdateUI()
         {
             characterText.text = characterName;
-            previewImage.sprite = previewIcon;
+            // previewImage.sprite = previewIcons[currentIconIndex];
+        }
+
+        private void SetAllCharacterSelectButtonsUndesignated() {
+            for (int i = 0; i < 3; i++) {
+                CharacterSelectButton btn = transform.parent.GetChild(i).GetComponent<CharacterSelectButton>();
+                btn.isDesignatedForSelection = false;
+            }
+        }
+
+        public void PrevCharacter() {
+            if (isDesignatedForSelection) {
+                if (currentIconIndex == 0)
+                    currentIconIndex = 2;
+                else {
+                    currentIconIndex--;
+                }
+
+                UpdateIcons();
+            }
+        }
+
+        public void NextCharacter() {
+            if (isDesignatedForSelection) {
+                if (currentIconIndex == 2)
+                    currentIconIndex = 0;
+                else {
+                    currentIconIndex++;
+                }
+
+                UpdateIcons();
+            }
+        }
+
+        private void UpdateIcons() {
+            previewImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
         }
 
         public void SelectCharacter()
@@ -83,13 +136,16 @@ namespace Michsky.UI.Freebie
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            SetAllCharacterSelectButtonsUndesignated();
+            isDesignatedForSelection = true;
+
             if (enableButtonSounds == true && useClickSound == true)
                 soundSource.PlayOneShot(clickSound);
 
             if (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pressed to Selected") &&
                 characterManager.enableSelecting == true)
             {
-                onCharacterClick.Invoke();
+                onCharacterClick.Invoke(); //TODO maybe check if this actually used to invoke something at some point
                 objectAnimator.Play("Hover to Pressed");
             }
 

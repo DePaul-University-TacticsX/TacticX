@@ -50,7 +50,6 @@ namespace Michsky.UI.Freebie
         {
             if (currentObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Hover to Pressed"))
                 currentObjectAnimator.Play("Pressed to Normal");
-
             else if (currentObjectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pressed to Selected"))
                 currentObjectAnimator.Play("Selected to Normal");
         }
@@ -135,7 +134,7 @@ namespace Michsky.UI.Freebie
         IEnumerator ChangeCharacterIcon()
         {
             yield return new WaitForSeconds(currentObjectAnimator.GetCurrentAnimatorStateInfo(0).length / 2);
-            characterImage.sprite = currentCharacter.characterIcon;
+            characterImage.sprite = currentCharacter.previewIcons[currentCharacter.currentIconIndex];
             StopCoroutine("ChangeCharacterIcon");
         }
 
