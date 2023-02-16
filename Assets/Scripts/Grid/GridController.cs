@@ -26,6 +26,9 @@ namespace TacticsX.GridImplementation
             else 
             {
                 ProcessCells();
+                selectedCell = null;
+                savedCell = null;
+                selectedNode = null;
             }
         }
 
