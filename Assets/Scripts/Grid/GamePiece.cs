@@ -7,9 +7,9 @@ namespace TacticsX.GridImplementation
     {
         private GameObject gameObject;
 
-        public GamePiece(string pattern, GameObject prefab)
+        public GamePiece(GameObject prefab)
         {
-            Init(pattern);
+            Init();
             gameObject = Object.Instantiate(prefab);
         }
 
@@ -27,5 +27,12 @@ namespace TacticsX.GridImplementation
         {
             gameObject.transform.position = new Vector3(x, 0, y);
         }
+
+        public void SetPosition(Vector3 position)
+        {
+            SetPosition(position.x, position.z);
+        }
+
+        public virtual void DoAction(){}
     }
 }

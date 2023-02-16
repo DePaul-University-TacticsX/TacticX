@@ -16,34 +16,18 @@ namespace TacticsX.GridImplementation
         {
             assetDict = new Dictionary<GamePieceType, GameObject>();
 
-            assetDict[GamePieceType.Bridge] = Load("Bridge");
+            /*assetDict[GamePieceType.Bridge] = Load("Bridge");
             assetDict[GamePieceType.House] = Load("House");
             assetDict[GamePieceType.House2] = Load("House2");
             assetDict[GamePieceType.Lamp] = Load("Lamp");
-            assetDict[GamePieceType.Well] = Load("Well");
+            assetDict[GamePieceType.Well] = Load("Well");*/
         }
 
         public Node Get(GamePieceType piece)
         {
             GameObject prefab = assetDict[piece];
-            string pattern = GetPattern(piece);            
 
-            return new GamePiece(pattern,prefab);
-        }
-
-        private string GetPattern(GamePieceType piece)
-        {
-            //Here we defined the positioning of our object on the grid
-            //3x3 square, 3 squares in a row, a single square, etc.
-            switch (piece)
-            {
-                case GamePieceType.Bridge:      return "xxx";       //3 in a row
-                case GamePieceType.House:       return "xx\nxx";    //2x2 square
-                case GamePieceType.House2:      return "xx\nxx";    //2x2 square
-                case GamePieceType.Lamp:        return "x";         //single square
-                case GamePieceType.Well:        return "x";         //single square
-                default:                        return string.Empty;
-            }
+            return new GamePiece(prefab);
         }
 
         private GameObject Load(string asset)

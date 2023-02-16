@@ -15,6 +15,18 @@ namespace TacticsX.GridImplementation
         {
             cam = Camera.main;
             anchorDir = anchorDir - baseVector;
+            Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);
+        }
+
+        private void OnSelectedCellChanged(GridCell cell)
+        {
+            MoveToPosition(cell);
+        }
+
+        public void MoveToPosition(GridCell cell)
+        {
+            Vector3 newPosition = GetTargetPostion(cell);
+            cam.transform.DOMove(newPosition, tweenTime).SetEase(Ease.OutCirc);
         }
 
         public void MoveToPosition(int row, int column)
@@ -28,9 +40,16 @@ namespace TacticsX.GridImplementation
             cam.transform.position = GetTargetPostion(row, column);           
         }
 
+        private Vector3 GetTargetPostion(GridCell cell)
+        {
+            Vector3 cellPosition = cell.GetPosition();
+            Vector3 newPosition = cellPosition + (anchorDir * distance);
+            return newPosition;
+        }
+
         private Vector3 GetTargetPostion(int row, int column)
         {
-            GridCell cell = Grid.Instance.FindGridCell(row, column);
+            GridCell cell = GridManager.Instance.FindGridCell(row, column);
             Vector3 cellPosition = cell.GetPosition();
             Vector3 newPosition = cellPosition + (anchorDir * distance);
             return newPosition;

@@ -19,11 +19,24 @@ namespace TacticsX.GridImplementation
             renderer.sprite = sprite;
             cursor.transform.forward = new Vector3(0, -1, 0);
             cursor.transform.position = new Vector3(0, 0.51f, 0);
+            Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);
+        }
+
+        private void OnSelectedCellChanged(GridCell cell)
+        {
+            SetCursorPosition(cell);
+        }
+
+        public void SetCursorPosition(GridCell cell)
+        {
+            Vector3 cellPosition = cell.GetPosition();
+            Vector3 newPosition = cellPosition + new Vector3(0, 0.01f, 0);
+            cursor.transform.position = newPosition;
         }
 
         public void SetCursorPosition(int row, int column)
         {
-            GridCell cell = Grid.Instance.FindGridCell(row, column);
+            GridCell cell = GridManager.Instance.FindGridCell(row, column);
             Vector3 cellPosition = cell.GetPosition();
             Vector3 newPosition = cellPosition + new Vector3(0, 0.01f, 0);
             cursor.transform.position = newPosition;

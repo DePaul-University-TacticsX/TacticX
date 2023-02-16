@@ -9,6 +9,12 @@ public class TurnManager : MonoBehaviour
     public Image Template;
     public Sprite[] Images;
 
+    //need addplayer function that can add a class object with a reference
+    //to a gamepiece and a flag if it is AI or player.
+    //GridController needs to be able to access currentplayer
+    //to make sure things being selected are correctly being selected
+    //(such as moving the correct gamepiece assigned for current turn object)
+
     // Start is called before the first frame update
     void Start()
     {

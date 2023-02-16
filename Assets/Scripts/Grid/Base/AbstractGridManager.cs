@@ -1,6 +1,6 @@
 ﻿namespace TacticsX.Grid
 {
-    public abstract class GridManager
+    public abstract class AbstractGridManager
     {
         private readonly int ROWS;
         private readonly int COLUMNS;
@@ -9,7 +9,7 @@
         private readonly Cell[] CELLS;
         private readonly Node[] NODES;
 
-        public GridManager(int size)
+        public AbstractGridManager(int size)
         {
             ROWS = size;
             COLUMNS = size;
@@ -18,7 +18,7 @@
             NODES = new Node[CELL_COUNT];
         }
 
-        public GridManager(int rows,int columns)
+        public AbstractGridManager(int rows,int columns)
         {
             ROWS = rows;
             COLUMNS = columns;
@@ -61,7 +61,13 @@
         public void SetNode(Node node, Cell cell)
         {
             NODES[GetCellIndex(cell)] = node;
-        }        
+        }    
+        
+        public void MoveNode(Node node, Cell prev, Cell next)
+        {
+            SetNode(node, next);
+            NODES[GetCellIndex(prev)] = null;
+        }
 
         public Cell Find(int row, int column)
         {

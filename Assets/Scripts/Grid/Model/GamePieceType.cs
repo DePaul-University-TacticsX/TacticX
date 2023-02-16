@@ -2,10 +2,10 @@
 {
     public enum GamePieceType
     {        
-        Bridge,
+        /*Bridge,
         House,
         House2,
         Lamp,
-        Well
+        Well*/
     }
 }
