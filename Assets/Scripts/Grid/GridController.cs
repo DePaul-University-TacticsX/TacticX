@@ -26,7 +26,7 @@ namespace TacticsX.GridImplementation
             else 
             {
                 ProcessCells();
-                selectedCell = null;
+                //selectedCell = null;
                 savedCell = null;
                 selectedNode = null;
             }
@@ -34,6 +34,7 @@ namespace TacticsX.GridImplementation
 
         void ProcessCells()
         {
+            //Check if cell is empty
             if (GridManager.Instance.GetCanSetNodeInCell(selectedCell))
             {
                 //move
@@ -43,9 +44,10 @@ namespace TacticsX.GridImplementation
                     GridManager.Instance.MoveNode(selectedNode, savedCell, selectedCell);
                     //Do action probably should be renamed to move since
                     //we know we are moving
-                    selectedNode.DoAction();
+                    selectedNode.SetPosition(selectedCell.GetPosition());
                 }
             }
+            //It is not empty so we are going to run an action on the object
             else
             {
                 if (selectedNode != null)

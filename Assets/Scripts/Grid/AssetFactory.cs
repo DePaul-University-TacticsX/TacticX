@@ -15,7 +15,7 @@ namespace TacticsX.GridImplementation
         public AssetFactory()
         {
             assetDict = new Dictionary<GamePieceType, GameObject>();
-
+            assetDict[GamePieceType.Well] = Load("Well");
             /*assetDict[GamePieceType.Bridge] = Load("Bridge");
             assetDict[GamePieceType.House] = Load("House");
             assetDict[GamePieceType.House2] = Load("House2");
@@ -27,7 +27,13 @@ namespace TacticsX.GridImplementation
         {
             GameObject prefab = assetDict[piece];
 
-            return new GamePiece(prefab);
+            switch(piece)
+            {
+                case GamePieceType.Well: return new Well(prefab);
+   
+            }
+
+            return null;
         }
 
         private GameObject Load(string asset)

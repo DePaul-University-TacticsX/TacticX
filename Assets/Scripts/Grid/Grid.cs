@@ -39,11 +39,14 @@ namespace TacticsX.GridImplementation
             gridController = new GridController();
 
             cameraManager.SetCameraPosition(4, 4);
+
+            AddGamePiece(GamePieceType.Well, 4, 4);
+            AddGamePiece(GamePieceType.Well, 3, 3);
         }
 
         private void Update()
         {
-            if(Input.GetKey(KeyCode.Space))
+            if(Input.GetKeyDown(KeyCode.Space))
             {
                 SelectCell();
             }
