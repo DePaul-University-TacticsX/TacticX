@@ -33,7 +33,7 @@ namespace TacticsX.GridImplementation
 
             switch(piece)
             {
-                case GamePieceType.Well: return new Well_gprt(prefab);
+                case GamePieceType.Well: return new Well_gpenv(prefab);
                 case GamePieceType.Warrior: return new Warrior_gprt(prefab);
                 case GamePieceType.Archer: return new Archer_gprt(prefab);
                 case GamePieceType.Mage: return new Mage_gprt(prefab);

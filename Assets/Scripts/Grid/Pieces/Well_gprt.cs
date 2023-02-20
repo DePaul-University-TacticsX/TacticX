@@ -4,11 +4,11 @@ using UnityEngine;
 using TacticsX.GridImplementation;
 
 
-public class Well_gprt : GamePiece
+public class Well_gpenv : GamePiece
 {
 
 
-    public Well_gprt(GameObject prefab) 
+    public Well_gpenv(GameObject prefab) 
         : base(prefab) 
     {
 
