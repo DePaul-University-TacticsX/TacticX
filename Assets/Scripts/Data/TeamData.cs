@@ -12,8 +12,6 @@ namespace TacticsX.Data
 
         public TeamData(CharacterSelectButton[] team) {
             for (int i = 0; i < team.Length; i++) {
-                Debug.Log("team char " + i + " name: " + team[i].characterName);
-                Debug.Log("team char " + i + " index: " + team[i].currentIconIndex);
                 characterNames[i] = team[i].characterName;
                 characterAlts[i] = team[i].currentIconIndex;
             }
