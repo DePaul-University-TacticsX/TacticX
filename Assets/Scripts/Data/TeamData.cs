@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Michsky.UI.Freebie;
+using TacticsX.TeamBuilder;
 
 namespace TacticsX.Data
 {

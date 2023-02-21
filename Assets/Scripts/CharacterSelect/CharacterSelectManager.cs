@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using TacticsX.Data;
 
-namespace Michsky.UI.Freebie
+namespace TacticsX.TeamBuilder
 {
     public class CharacterSelectManager : MonoBehaviour
     {
@@ -73,8 +73,8 @@ namespace Michsky.UI.Freebie
 
             if (teamData != null) {
                 for (int i = 0; i < team.Length; i++) {
-                    team[i].characterName = teamData.characterNames[i];
                     team[i].currentIconIndex = teamData.characterAlts[i];
+                    team[i].characterName = teamData.characterNames[i];
                     team[i].UpdateIcons();
                 }
             }
