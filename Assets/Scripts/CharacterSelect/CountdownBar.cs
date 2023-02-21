@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 
-namespace Michsky.UI.Freebie
+namespace TacticsX.TeamBuilder
 {
     public class CountdownBar : MonoBehaviour
     {

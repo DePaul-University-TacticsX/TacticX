@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
 
-namespace Michsky.UI.Freebie
+namespace TacticsX.TeamBuilder
 {
     public class CharacterSelectButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
@@ -101,6 +101,12 @@ namespace Michsky.UI.Freebie
 
         public void UpdateIcons() {
             previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
         }
 
