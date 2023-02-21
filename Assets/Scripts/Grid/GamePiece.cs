@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using TacticsX.Grid;
 using DG.Tweening;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-using UnityEngine.UIElements;
 
 namespace TacticsX.GridImplementation
 {
@@ -29,7 +27,7 @@ namespace TacticsX.GridImplementation
 
         public override void SetPosition(float x, float y)
         {
-            this.gameObject.transform.DOMove(new Vector3(x, 0, y), tweenTime).SetEase(Ease.OutCirc);
+            gameObject.transform.position = new Vector3(x, 0, y);            
         }
 
         public void SetPosition(Vector3 position)
@@ -37,6 +35,15 @@ namespace TacticsX.GridImplementation
             SetPosition(position.x, position.z);
         }
 
+        public override void MoveToPosition(float x, float y)
+        {
+            this.gameObject.transform.DOMove(new Vector3(x, 0, y), tweenTime).SetEase(Ease.OutCirc);
+        }
+
+        public void MoveToPosition(Vector3 position)
+        {
+            MoveToPosition(position.x, position.z);
+        }
 
         public virtual void DoAction(){}
     }

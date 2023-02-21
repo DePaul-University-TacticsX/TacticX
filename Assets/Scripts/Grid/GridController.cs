@@ -44,7 +44,8 @@ namespace TacticsX.GridImplementation
                     GridManager.Instance.MoveNode(selectedNode, savedCell, selectedCell);
                     //Do action probably should be renamed to move since
                     //we know we are moving
-                    selectedNode.SetPosition(selectedCell.GetPosition());
+                    //selectedNode.SetPosition(selectedCell.GetPosition());
+                    selectedNode.MoveToPosition(selectedCell.GetPosition());
                 }
             }
             //It is not empty so we are going to run an action on the object
