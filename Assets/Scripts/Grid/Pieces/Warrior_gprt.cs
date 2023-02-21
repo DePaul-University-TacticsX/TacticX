@@ -3,20 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TacticsX.GridImplementation;
 
-
-public class Well : GamePiece
+public class Warrior_gprt : GamePiece
 {
-
-
-    public Well(GameObject prefab) 
-        : base(prefab) 
+    
+    public Warrior_gprt(GameObject prefab)
+        : base(prefab)
     {
 
     }
 
     public override void DoAction()
     {
-        Debug.Log("Do some action");
+        Debug.Log("Warrior Do some action");
     }
 }
-
