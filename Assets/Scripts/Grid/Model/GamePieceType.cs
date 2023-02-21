@@ -2,7 +2,12 @@
 {
     public enum GamePieceType
     {      
-        Well
+        Well,
+        HealthPowerUp,
+        DefencePowerUp,
+        DamagePowerUp,
+        MovementPowerUp,
+        MultiattackPowerUp
         /*Bridge,
         House,
         House2,

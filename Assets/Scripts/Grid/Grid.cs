@@ -41,7 +41,11 @@ namespace TacticsX.GridImplementation
             cameraManager.SetCameraPosition(4, 4);
 
             AddGamePiece(GamePieceType.Well, 4, 4);
-            AddGamePiece(GamePieceType.Well, 3, 3);
+            AddGamePiece(GamePieceType.HealthPowerUp, 4, 2);
+            AddGamePiece(GamePieceType.DefencePowerUp, 3, 2);
+            AddGamePiece(GamePieceType.DamagePowerUp, 2, 2);
+            AddGamePiece(GamePieceType.MovementPowerUp, 1, 2);
+            AddGamePiece(GamePieceType.MultiattackPowerUp, 0, 2);
         }
 
         private void Update()

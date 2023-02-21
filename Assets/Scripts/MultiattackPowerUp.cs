@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using TacticsX.GridImplementation;
+using UnityEngine;
+
+public class MultiattackPowerUp : GamePiece
+{
+    public MultiattackPowerUp(GameObject prefab) : base(prefab)
+    {
+
+    }
+
+    public override void DoAction()
+    {
+        Debug.Log("MultiattackPowerUp Action");
+    }
+
+}
