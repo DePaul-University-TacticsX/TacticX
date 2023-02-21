@@ -7,11 +7,10 @@
         DefencePowerUp,
         DamagePowerUp,
         MovementPowerUp,
-        MultiattackPowerUp
-        /*Bridge,
-        House,
-        House2,
-        Lamp,
-        Well*/
+        MultiattackPowerUp,
+        Warrior,
+        Archer,
+        Mage
+
     }
 }

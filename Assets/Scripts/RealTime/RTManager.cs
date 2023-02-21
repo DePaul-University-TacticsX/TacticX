@@ -7,7 +7,7 @@ public class RTManager : MonoBehaviour
 {
 
     public LinkedList<CharacterEntity> entities;
-    private Vector3 c_position = new Vector3(10f, 7.5f, -10f);
+    private Vector3 c_position = new Vector3(0f, 2f, -10f);
     public CharacterEntity active_component;
     public int index = 0;
     private static RTManager instance;

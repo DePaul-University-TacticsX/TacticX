@@ -14,6 +14,12 @@ namespace TacticsX.GridImplementation
 
         public AssetFactory()
         {
+            /* 
+             *  gprt -> code from GridPiece [grid-based behavior] to CharacterEntity [Real-Time Behavior]
+             *  other grid-based entities will obviously impact different scenes like mini-games 
+             *  or environmental impacts for example. Well is a reference hold-over, maybe it should be
+             *  an environment piece ethat a battle can be fought on, or something.
+             */
             assetDict = new Dictionary<GamePieceType, GameObject>();
             assetDict[GamePieceType.Well] = Load("Well");
             assetDict[GamePieceType.HealthPowerUp] = Load("HealthPowerUp");
@@ -21,11 +27,10 @@ namespace TacticsX.GridImplementation
             assetDict[GamePieceType.DamagePowerUp] = Load("DamagePowerUp");
             assetDict[GamePieceType.MovementPowerUp] = Load("MovementPowerUp");
             assetDict[GamePieceType.MultiattackPowerUp] = Load("MultiattackPowerUp");
-            /*assetDict[GamePieceType.Bridge] = Load("Bridge");
-            assetDict[GamePieceType.House] = Load("House");
-            assetDict[GamePieceType.House2] = Load("House2");
-            assetDict[GamePieceType.Lamp] = Load("Lamp");
-            assetDict[GamePieceType.Well] = Load("Well");*/
+            assetDict[GamePieceType.Well] = Load("Well_gpenv");
+            assetDict[GamePieceType.Warrior] = Load("Warrior_gprt");
+            assetDict[GamePieceType.Archer] = Load("Archer_gprt");
+            assetDict[GamePieceType.Mage] = Load("Mage_gprt");
         }
 
         public Node Get(GamePieceType piece)
@@ -34,13 +39,16 @@ namespace TacticsX.GridImplementation
 
             switch(piece)
             {
-                case GamePieceType.Well: return new Well(prefab);
                 case GamePieceType.HealthPowerUp: return new HealthPowerUp(prefab);
                 case GamePieceType.DefencePowerUp: return new DefencePowerUp(prefab);
                 case GamePieceType.MovementPowerUp: return new MovementPowerUp(prefab);
                 case GamePieceType.MultiattackPowerUp: return new MultiattackPowerUp(prefab);
                 case GamePieceType.DamagePowerUp: return new DamagePowerUp(prefab);
-
+                case GamePieceType.Well: return new Well_gpenv(prefab);
+                case GamePieceType.Warrior: return new Warrior_gprt(prefab);
+                case GamePieceType.Archer: return new Archer_gprt(prefab);
+                case GamePieceType.Mage: return new Mage_gprt(prefab);
+  
             }
 
             return null;

@@ -40,12 +40,25 @@ namespace TacticsX.GridImplementation
 
             cameraManager.SetCameraPosition(4, 4);
 
+            // Set Boundaries 
             AddGamePiece(GamePieceType.Well, 4, 4);
+
+            //powerups
             AddGamePiece(GamePieceType.HealthPowerUp, 4, 2);
             AddGamePiece(GamePieceType.DefencePowerUp, 3, 2);
             AddGamePiece(GamePieceType.DamagePowerUp, 2, 2);
             AddGamePiece(GamePieceType.MovementPowerUp, 1, 2);
-            AddGamePiece(GamePieceType.MultiattackPowerUp, 0, 2);
+            AddGamePiece(GamePieceType.MultiattackPowerUp, 1, 3);
+
+            AddGamePiece(GamePieceType.Well, 0, 0);
+            AddGamePiece(GamePieceType.Well, 4, 0);
+            AddGamePiece(GamePieceType.Well, 0, 4);
+
+            // Player Army.
+            AddGamePiece(GamePieceType.Warrior, 0, 3);
+            AddGamePiece(GamePieceType.Archer, 0, 2);
+            AddGamePiece(GamePieceType.Mage, 0, 1);
+
         }
 
         private void Update()
@@ -150,7 +163,7 @@ namespace TacticsX.GridImplementation
 
         private GamePiece privAddGamePiece(GamePieceType piece, int row, int column)
         {
-            GamePiece newGamePiece = (GamePiece)assetFactory.Get(piece);
+            GamePiece newGamePiece = (GamePiece) assetFactory.Get(piece);
             GridCell cell = grid.FindGridCell(row, column);
             grid.SetNode(newGamePiece, cell);
             newGamePiece.SetPosition(cell.GetPosition());
