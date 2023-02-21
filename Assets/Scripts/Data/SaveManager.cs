@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -6,9 +8,9 @@ using Michsky.UI.Freebie;
 namespace TacticsX.Data
 {
     public static class SaveManager {
-        static string teamPath = Application.persistentDataPath + "/team.bin";
+        public static string teamPath = Application.persistentDataPath + "/team.bin";
 
-        public static void SaveTeam(CharacterSelectButton[] team) {
+        public static void SaveTeamData(CharacterSelectButton[] team) {
             BinaryFormatter formatter = new BinaryFormatter();
 
             using (FileStream stream = new FileStream(teamPath, FileMode.Create)) {
@@ -16,9 +18,11 @@ namespace TacticsX.Data
                 formatter.Serialize(stream, teamData);
                 stream.Close();
             }
+
+            Debug.Log("Saved team to " + teamPath);
         }
 
-        public static TeamData LoadTeam() {
+        public static TeamData LoadTeamData() {
             TeamData teamData = null;
             
             if (File.Exists(teamPath)) {
@@ -29,7 +33,7 @@ namespace TacticsX.Data
                 }
             }
             else {
-                Debug.LogError("Save file not found for player team in " + teamPath);
+                Debug.LogError("Save file not found for team in " + teamPath);
             }
             
             return teamData;

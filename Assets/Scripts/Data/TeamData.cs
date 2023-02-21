@@ -7,13 +7,15 @@ namespace TacticsX.Data
 {
     [System.Serializable]
     public class TeamData {
-        public string[] characterNames;
-        public int[] characterAlts;
+        public string[] characterNames = new string[3];
+        public int[] characterAlts = new int[3];
 
-        public TeamData(CharacterSelectButton[] characters) {
-            for (int i = 0; i < characters.Length; i++) {
-                characterNames[i] = characters[i].characterName;
-                characterAlts[i] = characters[i].currentIconIndex;
+        public TeamData(CharacterSelectButton[] team) {
+            for (int i = 0; i < team.Length; i++) {
+                Debug.Log("team char " + i + " name: " + team[i].characterName);
+                Debug.Log("team char " + i + " index: " + team[i].currentIconIndex);
+                characterNames[i] = team[i].characterName;
+                characterAlts[i] = team[i].currentIconIndex;
             }
         }
     }
