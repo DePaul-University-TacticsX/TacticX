@@ -21,6 +21,12 @@ namespace TacticsX.GridImplementation
              *  an environment piece ethat a battle can be fought on, or something.
              */
             assetDict = new Dictionary<GamePieceType, GameObject>();
+            assetDict[GamePieceType.Well] = Load("Well");
+            assetDict[GamePieceType.HealthPowerUp] = Load("HealthPowerUp");
+            assetDict[GamePieceType.DefencePowerUp] = Load("DefencePowerUp");
+            assetDict[GamePieceType.DamagePowerUp] = Load("DamagePowerUp");
+            assetDict[GamePieceType.MovementPowerUp] = Load("MovementPowerUp");
+            assetDict[GamePieceType.MultiattackPowerUp] = Load("MultiattackPowerUp");
             assetDict[GamePieceType.Well] = Load("Well_gpenv");
             assetDict[GamePieceType.Warrior] = Load("Warrior_gprt");
             assetDict[GamePieceType.Archer] = Load("Archer_gprt");
@@ -33,11 +39,16 @@ namespace TacticsX.GridImplementation
 
             switch(piece)
             {
+                case GamePieceType.HealthPowerUp: return new HealthPowerUp(prefab);
+                case GamePieceType.DefencePowerUp: return new DefencePowerUp(prefab);
+                case GamePieceType.MovementPowerUp: return new MovementPowerUp(prefab);
+                case GamePieceType.MultiattackPowerUp: return new MultiattackPowerUp(prefab);
+                case GamePieceType.DamagePowerUp: return new DamagePowerUp(prefab);
                 case GamePieceType.Well: return new Well_gpenv(prefab);
                 case GamePieceType.Warrior: return new Warrior_gprt(prefab);
                 case GamePieceType.Archer: return new Archer_gprt(prefab);
                 case GamePieceType.Mage: return new Mage_gprt(prefab);
-   
+  
             }
 
             return null;
