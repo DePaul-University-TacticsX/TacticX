@@ -13,6 +13,7 @@ public class DefencePowerUp : GamePiece
     public override void DoAction()
     {
         Debug.Log("DefencePowerUp Action");
+        _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
     }
 
 }

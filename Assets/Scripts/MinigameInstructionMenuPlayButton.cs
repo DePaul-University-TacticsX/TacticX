@@ -17,6 +17,6 @@ public class MinigameInstructionMenuPlayButton : MonoBehaviour
     public void OnButtonPress()
     {
         FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.PlayMiniGame);
-        Destroy(btn);
+        Destroy(transform.gameObject.GetComponentInParent<Canvas>().gameObject);
     }
 }

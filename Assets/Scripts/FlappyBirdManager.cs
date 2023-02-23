@@ -50,16 +50,16 @@ public class FlappyBirdManager : MonoBehaviour
 
     private void HandleWin()
     {
-        //logic to place powerup into players inventory
-        //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpEarned);
+        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.MiniGameWon);
         Instantiate(Resources.Load<GameObject>("Win Prefab"));
+        Destroy(gameObject);
     }
 
     private void HandleLose()
     {
-        //logic to penilize player for losing minigame
-        //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpLost);
+        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.MiniGameLost);
         Instantiate(Resources.Load<GameObject>("Lose Prefab"));
+        Destroy(gameObject);
     }
 
     private void MovePlayerHandler()

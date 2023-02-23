@@ -13,6 +13,7 @@ public class MovementPowerUp : GamePiece
     public override void DoAction()
     {
         Debug.Log("MovementPowerUp Action");
+        _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
     }
 
 }
