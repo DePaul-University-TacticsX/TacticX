@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
+using UnityEditor.VersionControl;
 
 namespace TacticsX.GridImplementation
 {
@@ -63,6 +64,10 @@ namespace TacticsX.GridImplementation
 
         private void Update()
         {
+            if (FindObjectOfType<DialogueManager>().isActive == true)
+            {
+                return;
+            }
             if (FindObjectOfType<MiniGameManager>() != null)
             {
                 if(FindObjectOfType<MiniGameManager>().isActive == true)
