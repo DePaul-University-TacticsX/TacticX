@@ -16,10 +16,7 @@ public class DialogueTrigger : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && FindObjectOfType<DialogueManager>().isActive == false)
-        {
-            StartDialogue();
-        }
+        
     }
 }
 
