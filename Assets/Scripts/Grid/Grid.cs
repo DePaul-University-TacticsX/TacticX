@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
+using UnityEditor.VersionControl;
 
 namespace TacticsX.GridImplementation
 {
@@ -63,7 +64,11 @@ namespace TacticsX.GridImplementation
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (FindObjectOfType<DialogueManager>().isActive == true)
+            {
+                return;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 SelectCell();
             }
