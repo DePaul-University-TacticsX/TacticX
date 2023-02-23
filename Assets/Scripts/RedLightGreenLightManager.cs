@@ -58,17 +58,17 @@ public class RedLightGreenLightManager : MonoBehaviour
     private void HandleWin()
     {
         WinPrefab = Resources.Load<GameObject>("Win Prefab");
-        //logic to place powerup into players inventory
-        //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpEarned);
+        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.MiniGameWon);
         Instantiate(WinPrefab);
+        Destroy(gameObject);
     }
 
     private void HandleLose()
     {
         LosePrefab = Resources.Load<GameObject>("Lose Prefab");
-        //logic to penilize player for losing minigame
-        //FindObjectOfType<PowerUpManager>().PowerUpManager(PowerUpState.PowerUpLost);
+        FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.MiniGameLost);
         Instantiate(LosePrefab);
+        Destroy(gameObject);
     }
 
     private void MovePlayerHandler()

@@ -68,7 +68,15 @@ namespace TacticsX.GridImplementation
             {
                 return;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (FindObjectOfType<MiniGameManager>() != null)
+            {
+                if(FindObjectOfType<MiniGameManager>().isActive == true)
+                {
+                    return;
+                }
+            }
+
+            if(Input.GetKeyDown(KeyCode.Space))
             {
                 SelectCell();
             }

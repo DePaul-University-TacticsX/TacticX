@@ -13,6 +13,8 @@ public class HealthPowerUp : GamePiece
     public override void DoAction()
     {
         Debug.Log("HealthPowerUp Action");
+
+        _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
     }
 
 }

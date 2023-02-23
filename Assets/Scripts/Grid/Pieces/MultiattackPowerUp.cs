@@ -13,6 +13,8 @@ public class MultiattackPowerUp : GamePiece
     public override void DoAction()
     {
         Debug.Log("MultiattackPowerUp Action");
+        _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
     }
 
 }
+  
