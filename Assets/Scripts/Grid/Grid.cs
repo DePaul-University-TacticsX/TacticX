@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
-using UnityEditor.VersionControl;
 
 namespace TacticsX.GridImplementation
 {
