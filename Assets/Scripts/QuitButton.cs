@@ -16,6 +16,7 @@ public class QuitButton : MonoBehaviour
 
     public void OnButtonPress()
     {
+        Destroy(transform.gameObject.GetComponentInParent<Canvas>().gameObject);
         FindObjectOfType<MiniGameManager>().UpdateMiniGameState(MiniGameState.ExitMiniGameMenu);
     }
 }

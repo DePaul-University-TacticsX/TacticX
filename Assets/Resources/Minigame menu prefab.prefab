@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 919285982571416974}
   - component: {fileID: 919285982571416975}
   - component: {fileID: 919285982571416960}
+  - component: {fileID: 2860630693346311935}
   m_Layer: 5
   m_Name: Minigame menu prefab
   m_TagString: Untagged
@@ -239,6 +240,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2860630693346311935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919285982571416961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8bb2133b5a13a46917adb280a82847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayButton: {fileID: 919285984578096655}
+  QuitButton: {fileID: 919285983134831241}
+  State: 0
+  selectedMiniGame: 0
 --- !u!1 &919285982677837923
 GameObject:
   m_ObjectHideFlags: 0

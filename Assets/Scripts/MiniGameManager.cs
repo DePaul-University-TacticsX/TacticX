@@ -12,12 +12,14 @@ public class MiniGameManager : MonoBehaviour
     public static MiniGameManager manager;
     public MiniGameState State;
     public int selectedMiniGame;
+    public bool isActive = false;
 
     private void Awake()
     {
         if (manager == null)
         {
             manager = this;
+            isActive = true;
             //DontDestroyOnLoad(this);
         } else if (manager == this)
         {
@@ -39,7 +41,12 @@ public class MiniGameManager : MonoBehaviour
                 PlayMiniGameHandler();
                 break;
             case MiniGameState.ExitMiniGameMenu:
+                isActive= false;
                 ExitMenuHandler();
+                break;
+            case MiniGameState.MiniGameWon:
+                break;
+            case MiniGameState.MiniGameLost:
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -68,8 +75,7 @@ public class MiniGameManager : MonoBehaviour
 
     private void ExitMenuHandler()
     {
-        Debug.Log("Todo - escape mini game menu and go back to main game.");
-        //FindObjectOfType<MainGameManager>().MainGameManager(MainGameState.LeaveMiniGame);
+        Destroy(gameObject);
     }
 
     private void PlayMiniGameHandler()
@@ -107,5 +113,7 @@ public enum MiniGameState
 {
     LoadMiniGameInstructions,
     PlayMiniGame, 
-    ExitMiniGameMenu
+    ExitMiniGameMenu,
+    MiniGameWon,
+    MiniGameLost
 }

@@ -13,6 +13,7 @@ public class DamagePowerUp : GamePiece
     public override void DoAction()
     {
         Debug.Log("DamagePowerUp Action");
+        _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
     }
 
 }
