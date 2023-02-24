@@ -36,11 +36,11 @@ public class TurnManager : MonoBehaviour
         instance.privNextTurn();
     }
 
-    public static void AddParticipant(GamePiece gamePiece,Sprite image)
+    public static void AddParticipant(GamePiece gamePiece,Sprite image,bool isAI)
     {
         if (image == null) image = instance.defaultSprite;
 
-        instance.participants.Add(new Turn(gamePiece, image));
+        instance.participants.Add(new Turn(gamePiece, image, isAI));
     }
 
     public static Turn GetCurrentTurn()
