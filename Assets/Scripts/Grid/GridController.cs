@@ -13,7 +13,8 @@ namespace TacticsX.GridImplementation
         public GridController()
         {
             Instance = this;
-            Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);                       
+            Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);
+            TurnManager.AddTurnChangedObserver(OnTurnChanged);
         }
 
         public static void SetState(ControllerState state)
