@@ -22,6 +22,16 @@
             return 0;
         }
 
+        public int Compare(Cell cell)
+        {
+            return Compare(cell.ROW, cell.COLUMN);
+        }
+
+        public bool Equals(Cell cell)
+        {
+            return ROW == cell.ROW && COLUMN == cell.COLUMN;
+        }
+
         public abstract void SetPosition(int x, int y);
         public abstract void SetState(CellStateType state);
     }

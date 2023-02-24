@@ -7,6 +7,7 @@ namespace TacticsX.Grid
     {
         const float GRID_LINE_OFFSET = 0.5f;
         
+        public Cell cell;
 
         protected void Init()
         {

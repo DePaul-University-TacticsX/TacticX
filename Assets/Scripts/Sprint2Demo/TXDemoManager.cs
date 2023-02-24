@@ -51,7 +51,7 @@ public class TXDemoManager : MonoBehaviour {
       
       // if the other game manager is running then destroy it
       GameObject OtherGame = GameObject.Find("GameManager");
-      if (OtherGame is not null) {
+      if (OtherGame != null) {
         Destroy(OtherGame);
       }
 

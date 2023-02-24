@@ -8,7 +8,7 @@ namespace TacticsX.GridImplementation
 
         GridCell selectedCell;
         GamePiece selectedNode;
-        GridCell savedCell;
+        ControllerState state = ControllerState.None;
 
         public GridController()
         {
@@ -16,9 +16,47 @@ namespace TacticsX.GridImplementation
             Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);                       
         }
 
+        public static void SetState(ControllerState state)
+        {
+            switch(state)
+            {
+                //Would actually like to set a variable reference
+                //to a class that uses command pattern for each state
+                //but this is lazy approach for now
+                case ControllerState.Attacking:                 
+                case ControllerState.Moving:
+                    Instance.state = state;
+                    break;
+                case ControllerState.EndingTurn:
+                    TurnManager.NextTurn();
+                    break;
+            }
+        }
+
         public void SelectCell()
         {
-            if (savedCell == null)
+            if(state == ControllerState.Moving)
+            {
+                if (TurnManager.GetCurrentTurn().DidMove) return;                
+                if (GridManager.Instance.GetCanSetNodeInCell(selectedCell) == false) return;
+
+                GridManager.Instance.MoveNode(TurnManager.GetCurrentTurn().GamePiece, selectedCell);
+                TurnManager.GetCurrentTurn().GamePiece.MoveToPosition(selectedCell.GetPosition());
+                TurnManager.GetCurrentTurn().DidMove = true;
+            }
+            else if(state == ControllerState.Attacking)
+            {
+                if (TurnManager.GetCurrentTurn().DidAttack) return;
+                if (GridManager.Instance.GetCanSetNodeInCell(selectedCell)) return;
+
+                selectedNode = (GamePiece)GridManager.Instance.GetNode(selectedCell);
+                if (selectedCell.Equals(TurnManager.GetCurrentTurn().GamePiece.cell)) return;
+
+                selectedNode.DoAction();
+                TurnManager.GetCurrentTurn().DidAttack = true;
+            }
+
+            /*if (savedCell == null)
             {
                 savedCell = selectedCell;
                 selectedNode = (GamePiece)GridManager.Instance.GetNode(savedCell);
@@ -29,7 +67,7 @@ namespace TacticsX.GridImplementation
                 //selectedCell = null;
                 savedCell = null;
                 selectedNode = null;
-            }
+            }*/
         }
 
         void ProcessCells()
@@ -41,7 +79,7 @@ namespace TacticsX.GridImplementation
                 if (selectedNode != null)
                 {
                     //Update the data
-                    GridManager.Instance.MoveNode(selectedNode, savedCell, selectedCell);
+                    GridManager.Instance.MoveNode(selectedNode, selectedCell);
                     //Do action probably should be renamed to move since
                     //we know we are moving
                     //selectedNode.SetPosition(selectedCell.GetPosition());
@@ -67,6 +105,11 @@ namespace TacticsX.GridImplementation
         void OnSelectedCellChanged(GridCell cell)
         {
             selectedCell = cell;
+        }
+
+        void OnTurnChanged(Turn turn)
+        {
+            state = ControllerState.None;
         }
     }
 }

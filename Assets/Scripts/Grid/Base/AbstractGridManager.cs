@@ -2,8 +2,8 @@
 {
     public abstract class AbstractGridManager
     {
-        private readonly int ROWS;
-        private readonly int COLUMNS;
+        public readonly int ROWS;
+        public readonly int COLUMNS;
         private readonly int CELL_COUNT;
 
         private readonly Cell[] CELLS;
@@ -61,12 +61,20 @@
         public void SetNode(Node node, Cell cell)
         {
             NODES[GetCellIndex(cell)] = node;
+            node.cell = cell;
         }    
         
-        public void MoveNode(Node node, Cell prev, Cell next)
+        public void MoveNode(Node node, Cell next)
         {
             SetNode(node, next);
-            NODES[GetCellIndex(prev)] = null;
+            NODES[GetCellIndex(node.cell)] = null;
+            node.cell = next;
+        }
+
+        public void RemoveNode(Node node)
+        {
+            NODES[GetCellIndex(node.cell)] = null;
+            node.cell = null;
         }
 
         public Cell Find(int row, int column)

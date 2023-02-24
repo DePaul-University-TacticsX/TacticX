@@ -46,5 +46,6 @@ namespace TacticsX.GridImplementation
         }
 
         public virtual void DoAction(){}
+        public virtual bool GetIsAI() { return false; }
     }
 }

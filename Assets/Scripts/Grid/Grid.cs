@@ -30,7 +30,7 @@ namespace TacticsX.GridImplementation
 
         void Start()
         {
-            grid = new GridManager(5);
+            grid = new GridManager(10);
             grid.Build();
 
             cameraManager = new GridCameraManager();
@@ -39,6 +39,7 @@ namespace TacticsX.GridImplementation
             gridController = new GridController();
 
             cameraManager.SetCameraPosition(4, 4);
+            TurnManager.AddTurnChangedObserver(OnTurnChanged);
 
             // Set Boundaries 
             AddGamePiece(GamePieceType.Well, 4, 4);
@@ -54,11 +55,13 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 4, 0);
             AddGamePiece(GamePieceType.Well, 0, 4);
 
-            // Player Army.
-            AddGamePiece(GamePieceType.Warrior, 0, 3);
-            AddGamePiece(GamePieceType.Archer, 0, 2);
-            AddGamePiece(GamePieceType.Mage, 0, 1);
 
+            // Player Army.
+            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 3), Resources.Load<Sprite>("Textures/warrior"));
+            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Archer, 0, 2), Resources.Load<Sprite>("Textures/archer"));
+            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"));
+
+            TurnManager.Build();
         }
 
         private void Update()
@@ -99,6 +102,21 @@ namespace TacticsX.GridImplementation
             {
                 MoveDown();
             }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                GridController.SetState(ControllerState.Attacking);
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                GridController.SetState(ControllerState.Moving);
+            }
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GridController.SetState(ControllerState.EndingTurn);
+            }
         }
 
         void SelectCell()
@@ -116,7 +134,7 @@ namespace TacticsX.GridImplementation
         void MoveRight()
         {
             column++;
-            if (column > 4) column = 4;
+            if (column > grid.COLUMNS - 1) column = grid.COLUMNS - 1;
             else SetPosition();
         }
 
@@ -130,7 +148,7 @@ namespace TacticsX.GridImplementation
         void MoveDown()
         {
             row++;
-            if (row > 4) row = 4;
+            if (row > grid.ROWS - 1) row = grid.ROWS - 1;
             else SetPosition();
         }
 
@@ -156,7 +174,6 @@ namespace TacticsX.GridImplementation
             Instance.SelectedCellChangeAction -= onCellChanged;
         }
 
-
         public static Vector3 GetCurrentCellPosition()
         {
             return Instance.privGetCurrentCellPosition();
@@ -180,6 +197,13 @@ namespace TacticsX.GridImplementation
             grid.SetNode(newGamePiece, cell);
             newGamePiece.SetPosition(cell.GetPosition());
             return newGamePiece;
+        }
+
+        private void OnTurnChanged(Turn turn)
+        {
+            row = turn.GamePiece.cell.ROW;
+            column = turn.GamePiece.cell.COLUMN;
+            SetPosition();
         }
     }
 }
