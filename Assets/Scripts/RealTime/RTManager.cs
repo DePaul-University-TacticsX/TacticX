@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RTManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class RTManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        // set up a listener on the event that a character was attacked
+
         instance = this;
         this.entities = new LinkedList<CharacterEntity>();
 
@@ -37,6 +41,7 @@ public class RTManager : MonoBehaviour
 
         RTManager.ActivateEntity(); // The head of the list is initially seen as activated.
         
+  
     }
 
     public static void next_in_line() {
@@ -92,4 +97,10 @@ public class RTManager : MonoBehaviour
         node.entity.SetActive(false);
 
     }
+
+    public static void DecreaseHealth(CharacterEntity player, int amount) {
+      player.minus_health(amount);
+    }
+
+    
 }

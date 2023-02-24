@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyAI: MonoBehaviour {
+public class EnemyAI : MonoBehaviour {
   public float speed = 2.0f;     // same as the Archer
   public float ObstacleRange = 100.0f;
   public float height = 2.0f;   // fix on the 2d plane
@@ -39,6 +39,9 @@ public class EnemyAI: MonoBehaviour {
       SeeAndCast(new Ray(ray.origin, behindDirection));
     }
     
+    if (Input.GetKey(KeyCode.Z)) {
+      AttackPlayer(10);
+    }
   
   }
 
@@ -62,6 +65,9 @@ public class EnemyAI: MonoBehaviour {
     }
   } 
 
+  public static void AttackPlayer(int amount) {
+    RTManager.DecreaseHealth(RTManager.getActive(), amount);
+  } 
 
 
 

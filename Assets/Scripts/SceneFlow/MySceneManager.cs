@@ -106,6 +106,24 @@ public class MySceneManager : MonoBehaviour, IManager {
 
   }
 
+  public void AddScene(Scenes scene) {
+    
+    this.LStatus = LoadStatus.LOADING;
+
+    Debug.Log($"Adding scene {scene} ... ");
+
+    CurrentScene = scene;
+
+    SceneManager.LoadScene($"{scene}", LoadSceneMode.Additive);
+
+    this.LStatus = LoadStatus.COMPLETE;
+
+  }
+
+  public void SetActive(Scenes scene) {
+    SceneManager.SetActiveScene(SceneManager.GetSceneByName($"{scene}"));
+  }
+
   public void NextScene(Scenes s) {
     StartCoroutine(Next(s));
   }
