@@ -41,6 +41,7 @@ namespace TacticsX.TeamBuilder
         public TextMeshProUGUI characterText;
 
         [Header("SETTINGS")]
+        public int numAlts = 3;
         public bool useCustomContent = false;
 
         [Header("EVENTS")]
@@ -48,7 +49,7 @@ namespace TacticsX.TeamBuilder
         public UnityEvent onCharacterSelection;
 
         [HideInInspector] public Sprite[] previewIcons = new Sprite[3];
-        public int currentIconIndex = 0;
+        [HideInInspector] public int currentIconIndex = 0;
 
         void Start()
         {
@@ -78,7 +79,7 @@ namespace TacticsX.TeamBuilder
         public void PrevCharacter() {
             if (isDesignatedForSelection) {
                 if (currentIconIndex == 0)
-                    currentIconIndex = 2;
+                    currentIconIndex = numAlts - 1;
                 else {
                     currentIconIndex--;
                 }
@@ -89,7 +90,7 @@ namespace TacticsX.TeamBuilder
 
         public void NextCharacter() {
             if (isDesignatedForSelection) {
-                if (currentIconIndex == 2)
+                if (currentIconIndex == numAlts - 1)
                     currentIconIndex = 0;
                 else {
                     currentIconIndex++;
