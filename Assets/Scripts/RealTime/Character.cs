@@ -9,11 +9,13 @@ public abstract class CharacterEntity
     public float speed;
     public string prefab_name;
     public GameObject entity;
+    public int health;
 
     public CharacterEntity(float speed, string prefab_name) {
         this.speed = speed;
         this.prefab_name = prefab_name;
         this.entity = (GameObject) Object.Instantiate(Resources.Load(string.Format("Prefabs/{0}", prefab_name)));
+        this.health = 100;
     }
 
     public void Move()
@@ -50,4 +52,10 @@ public abstract class CharacterEntity
     public Quaternion get_rotation() {
         return entity.transform.rotation;
     }
+
+    public void minus_health(int amount) {
+      this.health -= amount;
+      Debug.Log("Ouch!");
+    }
+
 }
