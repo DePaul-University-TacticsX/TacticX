@@ -44,12 +44,14 @@ namespace TacticsX.TeamBuilder
 
         [Header("SETTINGS")]
         public int numAlts = 3;
+        public bool useCustomContent = false;
 
         [Header("EVENTS")]
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
         [HideInInspector] public Sprite[] previewIcons = new Sprite[3];
+        [HideInInspector] public int currentIconIndex = 0;
         [HideInInspector] public int currentIconIndex = 0;
 
         void Start()
@@ -80,6 +82,7 @@ namespace TacticsX.TeamBuilder
             if (isDesignatedForSelection) {
                 if (currentIconIndex == 0)
                     currentIconIndex = numAlts - 1;
+                    currentIconIndex = numAlts - 1;
                 else {
                     currentIconIndex--;
                 }
@@ -90,6 +93,7 @@ namespace TacticsX.TeamBuilder
 
         public void NextCharacter() {
             if (isDesignatedForSelection) {
+                if (currentIconIndex == numAlts - 1)
                 if (currentIconIndex == numAlts - 1)
                     currentIconIndex = 0;
                 else {
