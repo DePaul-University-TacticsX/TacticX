@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using TacticsX.Data;
 
-namespace Michsky.UI.Freebie
+namespace TacticsX.TeamBuilder
 {
     public class CharacterSelectManager : MonoBehaviour
     {
@@ -33,6 +34,12 @@ namespace Michsky.UI.Freebie
         [HideInInspector] public string currentName;
         [HideInInspector] public string currentType;
         [HideInInspector] public bool enableSelecting = true;
+        [HideInInspector] private const int countCharacterSelectButtons = 3;
+        [HideInInspector] public CharacterSelectButton[] team = new CharacterSelectButton[countCharacterSelectButtons];
+
+        [HideInInspector] public bool isInitialized { get; private set;}
+
+        //TODO add a section for character select buttons to add to team list
 
         void Start()
         {
@@ -44,6 +51,33 @@ namespace Michsky.UI.Freebie
             currentType = selectFirstLine;
             currentName = selectSecondLine;
             characterImage.sprite = selectCharaterIcon;
+
+            GetTeam();
+            LoadTeam();
+
+            isInitialized = true;
+        }
+
+        private void GetTeam() {
+            for (int i = 0; i < countCharacterSelectButtons; i++) {
+                team[i] = transform.GetChild(4).GetChild(i).GetComponent<CharacterSelectButton>();
+            }
+        }
+
+        public void SaveTeam() {
+            SaveManager.SaveTeamData(team);
+        }
+
+        public void LoadTeam() {
+            TeamData teamData = SaveManager.LoadTeamData();
+
+            if (teamData != null) {
+                for (int i = 0; i < team.Length; i++) {
+                    team[i].currentIconIndex = teamData.characterAlts[i];
+                    team[i].characterName = teamData.characterNames[i];
+                    team[i].UpdateIcons();
+                }
+            }
         }
 
         public void UpdateCharacter()

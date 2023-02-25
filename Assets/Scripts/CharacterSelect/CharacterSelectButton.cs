@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Events;
 using TMPro;
 
-namespace Michsky.UI.Freebie
+namespace TacticsX.TeamBuilder
 {
     public class CharacterSelectButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
@@ -52,8 +52,6 @@ namespace Michsky.UI.Freebie
 
         void Start()
         {
-            //TODO possibly load player data here?
-
             isDesignatedForSelection = false;
 
             previewIcons[0] = previewIcon0;
@@ -69,12 +67,10 @@ namespace Michsky.UI.Freebie
         public void UpdateUI()
         {
             characterText.text = characterName;
-            // previewImage.sprite = previewIcons[currentIconIndex];
         }
 
         private void SetAllCharacterSelectButtonsUndesignated() {
-            for (int i = 0; i < 3; i++) {
-                CharacterSelectButton btn = transform.parent.GetChild(i).GetComponent<CharacterSelectButton>();
+            foreach (CharacterSelectButton btn in characterManager.team) {
                 btn.isDesignatedForSelection = false;
             }
         }
@@ -103,8 +99,14 @@ namespace Michsky.UI.Freebie
             }
         }
 
-        private void UpdateIcons() {
+        public void UpdateIcons() {
             previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            previewImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
+            characterImage.sprite = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
         }
 
@@ -115,6 +117,9 @@ namespace Michsky.UI.Freebie
 
             if (enableButtonSounds == true && useSelectSound == true)
                 soundSource.PlayOneShot(selectSound);
+
+            //Save team to disk on character selection
+            characterManager.SaveTeam();
         }
 
         public void OnPointerEnter(PointerEventData eventData)

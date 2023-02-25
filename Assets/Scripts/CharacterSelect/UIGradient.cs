@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace UnityEngine.UI
 {
-    namespace Michsky.UI.Freebie
+    namespace TacticsX.TeamBuilder
     {
         public class UIGradient : BaseMeshEffect
         {
