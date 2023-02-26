@@ -343,7 +343,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.25
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -429,11 +429,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82873895030fb3a4988776d0b2a65ea8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  ObstacleRange: 100
   height: 2
+  speed: 2
   radius: 2
+  min_dist: 0
   seen: {x: 0, y: 0, z: 0}
+  target_distance: 0
+  isLooking: 0
+  look_count: 0
+  attack_count: 0
 --- !u!1 &995212508
 GameObject:
   m_ObjectHideFlags: 0
