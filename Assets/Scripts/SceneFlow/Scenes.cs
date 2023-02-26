@@ -11,5 +11,6 @@ public enum Scenes {
   GridDemo,
   BattleFieldRealTime,
   TeamBuilder,
-  TurnManagerDemo
+  TurnManagerDemo,
+  LevelSelect
 }
