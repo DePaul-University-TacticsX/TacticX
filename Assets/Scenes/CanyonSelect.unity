@@ -1059,8 +1059,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Deep in the Forest, rogues and bounty hunters lie waiting in ambush. Enemies
-    from all sides can appear!
+  m_text: Trapped on Both sides with elevated rock faces topped with enemy hunters
+    and mages! Fight fire with fire!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
