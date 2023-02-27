@@ -18,8 +18,8 @@ public class EnemyAI : MonoBehaviour {
   public float height = 2.0f;   // fix on the 2d plane
   
   // enemy stats
-  public float speed = 1.5f;     // same as the Archer
-  public float radius = 1f;   // radius of the raycast sphere
+  public float speed;  
+  public float radius;   // radius of the raycast sphere
   public float min_dist;    // some small length to stay back from the player
   
   // player info
@@ -34,7 +34,6 @@ public class EnemyAI : MonoBehaviour {
   public Looking isLooking;  
   
   // useful counts
-  public int look_count;
   public int attack_count;
 
 
@@ -42,14 +41,18 @@ public class EnemyAI : MonoBehaviour {
 
   void Start() {
     // static stats
-    deltime = 0f;
+    deltime = 0f;       // used later
     attackDelay = 80;   // in frames
 
-    // initialize the start position and melee range
+    // initialize the start position 
     transform.position = new Vector3(0, height, -25);
+    
+    // bounds on sight and melee range
+    this.min_dist = 0.15f;    // needs to be less than melee_range
     this.melee_range = 0.5f;
-    this.min_dist = 0.15f;    // needs to be less than range
-  
+    this.radius = 1f;    // radius of the raycast
+
+    this.speed = 1.5f;   // same speed as the archer
 
     // initialize what you see to be only yourself at first
     this.seen = this.transform.position;
@@ -59,8 +62,6 @@ public class EnemyAI : MonoBehaviour {
 
     // immediately start looking
     this.isLooking = Looking.LOOKING;
-
-    this.attack_count = 0;
 
   }
   
@@ -85,26 +86,25 @@ public class EnemyAI : MonoBehaviour {
         this.target_distance = float.MaxValue;
       }
 
-      ++look_count;
       this.isLooking= Looking.NOT_LOOKING;
     }
 
-    // always move closer, but only so close, while it is not melee range
     if ((this.isLooking == Looking.NOT_LOOKING)) {
       Vector3 TTP = this.transform.position;
       
+      // always move closer, but only so close, while it is not melee range
       if (not_close_yet()) {
         transform.Translate(speed*deltime*Math.Sign(seen.x - TTP.x), 0, speed*deltime*Math.Sign(seen.z - TTP.z));
+      }
+      // for when player is able to reach inside the minimum distance bound, move away
+      // this could get removed, once the left and right rays are added, and there is less of gap in the 2D vision
+      else {
+        transform.Translate(-1*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -1*speed*deltime*Math.Sign(seen.z - TTP.z));
       }
 
       // flip to not moving on a "delay" if needed
       flip_looking_on_with_delay();
     }
-
-    // if (this.IsInRange()) {
-    //   Debug.Log("in range");
-    //   Debug.Log(++this.range_count);
-    // }
 
     // if the enemy is in range and its time to attack
     canAttack();
@@ -125,7 +125,6 @@ public class EnemyAI : MonoBehaviour {
     else {
       return false;
     }
-
   }
 
   bool IsInRange() {
@@ -173,6 +172,7 @@ public class EnemyAI : MonoBehaviour {
 
   } 
 
-
+  
+  
 
 }
