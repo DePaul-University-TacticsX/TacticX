@@ -17,7 +17,7 @@ namespace TacticsX.TeamBuilder
         [HideInInspector] public Sprite characterIcon;
         [HideInInspector] public bool isDesignatedForSelection = false;
         public string characterName = "Character";
-        public string characterType = "Support";
+        public string characterType = "Type";
         [TextArea] public string characterInfo = "Character info here.";
         [TextArea] public string firstAbility = "First ability description here.";
         [TextArea] public string secondAbility = "Second ability description here.";
@@ -38,34 +38,35 @@ namespace TacticsX.TeamBuilder
         public CharacterSelectManager characterManager;
         public Image previewImage;
         public Image characterImage;
+        public TMP_InputField previewTextInput;
+        public TextMeshProUGUI previewText;
         public TextMeshProUGUI characterText;
 
         [Header("SETTINGS")]
-        public bool useCustomContent = false;
+        public int numAlts = 3;
 
         [Header("EVENTS")]
         public UnityEvent onCharacterClick;
         public UnityEvent onCharacterSelection;
 
         [HideInInspector] public Sprite[] previewIcons = new Sprite[3];
-        public int currentIconIndex = 0;
+        [HideInInspector] public int currentIconIndex = 0;
 
         void Start()
         {
-            isDesignatedForSelection = false;
+            UpdateUI();
+            
+            //Auto update name in this button when the character name is updated
+            previewTextInput.onValueChanged.AddListener(UpdateNameFromUI);
+        }
 
+        public void UpdateUI()
+        {
             previewIcons[0] = previewIcon0;
             previewIcons[1] = previewIcon1;
             previewIcons[2] = previewIcon2;
             characterIcon = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
-
-            if (useCustomContent == false)
-                UpdateUI();
-        }
-
-        public void UpdateUI()
-        {
             characterText.text = characterName;
         }
 
@@ -78,7 +79,7 @@ namespace TacticsX.TeamBuilder
         public void PrevCharacter() {
             if (isDesignatedForSelection) {
                 if (currentIconIndex == 0)
-                    currentIconIndex = 2;
+                    currentIconIndex = numAlts - 1;
                 else {
                     currentIconIndex--;
                 }
@@ -89,7 +90,7 @@ namespace TacticsX.TeamBuilder
 
         public void NextCharacter() {
             if (isDesignatedForSelection) {
-                if (currentIconIndex == 2)
+                if (currentIconIndex == numAlts - 1)
                     currentIconIndex = 0;
                 else {
                     currentIconIndex++;
@@ -108,6 +109,18 @@ namespace TacticsX.TeamBuilder
             characterImage.sprite = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
+        }
+
+        public void UpdateNameFromUI(string name) {
+            if (isDesignatedForSelection)
+                UpdateName(name);
+        }
+
+        public void UpdateName(string name) {
+            if (!string.IsNullOrEmpty(name) && name != "") {
+                characterName = name;
+                characterText.text = characterName;
+            }
         }
 
         public void SelectCharacter()
@@ -143,6 +156,9 @@ namespace TacticsX.TeamBuilder
         {
             SetAllCharacterSelectButtonsUndesignated();
             isDesignatedForSelection = true;
+
+            if (previewTextInput.text != characterName)
+                previewTextInput.text = characterName;
 
             if (enableButtonSounds == true && useClickSound == true)
                 soundSource.PlayOneShot(clickSound);
