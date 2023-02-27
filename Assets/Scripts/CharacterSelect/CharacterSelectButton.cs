@@ -44,7 +44,6 @@ namespace TacticsX.TeamBuilder
 
         [Header("SETTINGS")]
         public int numAlts = 3;
-        public bool useCustomContent = false;
 
         [Header("EVENTS")]
         public UnityEvent onCharacterClick;
