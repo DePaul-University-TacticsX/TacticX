@@ -75,6 +75,7 @@ namespace TacticsX.TeamBuilder
                 for (int i = 0; i < team.Length; i++) {
                     team[i].currentIconIndex = teamData.characterAlts[i];
                     team[i].characterName = teamData.characterNames[i];
+                    team[i].characterText.text = team[i].characterName;
                     team[i].UpdateIcons();
                 }
             }
