@@ -4,17 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickButton : MonoBehaviour {
-    public Scenes scene;
 
-    public void MyClick() {
-        TacticsXGameManager.GetScenes().NextScene(scene);
-    }
+  public Scenes scene;
 
-    void Update()
-    {
-        //TODO Add sound effect to give player confirmation?
-        //TODO Add proper fade transition to next scene
-        if (Input.anyKeyDown)
-            MyClick();
-    }
+  public void MyClick() {
+    TacticsXGameManager.GetScenes().NextScene(scene);
+  }
 }
