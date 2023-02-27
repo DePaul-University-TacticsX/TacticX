@@ -12,5 +12,8 @@ public enum Scenes {
   BattleFieldRealTime,
   TeamBuilder,
   TurnManagerDemo,
-  LevelSelect
+  LevelSelect,
+  ForestSelect,
+  CanyonSelect,
+  PierSelect
 }
