@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using TMPro;
 using static UnityEngine.CullingGroup;
 using System;
-using UnityEditor.VersionControl;
 
 public class DialogueManager : MonoBehaviour
 {
