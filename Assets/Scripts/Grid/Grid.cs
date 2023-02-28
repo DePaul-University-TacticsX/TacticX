@@ -15,6 +15,7 @@ namespace TacticsX.GridImplementation
         private CursorManager cursorManager;
         private AssetFactory assetFactory;
         private GridController gridController;
+        private DialogueManager dialogueManager;
 
         private GridCell selectedCell;
 
@@ -37,6 +38,7 @@ namespace TacticsX.GridImplementation
             cursorManager = new CursorManager();
             assetFactory = new AssetFactory();
             gridController = new GridController();
+            dialogueManager = new DialogueManager();
 
             cameraManager.SetCameraPosition(4, 4);
             TurnManager.AddTurnChangedObserver(OnTurnChanged);
@@ -62,14 +64,19 @@ namespace TacticsX.GridImplementation
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"), false);
 
             TurnManager.Build();
+
+            dialogueManager.UpdateDialogueState(DialogueState.Start);
         }
 
         private void Update()
         {
-            if (FindObjectOfType<DialogueManager>().isActive == true)
+            if (FindObjectOfType<DialogueManager>() != null)
             {
-                return;
-            }
+                if (FindObjectOfType<DialogueManager>().isActive == true)
+                {
+                    return;
+                }
+            }             
             if (FindObjectOfType<MiniGameManager>() != null)
             {
                 if(FindObjectOfType<MiniGameManager>().isActive == true)
