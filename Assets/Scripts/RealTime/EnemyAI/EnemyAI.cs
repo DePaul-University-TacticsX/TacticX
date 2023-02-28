@@ -14,21 +14,27 @@ public enum Looking {
 
 public class EnemyAI : MonoBehaviour {
   
-  // scene stats
-  public float height = 2.0f;   // fix on the 2d plane
-  
-  // enemy stats
-  public float speed;  
-  public float radius;   // radius of the raycast sphere
-  public float min_dist;    // some small length to stay back from the player
-  
-  // player info
-  public Vector3 seen;      // position of the "seen" target, when spotted
-  public float target_distance;  // distance when starteed
+  // the enemy this at instance is controlling
+  // some Enemy or derived from Enemy
+  public static Enemy enemy;
 
-  // statics, may add to them
+  // enemy stats, grabbed from Enemy
+  public float speed;  
+  float melee_range;
+
+  // static scene stats 
   static float deltime;     // Time.delTime is about 0.01f
-  static int attackDelay;     // used to determine how many frames to pass before attacking
+
+  
+  // instance scene stats
+  float radius;   // radius of the raycast sphere
+  int attackDelay;     // used to determine how many frames to pass before attacking
+  float min_dist;    // some small length to stay back from the player
+
+  
+  // instance variables for player/target info 
+  Vector3 seen;      // position of the "seen" target, when spotted
+  float target_distance;  // distance when started
 
   // look to calculate where to move, don't look while moving
   public Looking isLooking;  
@@ -37,22 +43,14 @@ public class EnemyAI : MonoBehaviour {
   public int attack_count;
 
 
-  float melee_range;
+  public static void SetEnemy(Enemy _enemy) {
+    enemy = _enemy;
+  }
 
   void Start() {
-    // static stats
-    deltime = 0f;       // used later
-    attackDelay = 80;   // in frames
-
-    // initialize the start position 
-    transform.position = new Vector3(0, height, -25);
-    
     // bounds on sight and melee range
     this.min_dist = 0.15f;    // needs to be less than melee_range
-    this.melee_range = 0.5f;
-    this.radius = 1f;    // radius of the raycast
-
-    this.speed = 1.5f;   // same speed as the archer
+    this.radius = 3.0f;    // radius of the raycast
 
     // initialize what you see to be only yourself at first
     this.seen = this.transform.position;
@@ -63,8 +61,19 @@ public class EnemyAI : MonoBehaviour {
     // immediately start looking
     this.isLooking = Looking.LOOKING;
 
+    // static stats
+    deltime = 0f;       // used later
+    attackDelay = 80;   // in frames  
+    
   }
   
+  void Awake() {   // on instantiate objs during runtime, this is called after start
+    // initialize this specific Enemy stats
+    this.speed = enemy.GetSpeed();
+    this.melee_range = enemy.GetRange();
+    transform.position = enemy.GetPosition();  
+  }
+
   void Update() {
 
     // adds a little delay, more of a hack for now
@@ -99,7 +108,8 @@ public class EnemyAI : MonoBehaviour {
       // for when player is able to reach inside the minimum distance bound, move away
       // this could get removed, once the left and right rays are added, and there is less of gap in the 2D vision
       else {
-        transform.Translate(-1*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -1*speed*deltime*Math.Sign(seen.z - TTP.z));
+        // move away at a quarter the enemy's speed
+        transform.Translate(0.25f*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -0.25f*speed*deltime*Math.Sign(seen.z - TTP.z));
       }
 
       // flip to not moving on a "delay" if needed
@@ -147,7 +157,8 @@ public class EnemyAI : MonoBehaviour {
   bool SeeAndCast(Ray ray) {
     RaycastHit hit;
     // SphereCast: casts a sphere of radius, along the ray, returns info on what was hit
-    bool isSeen = Physics.SphereCast(ray, this.radius, out hit); 
+    // if an object is seen and it is a player
+    bool isSeen = Physics.SphereCast(ray, this.radius, out hit);  
     if (isSeen) {
       this.seen = hit.transform.position;
       deltime = 0.01f;    // approximate Time.delTime
@@ -167,7 +178,7 @@ public class EnemyAI : MonoBehaviour {
   } 
 
   public static void AttackPlayer(int amount) {
-    Debug.Log($"attack player by {amount}");
+    Debug.Log($"attack of {amount}");
     // RTManager.DecreaseHealth(RTManager.getActive(), amount);
 
   } 
