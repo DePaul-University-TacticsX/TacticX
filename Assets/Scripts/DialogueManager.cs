@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEngine.CullingGroup;
+using System;
+using UnityEditor.VersionControl;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -11,12 +14,53 @@ public class DialogueManager : MonoBehaviour
     public TMP_Text messageText;
     public RectTransform backgroundBox;
     public TMP_Text buttonText;
+    public static DialogueManager manager;
+    public DialogueState State;
+    public static event Action<DialogueState> OnStateChanged;
 
     Message[] currentMessages;
     Actor[] currentActors;
     int activeMessage = 0;
     public bool isActive = false;
 
+    private void Awake()
+    {
+        if (manager == null)
+        {
+            manager = this;
+            isActive = true;
+            //DontDestroyOnLoad(this);
+        }
+        else if (manager == this)
+        {
+            Destroy(gameObject);
+        }
+
+    }
+
+    public void UpdateDialogueState(DialogueState newState)
+    {
+        State = newState;
+
+        switch (newState)
+        {
+            case DialogueState.Win:
+                Instantiate(Resources.Load<GameObject>("WinDialogue"));
+                break;
+            case DialogueState.Lose:
+                Instantiate(Resources.Load<GameObject>("LoseDialogue"));
+                break;
+            case DialogueState.Start:
+                Instantiate(Resources.Load<GameObject>("StartDialogue"));
+                FindObjectOfType<DialogueTrigger>().StartDialogue();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+
+        }
+
+        OnStateChanged?.Invoke(newState);
+    }
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
         currentMessages = messages;
@@ -46,6 +90,7 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("Dialogue ended.");
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
             isActive = false;
+            Destroy(transform.gameObject.GetComponentInParent<Canvas>().gameObject);
         }
     }
 
@@ -67,4 +112,11 @@ public class DialogueManager : MonoBehaviour
     {
         backgroundBox.transform.localScale = Vector3.zero;
     }
+}
+
+public enum DialogueState
+{
+    Start,
+    Win,
+    Lose
 }
