@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
+using TacticsX.SoundEngine;
 
 namespace TacticsX.GridImplementation
 {
@@ -65,7 +66,11 @@ namespace TacticsX.GridImplementation
 
             TurnManager.Build();
 
+
             dialogueManager.UpdateDialogueState(DialogueState.Start);
+
+            //here for testing, can be removed for sprint 4
+            MusicManager.Play(MusicType.Music_01);
         }
 
         private void Update()
