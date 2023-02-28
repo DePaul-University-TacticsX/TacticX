@@ -34,7 +34,6 @@ public class MySceneManager : MonoBehaviour, IManager {
     CurrentScene = Scenes.Sprint2DemoMenu;
     
     this.LStatus = LoadStatus.COMPLETE;
-
   }
 
   // Next() is called in TXGameManager and has transition elements added
