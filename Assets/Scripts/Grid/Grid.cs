@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
+using TacticsX.SoundEngine;
 
 namespace TacticsX.GridImplementation
 {
@@ -62,6 +63,9 @@ namespace TacticsX.GridImplementation
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"), false);
 
             TurnManager.Build();
+
+            //here for testing, can be removed for sprint 4
+            MusicManager.Play(MusicType.Music_01);
         }
 
         private void Update()

@@ -29,7 +29,7 @@ namespace TacticsX.SoundEngine
 
         public void Set(SoundEffectType soundEffectType)
         {
-            mAudioSource.clip = SoundLibrary.GetSoundEffect(soundEffectType);
+            mAudioSource.clip = SoundLibrary.Get(soundEffectType);
             gameObject.SetActive(true);
             mAudioSource.Play();
         }
