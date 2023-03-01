@@ -73,10 +73,7 @@ public class MiniGameManager : MonoBehaviour
             case PowerUpType.Damage:
                 break;
             case PowerUpType.Movement:
-                if (TurnManager.GetCurrentTurn().DidMove == true)
-                {
-                    TurnManager.GetCurrentTurn().DidMove = false;
-                }
+                 TurnManager.GetCurrentTurn().DidMove = false;
                 break;
             case PowerUpType.Health:
                 break;
