@@ -11,6 +11,7 @@ public class MiniGameManager : MonoBehaviour
     public static event Action<MiniGameState> OnStateChanged;
     public static MiniGameManager manager;
     public MiniGameState State;
+    public PowerUpType PowerUpType;
     public int selectedMiniGame;
     public bool isActive = false;
 
@@ -45,6 +46,7 @@ public class MiniGameManager : MonoBehaviour
                 ExitMenuHandler();
                 break;
             case MiniGameState.MiniGameWon:
+                HandleMiniGameWin();
                 break;
             case MiniGameState.MiniGameLost:
                 break;
@@ -54,6 +56,28 @@ public class MiniGameManager : MonoBehaviour
         }
 
         OnStateChanged?.Invoke(newState);
+    }
+
+    private void HandleMiniGameWin()
+    {
+        switch (PowerUpType)
+        {
+            case PowerUpType.MultiAttack:
+                if (TurnManager.GetCurrentTurn().DidAttack == true)
+                {
+                    TurnManager.GetCurrentTurn().DidAttack = false;
+                }
+                break;
+            case PowerUpType.Defence:
+                break;
+            case PowerUpType.Damage:
+                break;
+            case PowerUpType.Movement:
+                 TurnManager.GetCurrentTurn().DidMove = false;
+                break;
+            case PowerUpType.Health:
+                break;
+        }
     }
 
     private void LoadMiniGameInstructionsHandler()
@@ -116,4 +140,14 @@ public enum MiniGameState
     ExitMiniGameMenu,
     MiniGameWon,
     MiniGameLost
+}
+
+
+public enum PowerUpType
+{
+    Health,
+    MultiAttack,
+    Defence,
+    Movement,
+    Damage
 }

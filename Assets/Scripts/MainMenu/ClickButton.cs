@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ClickButton : MonoBehaviour {
     public Scenes scene;
+    public bool anyKeyEnabled;
 
     public void MyClick() {
         TacticsXGameManager.GetScenes().NextScene(scene);
@@ -14,7 +15,6 @@ public class ClickButton : MonoBehaviour {
     {
         //TODO Add sound effect to give player confirmation?
         //TODO Add proper fade transition to next scene
-        if (Input.anyKeyDown)
-            MyClick();
+        if (anyKeyEnabled && Input.anyKeyDown) MyClick();
     }
 }

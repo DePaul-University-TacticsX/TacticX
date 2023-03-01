@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
+using TacticsX.SoundEngine;
 
 namespace TacticsX.GridImplementation
 {
@@ -15,6 +16,7 @@ namespace TacticsX.GridImplementation
         private CursorManager cursorManager;
         private AssetFactory assetFactory;
         private GridController gridController;
+        private DialogueManager dialogueManager;
 
         private GridCell selectedCell;
 
@@ -37,6 +39,7 @@ namespace TacticsX.GridImplementation
             cursorManager = new CursorManager();
             assetFactory = new AssetFactory();
             gridController = new GridController();
+            dialogueManager = new DialogueManager();
 
             cameraManager.SetCameraPosition(4, 4);
             TurnManager.AddTurnChangedObserver(OnTurnChanged);
@@ -60,16 +63,26 @@ namespace TacticsX.GridImplementation
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 3), Resources.Load<Sprite>("Textures/warrior"),false);
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Archer, 0, 2), Resources.Load<Sprite>("Textures/archer"), false);
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"), false);
+            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 6), Resources.Load<Sprite>("Textures/warrior"), true);
 
             TurnManager.Build();
+
+
+            dialogueManager.UpdateDialogueState(DialogueState.Start);
+
+            //here for testing, can be removed for sprint 4
+            MusicManager.Play(MusicType.Music_01);
         }
 
         private void Update()
         {
-            if (FindObjectOfType<DialogueManager>().isActive == true)
+            if (FindObjectOfType<DialogueManager>() != null)
             {
-                return;
-            }
+                if (FindObjectOfType<DialogueManager>().isActive == true)
+                {
+                    return;
+                }
+            }             
             if (FindObjectOfType<MiniGameManager>() != null)
             {
                 if(FindObjectOfType<MiniGameManager>().isActive == true)

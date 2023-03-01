@@ -8,6 +8,7 @@ public abstract class CharacterEntity
     public float direction = 1.0f;
     public float speed;
     public string prefab_name;
+    public string name;
     public GameObject entity;
     public int health;
 
@@ -16,6 +17,7 @@ public abstract class CharacterEntity
         this.prefab_name = prefab_name;
         this.entity = (GameObject) Object.Instantiate(Resources.Load(string.Format("Prefabs/{0}", prefab_name)));
         this.health = 100;
+        this.name = "player";
     }
 
     public void Move()
