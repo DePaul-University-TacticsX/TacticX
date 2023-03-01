@@ -63,6 +63,7 @@ namespace TacticsX.GridImplementation
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 3), Resources.Load<Sprite>("Textures/warrior"),false);
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Archer, 0, 2), Resources.Load<Sprite>("Textures/archer"), false);
             TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"), false);
+            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 6), Resources.Load<Sprite>("Textures/warrior"), true);
 
             TurnManager.Build();
 
