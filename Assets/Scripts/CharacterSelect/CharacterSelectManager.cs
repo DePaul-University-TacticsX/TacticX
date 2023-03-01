@@ -60,7 +60,8 @@ namespace TacticsX.TeamBuilder
 
         private void GetTeam() {
             for (int i = 0; i < countCharacterSelectButtons; i++) {
-                team[i] = transform.GetChild(4).GetChild(i).GetComponent<CharacterSelectButton>();
+                //The Character List should always be the last child of Character Selection
+                team[i] = transform.GetChild(transform.childCount - 1).GetChild(i).GetComponent<CharacterSelectButton>();
             }
         }
 
