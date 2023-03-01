@@ -11,6 +11,7 @@ namespace TacticsX.SoundEngine
         {
             source = new GameObject("Music").AddComponent<AudioSource>();
             source.loop = true;
+            Object.DontDestroyOnLoad(source.gameObject);
         }
 
         public static void Play(MusicType musicType)
