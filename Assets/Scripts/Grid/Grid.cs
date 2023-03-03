@@ -24,6 +24,8 @@ namespace TacticsX.GridImplementation
 
         private int row;
         private int column;
+        private List<GamePiece> listPC = new List<GamePiece>();
+        private List<GamePiece> listNPC = new List<GamePiece>();
 
         private void Awake()
         {
@@ -58,20 +60,26 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 4, 0);
             AddGamePiece(GamePieceType.Well, 0, 4);
 
-
             // Player Army.
-            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 3), Resources.Load<Sprite>("Textures/warrior"),false);
-            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Archer, 0, 2), Resources.Load<Sprite>("Textures/archer"), false);
-            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Mage, 0, 1), Resources.Load<Sprite>("Textures/mage"), false);
-            TurnManager.AddParticipant(AddGamePiece(GamePieceType.Warrior, 0, 6), Resources.Load<Sprite>("Textures/warrior"), true);
+            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3);
+            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2);
+            GamePiece pcMage        = AddGamePiece(GamePieceType.Mage, 0, 1);
+            GamePiece npcWarrior    = AddGamePiece(GamePieceType.Warrior, 0, 6);
 
-            TurnManager.Build();
+            TurnManager.AddParticipant(pcWarrior, Resources.Load<Sprite>("Textures/warrior"), false);
+            TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Textures/archer"), false);
+            TurnManager.AddParticipant(pcMage, Resources.Load<Sprite>("Textures/mage"), false);
+            TurnManager.AddParticipant(npcWarrior, Resources.Load<Sprite>("Textures/warrior"), true);
 
+            listPC.Add(pcWarrior);
+            listPC.Add(pcArcher);
+            listPC.Add(pcMage);
+
+            listNPC.Add(npcWarrior);
+
+            TurnManager.Build(true);
 
             dialogueManager.UpdateDialogueState(DialogueState.Start);
-
-            //here for testing, can be removed for sprint 4
-            MusicManager.Play(MusicType.Music_01);
         }
 
         private void Update()
@@ -129,6 +137,11 @@ namespace TacticsX.GridImplementation
             if (Input.GetKeyDown(KeyCode.E))
             {
                 GridController.SetState(ControllerState.EndingTurn);
+            }
+
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                RemoveGamePiece(TurnManager.GetCurrentTurn().GamePiece,true);
             }
         }
 
@@ -203,6 +216,11 @@ namespace TacticsX.GridImplementation
             return Instance.privAddGamePiece(piece, row, column);
         }
 
+        public static void RemoveGamePiece(GamePiece piece,bool isParticipant)
+        {
+            Instance.privRemoveGamePiece(piece, isParticipant);            
+        }
+
         private GamePiece privAddGamePiece(GamePieceType piece, int row, int column)
         {
             GamePiece newGamePiece = (GamePiece) assetFactory.Get(piece);
@@ -210,6 +228,36 @@ namespace TacticsX.GridImplementation
             grid.SetNode(newGamePiece, cell);
             newGamePiece.SetPosition(cell.GetPosition());
             return newGamePiece;
+        }
+
+        private void privRemoveGamePiece(GamePiece piece, bool isParticipant)
+        {
+            Instance.grid.RemoveNode(piece);
+            
+            if (isParticipant)
+            {
+                TurnManager.RemoveParticipant(piece);
+
+                if(listPC.Contains(piece))
+                {
+                    listPC.Remove(piece);
+                }
+                else if(listNPC.Contains(piece))
+                {
+                    listNPC.Remove(piece);
+                }
+
+                if(listPC.Count == 0)
+                {
+                    Debug.Log("AI WINS");
+                }
+                else if(listNPC.Count == 0)
+                {
+                    Debug.Log("PLAYER WINS");
+                }
+            }
+
+            piece.Destroy();
         }
 
         private void OnTurnChanged(Turn turn)

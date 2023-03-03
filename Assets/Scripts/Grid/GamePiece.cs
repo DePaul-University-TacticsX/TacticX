@@ -25,6 +25,11 @@ namespace TacticsX.GridImplementation
             gameObject.SetActive(false);
         }
 
+        public override void Destroy()
+        {
+            Object.Destroy(gameObject);
+        }
+
         public override void SetPosition(float x, float y)
         {
             gameObject.transform.position = new Vector3(x, 0, y);            
