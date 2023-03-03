@@ -9,13 +9,11 @@ namespace TacticsX.Grid
         
         public Cell cell;
 
-        protected void Init()
-        {
-
-        }
+        protected void Init() {}
 
         public abstract void Show();
         public abstract void Hide();
+        public abstract void Destroy();
         public abstract void SetPosition(float x, float y);
         public abstract void MoveToPosition(float x, float y);
     }
