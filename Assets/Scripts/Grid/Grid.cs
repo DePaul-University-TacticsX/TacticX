@@ -235,9 +235,7 @@ namespace TacticsX.GridImplementation
             Instance.grid.RemoveNode(piece);
             
             if (isParticipant)
-            {
-                TurnManager.RemoveParticipant(piece);
-
+            {                
                 if(listPC.Contains(piece))
                 {
                     listPC.Remove(piece);
@@ -250,11 +248,15 @@ namespace TacticsX.GridImplementation
                 if(listPC.Count == 0)
                 {
                     Debug.Log("AI WINS");
+                    return;
                 }
                 else if(listNPC.Count == 0)
                 {
                     Debug.Log("PLAYER WINS");
+                    return;
                 }
+
+                TurnManager.RemoveParticipant(piece);
             }
 
             piece.Destroy();
