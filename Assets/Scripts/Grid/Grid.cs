@@ -248,11 +248,13 @@ namespace TacticsX.GridImplementation
                 if(listPC.Count == 0)
                 {
                     Debug.Log("AI WINS");
+                    dialogueManager.UpdateDialogueState(DialogueState.Lose);
                     return;
                 }
                 else if(listNPC.Count == 0)
                 {
                     Debug.Log("PLAYER WINS");
+                    dialogueManager.UpdateDialogueState(DialogueState.Win);
                     return;
                 }
 

@@ -90,6 +90,14 @@ public class DialogueManager : MonoBehaviour
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo();
             isActive = false;
             Destroy(transform.gameObject.GetComponentInParent<Canvas>().gameObject);
+            if (State == DialogueState.Win)
+            {
+                Instantiate(Resources.Load<GameObject>("WinMenu"));
+            }
+            else if (State == DialogueState.Lose)
+            {
+                Instantiate(Resources.Load<GameObject>("LoseMenu"));
+            }
         }
     }
 

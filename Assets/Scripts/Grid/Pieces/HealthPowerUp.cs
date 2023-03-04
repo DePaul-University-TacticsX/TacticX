@@ -15,6 +15,8 @@ public class HealthPowerUp : GamePiece
         Debug.Log("HealthPowerUp Action");
 
         _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
+        Object.FindObjectOfType<MiniGameManager>().PowerUpType = PowerUpType.Health;
+        TacticsX.GridImplementation.Grid.RemoveGamePiece(this, false);
     }
 
 }
