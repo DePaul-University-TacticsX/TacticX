@@ -14,6 +14,8 @@ public class DefencePowerUp : GamePiece
     {
         Debug.Log("DefencePowerUp Action");
         _ = Object.Instantiate(Resources.Load("Minigame menu prefab")) as GameObject;
+        Object.FindObjectOfType<MiniGameManager>().PowerUpType = PowerUpType.Defence;
+        TacticsX.GridImplementation.Grid.RemoveGamePiece(this, false);
     }
 
 }
