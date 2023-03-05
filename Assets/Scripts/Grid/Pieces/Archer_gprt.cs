@@ -13,6 +13,6 @@ public class Archer_gprt : GamePiece
 
     public override void DoAction()
     {
-        Debug.Log("Archer Do some action");
+        BattleManager.StartBattle(TurnManager.GetCurrentTurn(), TurnManager.FindParticipant(this));
     }
 }

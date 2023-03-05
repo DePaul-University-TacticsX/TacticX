@@ -14,7 +14,6 @@ public class Warrior_gprt : GamePiece
 
     public override void DoAction()
     {
-        Debug.Log("Warrior Do some action");
-        TacticsXGameManager.GetScenes().NextScene(Scenes.BattleFieldRealTime);
+        BattleManager.StartBattle(TurnManager.GetCurrentTurn(), TurnManager.FindParticipant(this));        
     }
 }

@@ -14,5 +14,6 @@ public class Mage_gprt : GamePiece
     public override void DoAction()
     {
         Debug.Log("Mage Do some action");
+        BattleManager.StartBattle(TurnManager.GetCurrentTurn(), TurnManager.FindParticipant(this));
     }
 }
