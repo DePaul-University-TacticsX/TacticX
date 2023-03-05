@@ -12,9 +12,9 @@ public class BattleManager
         GetInstance().privStartBattle(player1, player2);
     }
 
-    public static void CompleteBattle(Participant winner)
+    public static void CompleteBattle(Participant loser)
     {
-        GetInstance().privCompleteBattle(winner);
+        GetInstance().privCompleteBattle(loser);
     }
 
     public static Participant GetPlayer1()
