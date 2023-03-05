@@ -264,7 +264,7 @@ namespace TacticsX.GridImplementation
             piece.Destroy();
         }
 
-        private void OnTurnChanged(Turn turn)
+        private void OnTurnChanged(Participant turn)
         {
             row = turn.GamePiece.cell.ROW;
             column = turn.GamePiece.cell.COLUMN;

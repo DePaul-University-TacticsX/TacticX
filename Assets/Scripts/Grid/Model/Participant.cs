@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace TacticsX.GridImplementation
 {
-    public class Turn
+    public class Participant
     {
         public GamePiece GamePiece { get; private set; }
         public Sprite Sprite { get; private set; }
@@ -12,16 +12,16 @@ namespace TacticsX.GridImplementation
         public bool DidAttack;
         public bool DidUseItem;
 
-        public Turn(GamePiece gamePiece,Sprite sprite,bool isAI)
+        public Participant(GamePiece gamePiece,Sprite sprite,bool isAI)
         {
             GamePiece = gamePiece;
             Sprite = sprite;
             AI = isAI;
         }
 
-        public Turn Clone()
+        public Participant Clone()
         {
-            return new Turn(GamePiece, Sprite, AI);
+            return new Participant(GamePiece, Sprite, AI);
         }
     }
 }
