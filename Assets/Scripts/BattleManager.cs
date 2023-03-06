@@ -1,4 +1,5 @@
 using TacticsX.GridImplementation;
+using UnityEngine.Analytics;
 
 public class BattleManager
 {
@@ -10,11 +11,13 @@ public class BattleManager
     public static void StartBattle(Participant player1, Participant player2)
     {
         GetInstance().privStartBattle(player1, player2);
+        Analytics.CustomEvent("Battle Started");
     }
 
     public static void CompleteBattle(Participant loser)
     {
         GetInstance().privCompleteBattle(loser);
+        Analytics.CustomEvent("Battle Complete");
     }
 
     public static Participant GetPlayer1()

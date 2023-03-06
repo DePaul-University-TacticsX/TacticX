@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using TacticsX.SoundEngine;
+using UnityEngine.Analytics;
 
 [RequireComponent(typeof(MySceneManager))]
 
@@ -29,6 +30,7 @@ public class TacticsXGameManager : MonoBehaviour
         StartCoroutine(StartupManagers());
 
         MusicManager.Play(MusicType.Music_01);
+        Analytics.CustomEvent("Game Start");
     }
 
     private IEnumerator StartupManagers()
