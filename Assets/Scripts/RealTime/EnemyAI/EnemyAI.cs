@@ -19,24 +19,25 @@ public enum Moving {
 
 public class EnemyAI : MonoBehaviour {
   
-  // the enemy this at instance is controlling
-  // some Enemy or derived from Enemy
+
+  // this enemy comes from the EnemyManager 
+  // the Enemy manager resets this for the creation of a new EmemyAI 
+  // these stats are copied locally into "this" enemy
   public static Enemy enemy;
 
   // enemy stats, grabbed from Enemy
   public float speed;  
-  float melee_range;
+  public float melee_range;
 
   // static scene stats 
-  static float deltime;     // Time.delTime is about 0.01f
-  static float moveDelay;
+  static float deltime = 0.0f;     // set to Time.smoothDeltaTime later
+  static float lookDelay = 40;
   
-  // instance scene stats
+  // instance enemy stats
   float radius;   // radius of the raycast sphere
   int attackDelay;     // used to determine how many frames to pass before attacking
   float min_dist;    // some small length to stay back from the player
 
-  
   // instance variables for player/target info 
   Vector3 seen;      // position of the "seen" target, when spotted
   public float target_distance;  // distance when started
@@ -44,36 +45,32 @@ public class EnemyAI : MonoBehaviour {
   // look to calculate where to move, don't look while moving
   public Looking isLooking;  
 
-  // useful counts
-  public int attack_count;
 
   public static void SetEnemy(Enemy _enemy) {
     enemy = _enemy;
   }
 
-  void Start() {
-    // bounds on sight and melee range
-    this.min_dist = 1.0f;    // needs to be less than melee_range
-    this.radius = 3.0f;    // radius of the raycast
+  void Start() {    
+
+    // bounds on sight, closeness, and melee range
+    this.radius = 3.0f;    
+    this.attackDelay = 80 * 2;  
+    this.min_dist = 0.45f;  
 
     // initialize what you see to be only yourself at first
     this.seen = this.transform.position;
 
-    // assume the distance is way too far way
+    // assume the distance to player is way too far way
     this.target_distance = float.MaxValue;
 
-    // immediately start looking
-    this.isLooking = Looking.NOT_LOOKING;
-
-    // static stats
-    deltime = 0f;       // used later
-    attackDelay = 40 * 3;   // in frames  
-    moveDelay = 80 * 2;
+    // start as not looking
+    this.isLooking = Looking.NOT_LOOKING;    
 
   }
   
-  void Awake() {   // on instantiate objs during runtime, this is called after start
-    // initialize this specific Enemy stats
+  void Awake() {   
+    // on instantiate objs during runtime, this is called after start
+    // initialize this with specific Enemy stats
     this.speed = enemy.GetSpeed();
     this.melee_range = enemy.GetRange();
     transform.position = enemy.GetPosition();  
@@ -83,6 +80,7 @@ public class EnemyAI : MonoBehaviour {
 
     // adds a little delay, more of a hack for now
     flip_looking_on_with_delay();
+
     if (this.isLooking == Looking.LOOKING) {
 
       this.decide_target();
@@ -90,22 +88,13 @@ public class EnemyAI : MonoBehaviour {
     }
     else {
 
-
+      // move closer to player, if they are not close yet
       Vector3 TTP = this.transform.position;  
-      // if (not_close_yet()) {
-      transform.Translate(speed*deltime*Math.Sign(seen.x - TTP.x), 0, speed*deltime*Math.Sign(seen.z - TTP.z));
-      // }
-      // for when player is able to reach inside the minimum distance bound, move away
-      // this could get removed, once the left and right rays are added, and there is less of gap in the 2D vision
-      // else {
-        // move away at a quarter the enemy's speed
-        // transform.Translate(0.25f*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -0.25f*speed*deltime*Math.Sign(seen.z - TTP.z));
-      // }
+      if (not_close_yet()) {
+        transform.Translate(speed*deltime*Math.Sign(seen.x - TTP.x), 0, speed*deltime*Math.Sign(seen.z - TTP.z));
+      }
     }
     
-
-    // if the enemy is in range and its time to attack
-    canAttack();
   }
 
   void decide_target() {
@@ -120,30 +109,31 @@ public class EnemyAI : MonoBehaviour {
     behindDirection.z = -1 * behindDirection.z;    // flip to look behind
     bool see_target_behind = SeeAndCast(new Ray(ray.origin, behindDirection));
 
-    // actually set the target data
+    // makes the choice and sets the stats correctly
     if (see_target_ahead == true) {
       SeeAndCast(ray);   // actually set the target stats needed
       this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
     }
     else if (see_target_behind == true) {
       SeeAndCast(new Ray(ray.origin, behindDirection));   
       this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
     }
     else {
       this.isLooking = Looking.LOOKING;
       
-      // move a step closer in z direction to 0,0 
+      // move a step closer in z direction to z = 0
       transform.Translate(0, 0, -1*speed*deltime*Math.Sign(transform.position.z));
-      this.target_distance = float.MaxValue;
     }
+
+   
 
   }
 
   void canAttack() {
-    // made it depend only on the same delay as when they are moving for now
     if ((Time.frameCount % attackDelay == 0) && IsInRange()) {
       AttackPlayer(1);
-      ++this.attack_count;
     }
   }
 
@@ -166,27 +156,27 @@ public class EnemyAI : MonoBehaviour {
   }
 
   void flip_looking_on_with_delay() {
-    if (Time.frameCount % moveDelay == 0) {
+    if (Time.frameCount % lookDelay == 0) {
       this.isLooking = Looking.LOOKING;
     }
-    // always look for now
-    // this.isLooking = Looking.LOOKING;
   }
 
   bool SeeAndCast(Ray ray) {
+    
     RaycastHit hit;
+
     // SphereCast: casts a sphere of radius, along the ray, returns info on what was hit
     // if an object is seen and it is a player
     bool isSeen = Physics.SphereCast(ray, this.radius, out hit);  
     if (isSeen) {
       this.seen = hit.transform.position;
-      deltime = 0.01f;    // approximate Time.delTime
+      deltime = Time.smoothDeltaTime;    // approximatly 0.01 on my machine
       this.target_distance = hit.distance;
-      // Check(seen, 0, "RaycastHit");
     }
     return isSeen;
   }
 
+  // for debugging
   static void Check(System.Object obj, int sec, string label) {
     if (sec == 0) {
       Debug.Log($"{label}:\n{obj}");  
@@ -195,6 +185,7 @@ public class EnemyAI : MonoBehaviour {
       Debug.Log($"{label}:\n{obj}");     
     }
   } 
+
 
   public static void AttackPlayer(int amount) {
     Debug.Log($"attack of {amount}");

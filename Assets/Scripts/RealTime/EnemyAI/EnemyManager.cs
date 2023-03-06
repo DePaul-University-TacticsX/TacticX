@@ -8,17 +8,17 @@ public class EnemyManager : MonoBehaviour {
 
   void Start() {
     
-    // speed (in between warrior and archer), range, position
+    // speed, range, position
     
-    // EnemyAI.SetEnemy(new Enemy(3.5f, 0.3f, new Vector3(-5, height, 0)));
-    // EnemyAI en1 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
+    EnemyAI.SetEnemy(new Enemy(3.5f, 0.3f, new Vector3(-5, height, 0)));
+    EnemyAI en1 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
     
     // // this demon is slightly slower
-    // EnemyAI.SetEnemy(new Enemy(3.0f, 0.3f, new Vector3(5, height, -20)));
-    // EnemyAI en2 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
+    EnemyAI.SetEnemy(new Enemy(3.0f, 0.3f, new Vector3(5, height, -20)));
+    EnemyAI en2 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
     
     // barbarian is much slower
-    EnemyAI.SetEnemy(new Enemy(0.75f, 0.3f, new Vector3(-5, height, -20)));
+    EnemyAI.SetEnemy(new Enemy(1.5f, 0.75f, new Vector3(-5, height, -20)));
     EnemyAI en3 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Barbarian"));
   }
 
@@ -26,4 +26,3 @@ public class EnemyManager : MonoBehaviour {
   
   }
 }
-
