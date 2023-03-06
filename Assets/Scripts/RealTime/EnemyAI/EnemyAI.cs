@@ -9,6 +9,11 @@ public enum Looking {
   NOT_LOOKING
 }
 
+public enum Moving {
+  MOVING,
+  NOT_MOVING
+}
+
 // Only see in intervals, while Looking, compute the rays, and move while not looking
 // always move up until in range, then attack
 
@@ -24,7 +29,7 @@ public class EnemyAI : MonoBehaviour {
 
   // static scene stats 
   static float deltime;     // Time.delTime is about 0.01f
-
+  static float moveDelay;
   
   // instance scene stats
   float radius;   // radius of the raycast sphere
@@ -34,14 +39,13 @@ public class EnemyAI : MonoBehaviour {
   
   // instance variables for player/target info 
   Vector3 seen;      // position of the "seen" target, when spotted
-  float target_distance;  // distance when started
+  public float target_distance;  // distance when started
 
   // look to calculate where to move, don't look while moving
   public Looking isLooking;  
-  
+
   // useful counts
   public int attack_count;
-
 
   public static void SetEnemy(Enemy _enemy) {
     enemy = _enemy;
@@ -49,7 +53,7 @@ public class EnemyAI : MonoBehaviour {
 
   void Start() {
     // bounds on sight and melee range
-    this.min_dist = 0.15f;    // needs to be less than melee_range
+    this.min_dist = 1.0f;    // needs to be less than melee_range
     this.radius = 3.0f;    // radius of the raycast
 
     // initialize what you see to be only yourself at first
@@ -59,12 +63,13 @@ public class EnemyAI : MonoBehaviour {
     this.target_distance = float.MaxValue;
 
     // immediately start looking
-    this.isLooking = Looking.LOOKING;
+    this.isLooking = Looking.NOT_LOOKING;
 
     // static stats
     deltime = 0f;       // used later
-    attackDelay = 80;   // in frames  
-    
+    attackDelay = 40 * 3;   // in frames  
+    moveDelay = 80 * 2;
+
   }
   
   void Awake() {   // on instantiate objs during runtime, this is called after start
@@ -77,47 +82,61 @@ public class EnemyAI : MonoBehaviour {
   void Update() {
 
     // adds a little delay, more of a hack for now
-    // if (Time.frameCount % SeenDelay == 0) {
+    flip_looking_on_with_delay();
     if (this.isLooking == Looking.LOOKING) {
 
-      Ray ray = new Ray(transform.position, transform.forward);
+      this.decide_target();
 
-      // check ahead
-      bool see_target_ahead = SeeAndCast(ray);
-
-      // check behind
-      Vector3 behindDirection = ray.direction;
-      behindDirection.z = -1 * behindDirection.z;    // flip to look behind
-      bool see_target_behind = SeeAndCast(new Ray(ray.origin, behindDirection));
-
-      // if you don't see player in either direction, then reset the distance
-      if (see_target_ahead == false && see_target_behind == false) {
-        this.target_distance = float.MaxValue;
-      }
-
-      this.isLooking= Looking.NOT_LOOKING;
     }
+    else {
 
-    if ((this.isLooking == Looking.NOT_LOOKING)) {
-      Vector3 TTP = this.transform.position;
-      
-      // always move closer, but only so close, while it is not melee range
-      if (not_close_yet()) {
-        transform.Translate(speed*deltime*Math.Sign(seen.x - TTP.x), 0, speed*deltime*Math.Sign(seen.z - TTP.z));
-      }
+
+      Vector3 TTP = this.transform.position;  
+      // if (not_close_yet()) {
+      transform.Translate(speed*deltime*Math.Sign(seen.x - TTP.x), 0, speed*deltime*Math.Sign(seen.z - TTP.z));
+      // }
       // for when player is able to reach inside the minimum distance bound, move away
       // this could get removed, once the left and right rays are added, and there is less of gap in the 2D vision
-      else {
+      // else {
         // move away at a quarter the enemy's speed
-        transform.Translate(0.25f*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -0.25f*speed*deltime*Math.Sign(seen.z - TTP.z));
-      }
-
-      // flip to not moving on a "delay" if needed
-      flip_looking_on_with_delay();
+        // transform.Translate(0.25f*speed*deltime*Math.Sign(seen.x - TTP.x), 0, -0.25f*speed*deltime*Math.Sign(seen.z - TTP.z));
+      // }
     }
+    
 
     // if the enemy is in range and its time to attack
     canAttack();
+  }
+
+  void decide_target() {
+
+    Ray ray = new Ray(transform.position, transform.forward);
+
+    // check ahead
+    bool see_target_ahead = SeeAndCast(ray);
+
+    // check behind
+    Vector3 behindDirection = ray.direction;
+    behindDirection.z = -1 * behindDirection.z;    // flip to look behind
+    bool see_target_behind = SeeAndCast(new Ray(ray.origin, behindDirection));
+
+    // actually set the target data
+    if (see_target_ahead == true) {
+      SeeAndCast(ray);   // actually set the target stats needed
+      this.isLooking = Looking.NOT_LOOKING;
+    }
+    else if (see_target_behind == true) {
+      SeeAndCast(new Ray(ray.origin, behindDirection));   
+      this.isLooking = Looking.NOT_LOOKING;
+    }
+    else {
+      this.isLooking = Looking.LOOKING;
+      
+      // move a step closer in z direction to 0,0 
+      transform.Translate(0, 0, -1*speed*deltime*Math.Sign(transform.position.z));
+      this.target_distance = float.MaxValue;
+    }
+
   }
 
   void canAttack() {
@@ -147,11 +166,11 @@ public class EnemyAI : MonoBehaviour {
   }
 
   void flip_looking_on_with_delay() {
-    // if (Time.frameCount % moveDelay == 0) {
-    //   this.isLooking = Looking.LOOKING;
-    // }
+    if (Time.frameCount % moveDelay == 0) {
+      this.isLooking = Looking.LOOKING;
+    }
     // always look for now
-    this.isLooking = Looking.LOOKING;
+    // this.isLooking = Looking.LOOKING;
   }
 
   bool SeeAndCast(Ray ray) {
