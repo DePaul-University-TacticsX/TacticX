@@ -99,8 +99,20 @@ public class RTManager : MonoBehaviour
     }
 
     public static void DecreaseHealth(CharacterEntity player, int amount) {
-      player.minus_health(amount);
+      if (player.get_health() > 0) {
+        player.minus_health(amount);
+      }
+      else {
+        next_in_line();
+        instance.entities.Remove(player);
+      }
     }
+
+    // private static void KillPlayer(CharacterEntity player) {
+    //   if(player.prefab_name == "Warrior") {
+    //     Destroy(GameObject.Find("Warrior(Clone)"));  
+    //   }
+    // } 
 
     
 }
