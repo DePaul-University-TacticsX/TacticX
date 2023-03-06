@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Analytics;
 
 public class MiniGameManager : MonoBehaviour
 {
@@ -47,8 +48,10 @@ public class MiniGameManager : MonoBehaviour
                 break;
             case MiniGameState.MiniGameWon:
                 HandleMiniGameWin();
+                Analytics.CustomEvent("Mini-Game Complete Win");
                 break;
             case MiniGameState.MiniGameLost:
+                Analytics.CustomEvent("Mini-Game Complete Lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -107,13 +110,16 @@ public class MiniGameManager : MonoBehaviour
         if (selectedMiniGame == 1)
         {
             Instantiate(Resources.Load<GameObject>("Red Light Green Light Prefab"));
+            Analytics.CustomEvent("Mini-Game Red Light Green Started");
         } else if (selectedMiniGame == 2)
         {
             Instantiate(Resources.Load<GameObject>("Dodgeball Prefab"));
+            Analytics.CustomEvent("Mini-Game Dodgeball Started");
         }
          else if(selectedMiniGame == 3)
         {
             Instantiate(Resources.Load<GameObject>("Flappybird Prefab"));
+            Analytics.CustomEvent("Mini-Game Flappybird  Started");
         }
     }
 

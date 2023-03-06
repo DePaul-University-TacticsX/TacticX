@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using TacticsX.Grid;
 using TacticsX.SoundEngine;
+using UnityEngine.Analytics;
 
 namespace TacticsX.GridImplementation
 {
@@ -30,6 +31,7 @@ namespace TacticsX.GridImplementation
         private void Awake()
         {
             Instance = this;
+            Analytics.CustomEvent("Level 1 loaded");
         }
 
         void Start()
@@ -233,7 +235,7 @@ namespace TacticsX.GridImplementation
         private void privRemoveGamePiece(GamePiece piece, bool isParticipant)
         {
             Instance.grid.RemoveNode(piece);
-            
+                        
             if (isParticipant)
             {                
                 if(listPC.Contains(piece))
@@ -248,12 +250,14 @@ namespace TacticsX.GridImplementation
                 if(listPC.Count == 0)
                 {
                     Debug.Log("AI WINS");
+                    Analytics.CustomEvent("Level 1 Complete Lose");
                     dialogueManager.UpdateDialogueState(DialogueState.Lose);
                     return;
                 }
                 else if(listNPC.Count == 0)
                 {
                     Debug.Log("PLAYER WINS");
+                    Analytics.CustomEvent("Level 1 Complete Win");
                     dialogueManager.UpdateDialogueState(DialogueState.Win);
                     return;
                 }
