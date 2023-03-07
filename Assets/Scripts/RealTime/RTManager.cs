@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class RTManager : MonoBehaviour
 {
 
@@ -103,6 +104,12 @@ public class RTManager : MonoBehaviour
         player.minus_health(amount);
       }
       else {
+        if (instance.entities.Count == 1) {
+          instance.entities.Remove(player);
+          RTManager.DeactivateEntity(player);
+          // TacticsXGameManager.GetScenes();
+          // Debug.Log("Game Over");
+        }
         next_in_line();
         instance.entities.Remove(player);
       }

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7291680398583030224}
   - component: {fileID: 7291680398583030229}
-  - component: {fileID: 7291680398583030225}
   - component: {fileID: 7291680398583030238}
+  - component: {fileID: 2025556397742867500}
   m_Layer: 0
   m_Name: Barbarian
   m_TagString: Untagged
@@ -32,7 +32,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -62,21 +62,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7291680398583030225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7291680398583030231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82873895030fb3a4988776d0b2a65ea8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  isLooking: 0
-  attack_count: 0
 --- !u!212 &7291680398583030238
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -129,3 +114,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2025556397742867500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7291680398583030231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420b0ef25b45cac45bb7e7c204b94f1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  melee_range: 0
+  target_distance: 0
+  isLooking: 0
