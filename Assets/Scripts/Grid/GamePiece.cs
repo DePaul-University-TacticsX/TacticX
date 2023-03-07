@@ -5,8 +5,8 @@ using DG.Tweening;
 namespace TacticsX.GridImplementation
 {
     public class GamePiece : Node
-    {
-        private GameObject gameObject;
+    {        
+        public GameObject gameObject;
         private float tweenTime = 0.25f;
 
         public GamePiece(GameObject prefab)
