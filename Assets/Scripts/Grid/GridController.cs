@@ -108,7 +108,7 @@ namespace TacticsX.GridImplementation
             selectedCell = cell;
         }
 
-        void OnTurnChanged(Turn turn)
+        void OnTurnChanged(Participant turn)
         {
             state = ControllerState.None;
         }

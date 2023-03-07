@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using TacticsX.Data;
+using UnityEngine.Analytics;
 
 namespace TacticsX.TeamBuilder
 {
@@ -67,6 +68,7 @@ namespace TacticsX.TeamBuilder
 
         public void SaveTeam() {
             SaveManager.SaveTeamData(team);
+            Analytics.CustomEvent("Team Created");
         }
 
         public void LoadTeam() {

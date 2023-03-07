@@ -16,7 +16,7 @@ public class Well_gpenv : GamePiece
 
     public override void DoAction()
     {
-        Debug.Log("Well Do some action");
+        Debug.Log("Drinking water");
     }
 }
 
