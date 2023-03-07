@@ -28,6 +28,8 @@ namespace TacticsX.GridImplementation
         private List<GamePiece> listPC = new List<GamePiece>();
         private List<GamePiece> listNPC = new List<GamePiece>();
 
+        public GameObject canvasMovementUI;
+
         private void Awake()
         {
             Instance = this;
