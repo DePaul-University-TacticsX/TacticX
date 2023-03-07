@@ -27,7 +27,7 @@ public class MySceneManager : MonoBehaviour, IManager {
 
   virtual public void StartUp() {     // from IManager
 
-    Debug.Log("Sprint2 Scene Manager is starting ... ");
+    Debug.Log("Scene Manager is starting ... ");
 
     // set the statuses
     this.MStatus = ManagerStatus.ON;

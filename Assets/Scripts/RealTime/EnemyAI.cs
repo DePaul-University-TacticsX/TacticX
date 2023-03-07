@@ -190,7 +190,7 @@ public class EnemyAI : MonoBehaviour {
   public static void AttackPlayer(int amount) {
     Debug.Log($"attack of {amount}");
     RTManager.DecreaseHealth(RTManager.getActive(), amount);
-
+    
   } 
 
   
