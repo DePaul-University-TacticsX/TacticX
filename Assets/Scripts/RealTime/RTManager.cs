@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class RTManager : MonoBehaviour
 {
 
@@ -99,8 +100,26 @@ public class RTManager : MonoBehaviour
     }
 
     public static void DecreaseHealth(CharacterEntity player, int amount) {
-      player.minus_health(amount);
+      if (player.get_health() > 0) {
+        player.minus_health(amount);
+      }
+      else {
+        if (instance.entities.Count == 1) {
+          instance.entities.Remove(player);
+          RTManager.DeactivateEntity(player);
+          // TacticsXGameManager.GetScenes();
+          // Debug.Log("Game Over");
+        }
+        next_in_line();
+        instance.entities.Remove(player);
+      }
     }
+
+    // private static void KillPlayer(CharacterEntity player) {
+    //   if(player.prefab_name == "Warrior") {
+    //     Destroy(GameObject.Find("Warrior(Clone)"));  
+    //   }
+    // } 
 
     
 }
