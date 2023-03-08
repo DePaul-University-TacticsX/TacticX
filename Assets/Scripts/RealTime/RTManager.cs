@@ -106,7 +106,8 @@ public class RTManager : MonoBehaviour
       else {
         if (instance.entities.Count == 1) {
           instance.entities.Remove(player);
-          RTManager.DeactivateEntity(player);
+          // RTManager.DeactivateEntity(player);
+          BattleManager.CompleteBattle(BattleManager.GetPlayer2());
           // TacticsXGameManager.GetScenes();
           // Debug.Log("Game Over");
         }
