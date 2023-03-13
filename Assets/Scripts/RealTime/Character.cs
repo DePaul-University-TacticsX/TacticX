@@ -57,7 +57,7 @@ public abstract class CharacterEntity
 
     public void minus_health(int amount) {
       this.health -= amount;
-      Debug.Log($"Ouch! Health at {this.health}) ");
+      Debug.Log($"Ouch! Health at {this.health}");
     }
 
     public int get_health() {

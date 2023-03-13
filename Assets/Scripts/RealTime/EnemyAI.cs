@@ -123,8 +123,8 @@ public class EnemyAI : MonoBehaviour {
     else {
       this.isLooking = Looking.LOOKING;
       
-      // move a step closer in z direction to z = 0
-      transform.Translate(0, 0, -1*speed*deltime*Math.Sign(transform.position.z));
+      // move a step, half speed, z-direction dependent on the last move
+      transform.Translate(0, 0, 0.4f*speed*deltime*Math.Sign(transform.position.z));
     }
 
    
