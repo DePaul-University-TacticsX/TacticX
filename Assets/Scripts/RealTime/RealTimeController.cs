@@ -16,13 +16,19 @@ public class RealTimeController : MonoBehaviour
         RTManager.getActive().Move();
 
         // if user tries to swap, go ahead and swap
-        if (Input.GetKeyDown(KeyCode.Q)) {
-            RTManager.next_in_line();
-        }
+        // if (Input.GetKeyDown(KeyCode.Q)) {
+        //     RTManager.next_in_line();
+        // }
 
         // Update for Attack
         if (Input.GetKeyDown(KeyCode.Space)) {
-            RTManager.getActive().Attack();
+          
+          // RTManager.getActive().Attack();
+
+          EnemyManager.AttackEnemy(this.transform);
+
+          
+
         }
     }
 }
