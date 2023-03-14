@@ -7,8 +7,8 @@ public class Warrior : CharacterEntity
 
     public Warrior(float speed) : base(speed, "Knight") {}
 
-    public override void Attack()
-    {
-        Debug.Log("Knight Attack!");
+    public override void Attack() {
+      
+      Debug.Log("Knight Attack!");
     }
 }

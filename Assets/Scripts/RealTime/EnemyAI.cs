@@ -23,7 +23,7 @@ public class EnemyAI : MonoBehaviour {
   // this enemy comes from the EnemyManager 
   // the Enemy manager resets this for the creation of a new EmemyAI 
   // these stats are copied locally into "this" enemy
-  public static Enemy enemy;
+  public Enemy enemy;
 
   // enemy stats, grabbed from Enemy
   public float speed;  
@@ -46,8 +46,8 @@ public class EnemyAI : MonoBehaviour {
   public Looking isLooking;  
 
 
-  public static void SetEnemy(Enemy _enemy) {
-    enemy = _enemy;
+  public void SetEnemy(Enemy _enemy) {
+    this.enemy = _enemy;
   }
 
   void Start() {    
@@ -66,14 +66,16 @@ public class EnemyAI : MonoBehaviour {
     // start as not looking
     this.isLooking = Looking.NOT_LOOKING;    
 
-  }
-  
-  void Awake() {   
     // on instantiate objs during runtime, this is called after start
     // initialize this with specific Enemy stats
     this.speed = enemy.GetSpeed();
     this.melee_range = enemy.GetRange();
-    transform.position = enemy.GetPosition();  
+    transform.position = enemy.GetPosition(); 
+
+  }
+  
+  void Awake() {   
+ 
   }
 
   void Update() {
@@ -124,7 +126,7 @@ public class EnemyAI : MonoBehaviour {
       this.isLooking = Looking.LOOKING;
       
       // move a step, half speed, z-direction dependent on the last move
-      transform.Translate(0, 0, 0.4f*speed*deltime*Math.Sign(transform.position.z));
+      transform.Translate(0, 0, -1*speed*deltime*Math.Sign(transform.position.z));
     }
 
    
@@ -188,12 +190,10 @@ public class EnemyAI : MonoBehaviour {
 
 
   public static void AttackPlayer(int amount) {
-    Debug.Log($"attack of {amount}");
+    // Debug.Log($"attack of {amount}");
     RTManager.DecreaseHealth(RTManager.getActive(), amount);
     
   } 
-
-  
   
 
 }
