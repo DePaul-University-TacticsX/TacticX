@@ -19,6 +19,7 @@ namespace TacticsX.SoundEngine
             Stop();
 
             AudioSource source = GetInstance().source;
+            source.volume = PlayerPrefs.GetFloat("VolumeValue");
             source.clip = SoundLibrary.Get(musicType);
             GetInstance().source.Play();
         }
@@ -26,6 +27,11 @@ namespace TacticsX.SoundEngine
         public static void Stop()
         {
             GetInstance().source.Stop();
+        }
+
+        public static void SetVolume(float f)
+        {
+            GetInstance().source.volume = f;
         }
 
         private static MusicManager GetInstance()
