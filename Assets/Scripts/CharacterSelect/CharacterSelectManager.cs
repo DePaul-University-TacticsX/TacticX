@@ -68,7 +68,7 @@ namespace TacticsX.TeamBuilder
 
         public void SaveTeam() {
             SaveManager.SaveTeamData(team);
-            Analytics.CustomEvent("Team Created");
+            Analytics.CustomEvent("Team_Created");
         }
 
         public void LoadTeam() {

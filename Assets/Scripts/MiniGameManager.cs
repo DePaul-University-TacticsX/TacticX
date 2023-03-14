@@ -48,10 +48,10 @@ public class MiniGameManager : MonoBehaviour
                 break;
             case MiniGameState.MiniGameWon:
                 HandleMiniGameWin();
-                Analytics.CustomEvent("Mini-Game Complete Win");
+                Analytics.CustomEvent("Mini_Game_Complete_Win");
                 break;
             case MiniGameState.MiniGameLost:
-                Analytics.CustomEvent("Mini-Game Complete Lose");
+                Analytics.CustomEvent("Mini_Game_Complete_Lose");
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -110,16 +110,16 @@ public class MiniGameManager : MonoBehaviour
         if (selectedMiniGame == 1)
         {
             Instantiate(Resources.Load<GameObject>("Red Light Green Light Prefab"));
-            Analytics.CustomEvent("Mini-Game Red Light Green Started");
+            Analytics.CustomEvent("Mini_Game_Red_Light_Green_Started");
         } else if (selectedMiniGame == 2)
         {
             Instantiate(Resources.Load<GameObject>("Dodgeball Prefab"));
-            Analytics.CustomEvent("Mini-Game Dodgeball Started");
+            Analytics.CustomEvent("Mini_Game_Dodgeball_Started");
         }
          else if(selectedMiniGame == 3)
         {
             Instantiate(Resources.Load<GameObject>("Flappybird Prefab"));
-            Analytics.CustomEvent("Mini-Game Flappybird  Started");
+            Analytics.CustomEvent("Mini_Game_Flappybird_Started");
         }
     }
 

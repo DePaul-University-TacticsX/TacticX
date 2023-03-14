@@ -22,6 +22,7 @@ namespace TacticsX.SoundEngine
 
         public override void Wash()
         {
+            mAudioSource.volume = PlayerPrefs.GetFloat("VolumeValue");
             mAudioSource.time = 0;
             mAudioSource.clip = null;
             gameObject.SetActive(false);
