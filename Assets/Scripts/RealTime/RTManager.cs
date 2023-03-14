@@ -4,11 +4,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 public class RTManager : MonoBehaviour
 {
 
     public LinkedList<CharacterEntity> entities;
-    private Vector3 c_position = new Vector3(0f, 2f, -10f);
+    private Vector3 c_position = new Vector3(0f, 2f, -2f);
     public CharacterEntity active_component;
     public int index = 0;
     private static RTManager instance;
@@ -24,16 +25,16 @@ public class RTManager : MonoBehaviour
         this.entities = new LinkedList<CharacterEntity>();
 
         CharacterEntity warrior_char = new Warrior(2.0f);
-        CharacterEntity archer_char = new Archer(5.0f);
-        CharacterEntity mage_char = new Mage(7.0f);
+        // CharacterEntity archer_char = new Archer(5.0f);
+        // CharacterEntity mage_char = new Mage(7.0f);
 
         warrior_char.entity.SetActive(false);
-        archer_char.entity.SetActive(false);
-        mage_char.entity.SetActive(false);
+        // archer_char.entity.SetActive(false);
+        // mage_char.entity.SetActive(false);
 
         this.entities.AddFirst(warrior_char); // Slow Speed
-        this.entities.AddLast(archer_char); // Medium Speed
-        this.entities.AddLast(mage_char); // Fast Speed
+        // this.entities.AddLast(archer_char); // Medium Speed
+        // this.entities.AddLast(mage_char); // Fast Speed
 
         this.active_component = this.entities.First.Value;
         this.active_component.entity.transform.position = c_position;
@@ -99,8 +100,27 @@ public class RTManager : MonoBehaviour
     }
 
     public static void DecreaseHealth(CharacterEntity player, int amount) {
-      player.minus_health(amount);
+      if (player.get_health() > 0) {
+        player.minus_health(amount);
+      }
+      else {
+        if (instance.entities.Count == 1) {
+          instance.entities.Remove(player);
+          // RTManager.DeactivateEntity(player);
+          BattleManager.CompleteBattle(BattleManager.GetPlayer2());
+          // TacticsXGameManager.GetScenes();
+          // Debug.Log("Game Over");
+        }
+        next_in_line();
+        instance.entities.Remove(player);
+      }
     }
+
+    // private static void KillPlayer(CharacterEntity player) {
+    //   if(player.prefab_name == "Warrior") {
+    //     Destroy(GameObject.Find("Warrior(Clone)"));  
+    //   }
+    // } 
 
     
 }

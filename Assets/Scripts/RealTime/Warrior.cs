@@ -5,10 +5,10 @@ using UnityEngine;
 public class Warrior : CharacterEntity
 {
 
-    public Warrior(float speed) : base(speed, "Warrior") {}
+    public Warrior(float speed) : base(speed, "Knight") {}
 
     public override void Attack()
     {
-        Debug.Log("Warrior Attack!");
+        Debug.Log("Knight Attack!");
     }
 }

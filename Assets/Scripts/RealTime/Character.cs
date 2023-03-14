@@ -16,7 +16,7 @@ public abstract class CharacterEntity
         this.speed = speed;
         this.prefab_name = prefab_name;
         this.entity = (GameObject) Object.Instantiate(Resources.Load(string.Format("Prefabs/{0}", prefab_name)));
-        this.health = 100;
+        this.health = 10;
         this.name = "player";
     }
 
@@ -57,7 +57,11 @@ public abstract class CharacterEntity
 
     public void minus_health(int amount) {
       this.health -= amount;
-      Debug.Log("Ouch!");
+      Debug.Log($"Ouch! Health at {this.health}");
+    }
+
+    public int get_health() {
+      return this.health;
     }
 
 }
