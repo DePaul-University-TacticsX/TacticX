@@ -35,7 +35,8 @@ public class EnemyManager : MonoBehaviour {
   public static void CheckEndScene() {
     if (enemy_list.Count == 0) {
       enemy_list.Clear();
-      TacticsXGameManager.GetScenes().NextScene(Scenes.GridDemo);
+      BattleManager.CompleteBattle(BattleManager.GetPlayer2());
+      //TacticsXGameManager.GetScenes().NextScene(Scenes.GridDemo);
     }
   }
 
