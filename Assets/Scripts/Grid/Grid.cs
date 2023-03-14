@@ -31,7 +31,7 @@ namespace TacticsX.GridImplementation
         private void Awake()
         {
             Instance = this;
-            Analytics.CustomEvent("Level 1 loaded");
+            Analytics.CustomEvent("Level_1_loaded");
         }
 
         void Start()
@@ -250,7 +250,7 @@ namespace TacticsX.GridImplementation
                 if(listPC.Count == 0)
                 {
                     Debug.Log("AI WINS");
-                    Analytics.CustomEvent("Level 1 Complete Lose");
+                    Analytics.CustomEvent("Level_1_Complete_Lose");
                     TacticsXGameManager.GetScenes().NextScene(Scenes.LoseMenu);
                     //dialogueManager.UpdateDialogueState(DialogueState.Lose);
                     return;
@@ -258,7 +258,7 @@ namespace TacticsX.GridImplementation
                 else if(listNPC.Count == 0)
                 {
                     Debug.Log("PLAYER WINS");
-                    Analytics.CustomEvent("Level 1 Complete Win");
+                    Analytics.CustomEvent("Level_1_Complete_Win");
                     TacticsXGameManager.GetScenes().NextScene(Scenes.WinMenu);
                     //dialogueManager.UpdateDialogueState(DialogueState.Win);
                     return;

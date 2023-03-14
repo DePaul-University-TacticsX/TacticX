@@ -33,7 +33,7 @@ public class TacticsXGameManager : MonoBehaviour {
 
 
       MusicManager.Play(MusicType.Music_01);
-      Analytics.CustomEvent("Game Start");
+      Analytics.CustomEvent("Game_Start");
     }
 
 
