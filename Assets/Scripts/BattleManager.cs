@@ -15,13 +15,13 @@ public class BattleManager
     public static void StartBattle(Participant player1, Participant player2)
     {
         GetInstance().privStartBattle(player1, player2);
-        Analytics.CustomEvent("Battle Started");
+        Analytics.CustomEvent("Battle_Started");
     }
 
     public static void CompleteBattle(Participant loser)
     {
         GetInstance().privCompleteBattle(loser);
-        Analytics.CustomEvent("Battle Complete");
+        Analytics.CustomEvent("Battle_Complete");
     }
 
     public static Participant GetPlayer1()

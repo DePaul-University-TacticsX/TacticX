@@ -31,8 +31,9 @@ public class TacticsXGameManager : MonoBehaviour {
       // call StartupManagers
       StartCoroutine(StartupManagers());
 
-        MusicManager.Play(MusicType.Music_01);
-        Analytics.CustomEvent("Game Start");
+
+      MusicManager.Play(MusicType.Music_01);
+      Analytics.CustomEvent("Game_Start");
     }
 
   private IEnumerator StartupManagers()
