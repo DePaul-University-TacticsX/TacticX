@@ -251,14 +251,16 @@ namespace TacticsX.GridImplementation
                 {
                     Debug.Log("AI WINS");
                     Analytics.CustomEvent("Level 1 Complete Lose");
-                    dialogueManager.UpdateDialogueState(DialogueState.Lose);
+                    TacticsXGameManager.GetScenes().NextScene(Scenes.LoseMenu);
+                    //dialogueManager.UpdateDialogueState(DialogueState.Lose);
                     return;
                 }
                 else if(listNPC.Count == 0)
                 {
                     Debug.Log("PLAYER WINS");
                     Analytics.CustomEvent("Level 1 Complete Win");
-                    dialogueManager.UpdateDialogueState(DialogueState.Win);
+                    TacticsXGameManager.GetScenes().NextScene(Scenes.WinMenu);
+                    //dialogueManager.UpdateDialogueState(DialogueState.Win);
                     return;
                 }
 

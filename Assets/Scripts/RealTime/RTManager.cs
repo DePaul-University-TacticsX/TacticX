@@ -61,6 +61,8 @@ public class RTManager : MonoBehaviour
             
         }
 
+        if (instance.index >= instance.entities.Count) return;
+
         // Next element in list.
         instance.active_component = instance.entities.ElementAt(instance.index);
 
