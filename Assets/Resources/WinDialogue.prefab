@@ -469,7 +469,7 @@ MonoBehaviour:
   - actorID: 2
     message: I need a drink after that fight...
   - actorID: 0
-    message: 'Our work is not done yet, there are other places that need our help. '
+    message: We're not done yet, there are towns to save!
   actors:
   - name: Knight
     sprite: {fileID: 324196887, guid: f79a82ba51ab1fbeabd0888536c34ffa, type: 3}
