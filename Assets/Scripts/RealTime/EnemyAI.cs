@@ -37,6 +37,7 @@ public class EnemyAI : MonoBehaviour {
   float radius;   // radius of the raycast sphere
   int attackDelay;     // used to determine how many frames to pass before attacking
   float min_dist;    // some small length to stay back from the player
+  public int d_factor = 1;   // used to change direction when reaching plane bounds
 
   // instance variables for player/target info 
   Vector3 seen;      // position of the "seen" target, when spotted
@@ -53,9 +54,9 @@ public class EnemyAI : MonoBehaviour {
   void Start() {    
 
     // bounds on sight, closeness, and melee range
-    this.radius = 3.0f;    
+    this.radius = 2.0f;    
     this.attackDelay = 80 * 2;  
-    this.min_dist = 0.45f;  
+    this.min_dist = 0.30f;  
 
     // initialize what you see to be only yourself at first
     this.seen = this.transform.position;
@@ -123,10 +124,31 @@ public class EnemyAI : MonoBehaviour {
       this.canAttack();
     }
     else {
+      // this is when the enemy does not know what to do
+      // sort of like idle moving
+
       this.isLooking = Looking.LOOKING;
       
-      // move a step, half speed, z-direction dependent on the last move
-      transform.Translate(0, 0, -1*speed*deltime*Math.Sign(transform.position.z));
+      //  X-Z plane  
+      //  top left corner: (-20, 25)
+      //  bottom right corner: (20, -25)  
+      // transform.Translate(0, 0, speed*deltime*Math.Sign(transform.position.z));
+      
+      float myz = this.transform.position.z;
+
+      // basically bounces up down off the z bounds of the plane
+      if (myz > 20) {
+        d_factor = -1;
+      }
+
+      else if (myz < -30) {
+        d_factor = 1;
+      }
+
+
+    
+      transform.Translate(0, 0, d_factor*speed*deltime);
+    
     }
 
    

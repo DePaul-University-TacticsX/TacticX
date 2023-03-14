@@ -13,18 +13,15 @@ public class EnemyManager : MonoBehaviour {
     // speed, range, position
     
     EnemyAI ai1 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
-    Enemy en1 = new Enemy(3.5f, 0.3f, new Vector3(-5, height, 5), ai1);
+    Enemy en1 = new Enemy(4.0f, 0.325f, new Vector3(-10, height, 0), ai1);
     enemy_list.Add(en1);
-    
 
-    //  this demon is slightly slower
     EnemyAI ai2 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Demon"));
-    Enemy en2 =  new Enemy(3.0f, 0.3f, new Vector3(5, height, -5), ai2);
+    Enemy en2 =  new Enemy(4.0f, 0.325f, new Vector3(0, height, 15), ai2);
     enemy_list.Add(en2);
 
-    // barbarian is much slower
     EnemyAI ai3 = Object.Instantiate<EnemyAI>(Resources.Load<EnemyAI>("Prefabs/Barbarian"));
-    Enemy en3 = new Enemy(1.5f, 0.75f, new Vector3(-5, height, -5), ai3);
+    Enemy en3 = new Enemy(2.0f, 0.75f, new Vector3(0, height, -12), ai3);
     enemy_list.Add(en3);
   }
 
@@ -46,7 +43,10 @@ public class EnemyManager : MonoBehaviour {
     List<Enemy> death_list = new List<Enemy>();
     foreach (Enemy enemy in elist) {
       float dist = Vector3.Distance(enemy.GetTransform().position, player.transform.position);
-      if (dist < 2) {
+      
+      // this is like the range of the player
+      // it needs decoupled from enemy manager and set into the character
+      if (dist < 2.5) {
         Alive status = enemy.take_damage(5);
         if (status == Alive.NO) {
           death_list.Add(enemy);
