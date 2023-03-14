@@ -9,7 +9,7 @@ public class RTManager : MonoBehaviour
 {
 
     public LinkedList<CharacterEntity> entities;
-    private Vector3 c_position = new Vector3(0f, 2f, -2f);
+    private Vector3 c_position = new Vector3(0f, 2f, 0f);
     public CharacterEntity active_component;
     public int index = 0;
     private static RTManager instance;
@@ -24,7 +24,7 @@ public class RTManager : MonoBehaviour
         instance = this;
         this.entities = new LinkedList<CharacterEntity>();
 
-        CharacterEntity warrior_char = new Warrior(2.0f);
+        CharacterEntity warrior_char = new Warrior(3.0f);
         // CharacterEntity archer_char = new Archer(5.0f);
         // CharacterEntity mage_char = new Mage(7.0f);
 
