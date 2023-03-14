@@ -45,13 +45,15 @@ public class DialogueManager : MonoBehaviour
         {
             case DialogueState.Win:
                 Instantiate(Resources.Load<GameObject>("WinDialogue"));
+                FindObjectOfType<DialogueTrigger>().StartDialogue(State);
                 break;
             case DialogueState.Lose:
                 Instantiate(Resources.Load<GameObject>("LoseDialogue"));
+                FindObjectOfType<DialogueTrigger>().StartDialogue(State);
                 break;
             case DialogueState.Start:
                 Instantiate(Resources.Load<GameObject>("StartDialogue"));
-                FindObjectOfType<DialogueTrigger>().StartDialogue();
+                FindObjectOfType<DialogueTrigger>().StartDialogue(State);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -60,13 +62,14 @@ public class DialogueManager : MonoBehaviour
 
         OnStateChanged?.Invoke(newState);
     }
-    public void OpenDialogue(Message[] messages, Actor[] actors)
+    public void OpenDialogue(Message[] messages, Actor[] actors, DialogueState state)
     {
         currentMessages = messages;
         currentActors = actors;
         activeMessage = 0;
         isActive = true;
         buttonText.text = "Next Message";
+        State = state;
 
         Debug.Log("Started Dialogue. Loaded messages: " + messages.Length);
         DisplayMessage();
@@ -92,11 +95,11 @@ public class DialogueManager : MonoBehaviour
             Destroy(transform.gameObject.GetComponentInParent<Canvas>().gameObject);
             if (State == DialogueState.Win)
             {
-                Instantiate(Resources.Load<GameObject>("WinMenu"));
+                TacticsXGameManager.GetScenes().NextScene(Scenes.WinMenu);
             }
             else if (State == DialogueState.Lose)
             {
-                Instantiate(Resources.Load<GameObject>("LoseMenu"));
+                TacticsXGameManager.GetScenes().NextScene(Scenes.LoseMenu);
             }
         }
     }
