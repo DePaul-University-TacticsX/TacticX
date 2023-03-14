@@ -37,11 +37,14 @@ public class EnemyAI : MonoBehaviour {
   float radius;   // radius of the raycast sphere
   int attackDelay;     // used to determine how many frames to pass before attacking
   float min_dist;    // some small length to stay back from the player
-  public int d_factor = 1;   // used to change direction when reaching plane bounds
+  
+  // used to change dirsection when reaching plane bounds
+  public int h_factor = 1;   
+  public int w_factor = 1;
 
   // instance variables for player/target info 
   Vector3 seen;      // position of the "seen" target, when spotted
-  public float target_distance;  // distance when started
+  public float target_distance;  
 
   // look to calculate where to move, don't look while moving
   public Looking isLooking;  
@@ -102,24 +105,87 @@ public class EnemyAI : MonoBehaviour {
 
   void decide_target() {
 
-    Ray ray = new Ray(transform.position, transform.forward);
 
     // check ahead
-    bool see_target_ahead = SeeAndCast(ray);
+    Ray ahead_ray = new Ray(transform.position, transform.forward);
+    bool see_target_ahead = SeeAndCast(ahead_ray);
 
     // check behind
-    Vector3 behindDirection = ray.direction;
+    Vector3 behindDirection = new Vector3(ahead_ray.direction.x, ahead_ray.direction.y, ahead_ray.direction.z);
     behindDirection.z = -1 * behindDirection.z;    // flip to look behind
-    bool see_target_behind = SeeAndCast(new Ray(ray.origin, behindDirection));
+    Ray behind_ray = new Ray(transform.position, behindDirection);
+    bool see_target_behind = SeeAndCast(behind_ray);
+
+    // check right
+    Ray right_ray = new Ray(transform.position, transform.right);
+    bool see_target_right = SeeAndCast(right_ray);
+
+    // check left
+    Vector3 leftDirection = new Vector3(right_ray.direction.x, right_ray.direction.y, right_ray.direction.z); 
+    leftDirection.x *= -1;
+    Ray left_ray = new Ray(transform.position, leftDirection);
+    bool see_target_left = SeeAndCast(left_ray);
+
+    // check upper right
+    Vector3 upperrightDir = new Vector3(right_ray.direction.x, right_ray.direction.y, ahead_ray.direction.z); 
+    Ray upper_right_ray = new Ray(transform.position, upperrightDir);
+    bool see_target_upper_right = SeeAndCast(upper_right_ray);
+
+    // check upper left
+    Vector3 upperleftDir = new Vector3(left_ray.direction.x, left_ray.direction.y, ahead_ray.direction.z); 
+    Ray upper_left_ray = new Ray(transform.position, upperleftDir);
+    bool see_target_upper_left = SeeAndCast(upper_left_ray);
+
+    // check lower right
+    Vector3 lowerrightDir = new Vector3(right_ray.direction.x, right_ray.direction.y, behind_ray.direction.z); 
+    Ray lower_right_ray = new Ray(transform.position, lowerrightDir);
+    bool see_target_lower_right = SeeAndCast(lower_right_ray);
+
+    // check lower left
+    Vector3 lowerleftDir = new Vector3(left_ray.direction.x, left_ray.direction.y, behind_ray.direction.z); 
+    Ray lower_left_ray = new Ray(transform.position, lowerleftDir);
+    bool see_target_lower_left = SeeAndCast(lower_left_ray);
+
+
 
     // makes the choice and sets the stats correctly
     if (see_target_ahead == true) {
-      SeeAndCast(ray);   // actually set the target stats needed
+      SeeAndCast(ahead_ray);   // actually set the target stats needed
       this.isLooking = Looking.NOT_LOOKING;
       this.canAttack();
     }
     else if (see_target_behind == true) {
-      SeeAndCast(new Ray(ray.origin, behindDirection));   
+      SeeAndCast(behind_ray);   
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_right == true) {
+      SeeAndCast(right_ray);   // actually set the target stats needed
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_left == true) {
+      SeeAndCast(left_ray);   
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_upper_right == true) {
+      SeeAndCast(upper_right_ray);   // actually set the target stats needed
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_upper_left == true) {
+      SeeAndCast(upper_left_ray);   
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_lower_right == true) {
+      SeeAndCast(lower_right_ray);   // actually set the target stats needed
+      this.isLooking = Looking.NOT_LOOKING;
+      this.canAttack();
+    }
+    else if (see_target_lower_left == true) {
+      SeeAndCast(lower_left_ray);   
       this.isLooking = Looking.NOT_LOOKING;
       this.canAttack();
     }
@@ -135,19 +201,28 @@ public class EnemyAI : MonoBehaviour {
       // transform.Translate(0, 0, speed*deltime*Math.Sign(transform.position.z));
       
       float myz = this.transform.position.z;
+      float myx = this.transform.position.x;
 
-      // basically bounces up down off the z bounds of the plane
-      if (myz > 20) {
-        d_factor = -1;
+      // force it the enemy bounce up down off the z bounds of the plane
+      if (myz > 25) {
+        this.h_factor = -1;
       }
 
-      else if (myz < -30) {
-        d_factor = 1;
+      else if (myz < -25) {
+        this.h_factor = 1;
+      }
+
+      // force a bounce off the x bounds of the plane
+      if (myx < -20) {
+        this.w_factor = 1;
+      }
+      else if (myx > 20) {
+        this.w_factor = -1;
       }
 
 
-    
-      transform.Translate(0, 0, d_factor*speed*deltime);
+      // move diagonally, but half as much in the x-direction
+      transform.Translate(0.5f*w_factor*speed*deltime, 0, h_factor*speed*deltime);
     
     }
 
@@ -157,7 +232,7 @@ public class EnemyAI : MonoBehaviour {
 
   void canAttack() {
     if ((Time.frameCount % attackDelay == 0) && IsInRange()) {
-      AttackPlayer(1);
+      AttackPlayer(2);
     }
   }
 

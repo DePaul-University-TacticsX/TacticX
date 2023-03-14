@@ -47,4 +47,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CanyonSelect.unity
     guid: f62c1ca0131eec7428a8fee12273e984
+  - enabled: 1
+    path: Assets/Resources/WinMenu.unity
+    guid: 3ffb89a1f5db4694687575ef57f5beca
+  - enabled: 1
+    path: Assets/Resources/LoseMenu.unity
+    guid: a28b2cd0802e32243a78c538f0ffbf5e
   m_configObjects: {}

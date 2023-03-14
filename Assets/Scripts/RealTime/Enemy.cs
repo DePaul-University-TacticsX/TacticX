@@ -13,7 +13,7 @@ public class Enemy  {
     this.speed = speed;
     this.range = range;
     this.position = position;
-    this.health = 5;
+    this.health = 15;
     this.ai = _ai;
     this.ai.SetEnemy(this);
   }
@@ -38,12 +38,12 @@ public class Enemy  {
   }
 
   public Alive take_damage(int num) {
-    if (this.health >= 5) {
+    if (this.health > 5) {
       this.health -= num;
       Debug.Log($"SCREAM! Enemy Hit");
       return Alive.YES;
     }
-    else if (this.health == 0 ) {
+    else if (this.health == 5 ) {
       this.ai.gameObject.SetActive(false);
       return Alive.NO;
     }
