@@ -83,7 +83,7 @@ public class MySceneManager : MonoBehaviour, IManager {
   }
 
   // Next(next) is called in TXDemoManager, with no transition elements yet
-  private IEnumerator Next(Scenes next) {
+  private IEnumerator Next(Scenes next, LoadSceneMode sceneMode = LoadSceneMode.Single) {
     
     // set the load status
     this.LStatus = LoadStatus.LOADING;
@@ -96,7 +96,7 @@ public class MySceneManager : MonoBehaviour, IManager {
     // TODO: add fade transition here
 
     // actually load it in Unity
-    SceneManager.LoadScene($"{next}");   // must also add the new scene to the build settings for this to run
+    SceneManager.LoadScene($"{next}", sceneMode);   // must also add the new scene to the build settings for this to run
 
     // loading has completed
     this.LStatus = LoadStatus.COMPLETE;
@@ -123,8 +123,8 @@ public class MySceneManager : MonoBehaviour, IManager {
     SceneManager.SetActiveScene(SceneManager.GetSceneByName($"{scene}"));
   }
 
-  public void NextScene(Scenes s) {
-    StartCoroutine(Next(s));
+  public void NextScene(Scenes s, LoadSceneMode sceneMode = LoadSceneMode.Single) {
+    StartCoroutine(Next(s, sceneMode));
   }
 
   public void UnloadSceneAsync(Scenes scene) {

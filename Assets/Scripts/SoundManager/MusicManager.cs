@@ -19,7 +19,7 @@ namespace TacticsX.SoundEngine
             Stop();
 
             AudioSource source = GetInstance().source;
-            source.volume = PlayerPrefs.GetFloat("VolumeValue");
+            source.volume = PlayerPrefs.GetFloat("VolumeValue",1f);
             source.clip = SoundLibrary.Get(musicType);
             GetInstance().source.Play();
         }

@@ -15,5 +15,7 @@ public enum Scenes {
   LevelSelect,
   ForestSelect,
   CanyonSelect,
-  PierSelect
+  PierSelect,
+  WinMenu,
+  LoseMenu
 }
