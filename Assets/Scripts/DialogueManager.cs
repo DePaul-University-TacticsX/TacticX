@@ -35,6 +35,8 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        //TODO load team data for actor images
+
     }
 
     public void UpdateDialogueState(DialogueState newState)
