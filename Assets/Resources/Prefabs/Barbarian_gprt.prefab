@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4032487737127214090}
   - component: {fileID: 3553098383577425097}
   m_Layer: 5
-  m_Name: Knight_gprt
+  m_Name: Barbarian_gprt
   m_TagString: Mage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3269133506038516303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ RectTransform:
   m_GameObject: {fileID: 7769452116949139464}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3269133506038516300}
@@ -211,9 +211,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1262811365, guid: 62f5a6f224816da77af2cab74e2f6c2e, type: 3}
+  m_Sprite: {fileID: 1271660381, guid: 21a463069a8bd9c3ca147f012d1ed141, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 899.9982, y: 899.9982}

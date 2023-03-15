@@ -43,7 +43,7 @@ namespace TacticsX.GridImplementation
             canvasMovementUI.transform.SetParent(TurnManager.GetCurrentTurn().GamePiece.gameObject.transform);
 
             //This vector3 places the UI above and in front of the game piece
-            canvasMovementUI.transform.localPosition = new Vector3(-0.57f, 1.95f, 0.68f);
+            canvasMovementUI.transform.localPosition = new Vector3(840f, 860f, -1250f);
         }
 
         public void SelectCell()
