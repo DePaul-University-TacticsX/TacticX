@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mage : CharacterEntity
+public class Knight : CharacterEntity
 {
 
-    public Mage(float speed) : base(speed, "Mage") { }
+    public Knight(float speed) : base(speed, "Knight") { }
 
     public override void Attack()
     {
-        Debug.Log("Mage Attack!");
+        Debug.Log("Knight Attack!");
     }
 }

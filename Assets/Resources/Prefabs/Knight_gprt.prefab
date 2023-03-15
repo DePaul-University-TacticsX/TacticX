@@ -117,7 +117,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7643901798718587636}
   m_Layer: 0
-  m_Name: Mage_gprt
+  m_Name: Knight_gprt
   m_TagString: Mage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
