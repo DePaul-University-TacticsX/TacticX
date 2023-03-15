@@ -27,6 +27,7 @@ namespace TacticsX.GridImplementation
         private int column;
         private List<GamePiece> listPC = new List<GamePiece>();
         private List<GamePiece> listNPC = new List<GamePiece>();
+        public GameObject canvasMovementUI;
 
         private void Awake()
         {
@@ -39,10 +40,14 @@ namespace TacticsX.GridImplementation
             grid = new GridManager(10);
             grid.Build();
 
+            canvasMovementUI = Instantiate(Resources.Load<GameObject>("MovementUI"));
+            canvasMovementUI.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+            canvasMovementUI.AddComponent<Billboard>();
+
             cameraManager = new GridCameraManager();
             cursorManager = new CursorManager();
             assetFactory = new AssetFactory();
-            gridController = new GridController();
+            gridController = new GridController(canvasMovementUI);
             dialogueManager = new DialogueManager();
 
             cameraManager.SetCameraPosition(4, 4);
@@ -80,6 +85,8 @@ namespace TacticsX.GridImplementation
             listNPC.Add(npcBarbarian);
 
             TurnManager.Build(true);
+
+            gridController.SetMovementUIToCurrentTurn();
 
             dialogueManager.UpdateDialogueState(DialogueState.Start);
         }
@@ -128,17 +135,17 @@ namespace TacticsX.GridImplementation
 
             if (Input.GetKeyDown(KeyCode.A))
             {
-                GridController.SetState(ControllerState.Attacking);
+                gridController.SetState(ControllerState.Attacking);
             }
 
             if (Input.GetKeyDown(KeyCode.M))
             {
-                GridController.SetState(ControllerState.Moving);
+                gridController.SetState(ControllerState.Moving);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GridController.SetState(ControllerState.EndingTurn);
+                gridController.SetState(ControllerState.EndingTurn);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
