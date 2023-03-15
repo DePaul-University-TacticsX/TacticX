@@ -31,7 +31,7 @@ namespace TacticsX.GridImplementation
             assetDict[GamePieceType.Knight] = Load("Knight_gprt");
             assetDict[GamePieceType.Archer] = Load("Archer_gprt");
             assetDict[GamePieceType.Warrior] = Load("Warrior_gprt");
-            assetDict[GamePieceType.Barbarian] = Load("Warrior_gprt");
+            assetDict[GamePieceType.Barbarian] = Load("Barbarian_gprt");
         }
 
         public Node Get(GamePieceType piece)
@@ -49,7 +49,7 @@ namespace TacticsX.GridImplementation
                 case GamePieceType.Knight: return new Knight_gprt(prefab);
                 case GamePieceType.Archer: return new Archer_gprt(prefab);
                 case GamePieceType.Warrior: return new Warrior_gprt(prefab);
-                case GamePieceType.Barbarian: return new Warrior_gprt(prefab);
+                case GamePieceType.Barbarian: return new Barbarian_gprt(prefab);
             }
 
             return null;

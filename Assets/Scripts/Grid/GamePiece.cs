@@ -30,24 +30,19 @@ namespace TacticsX.GridImplementation
             Object.Destroy(gameObject);
         }
 
-        public override void SetPosition(float x, float y)
+        public override void SetPosition(float x, float y, float z)
         {
-            gameObject.transform.position = new Vector3(x, 0, y);            
+            gameObject.transform.position = new Vector3(x, y, z);            
         }
 
         public void SetPosition(Vector3 position)
         {
-            SetPosition(position.x, position.z);
+            SetPosition(position.x, position.y, position.z);
         }
 
-        public override void MoveToPosition(float x, float y)
+        public override void MoveToPosition(Vector3 position)
         {
-            this.gameObject.transform.DOMove(new Vector3(x, 0, y), tweenTime).SetEase(Ease.OutCirc);
-        }
-
-        public void MoveToPosition(Vector3 position)
-        {
-            MoveToPosition(position.x, position.z);
+            this.gameObject.transform.DOMove(new Vector3(position.x, position.y, position.z), tweenTime).SetEase(Ease.OutCirc);
         }
 
         public virtual void DoAction(){}
