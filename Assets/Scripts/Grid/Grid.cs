@@ -57,11 +57,11 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 4, 4);
 
             //powerups
-            AddGamePiece(GamePieceType.HealthPowerUp, 3, 2);
-            AddGamePiece(GamePieceType.DefencePowerUp, 3, 1);
+            AddGamePiece(GamePieceType.HealthPowerUp, 3, 3);
+            AddGamePiece(GamePieceType.DefencePowerUp, 3, 0);
             AddGamePiece(GamePieceType.DamagePowerUp, 2, 2);
-            AddGamePiece(GamePieceType.MovementPowerUp, 1, 2);
-            AddGamePiece(GamePieceType.MultiattackPowerUp, 1, 3);
+            AddGamePiece(GamePieceType.MovementPowerUp, 1, 0);
+            AddGamePiece(GamePieceType.MultiattackPowerUp, 2, 4);
 
             AddGamePiece(GamePieceType.Well, 0, 0);
             AddGamePiece(GamePieceType.Well, 4, 0);
