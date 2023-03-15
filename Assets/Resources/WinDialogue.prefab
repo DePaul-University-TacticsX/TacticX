@@ -474,7 +474,7 @@ MonoBehaviour:
   - name: Knight
     sprite: {fileID: 324196887, guid: f79a82ba51ab1fbeabd0888536c34ffa, type: 3}
   - name: Warrior
-    sprite: {fileID: -963406223, guid: 7180f948505bbfd1cb202ad686d3ccd4, type: 3}
+    sprite: {fileID: -1556678916, guid: 801a3ff8ee6fce82880b6b58adf55283, type: 3}
   - name: Archer
     sprite: {fileID: -105814624, guid: 19bb3fed9782fbbb08b6cdc813111ed1, type: 3}
 --- !u!1 &3734233811947319078

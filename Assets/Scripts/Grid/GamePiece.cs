@@ -8,6 +8,7 @@ namespace TacticsX.GridImplementation
     {        
         public GameObject gameObject;
         private float tweenTime = 0.25f;
+        public bool isSprite = false;
 
         public GamePiece(GameObject prefab)
         {
@@ -37,12 +38,18 @@ namespace TacticsX.GridImplementation
 
         public void SetPosition(Vector3 position)
         {
-            SetPosition(position.x, position.y, position.z);
+            if (this.isSprite == false)
+                SetPosition(position.x, position.y - 0.5f, position.z);
+            else
+                SetPosition(position.x, position.y - 0.5f + 0.9f, position.z);
         }
 
         public override void MoveToPosition(Vector3 position)
         {
-            this.gameObject.transform.DOMove(new Vector3(position.x, position.y, position.z), tweenTime).SetEase(Ease.OutCirc);
+            if (this.isSprite == false)
+                this.gameObject.transform.DOMove(new Vector3(position.x, position.y - 0.5f, position.z), tweenTime).SetEase(Ease.OutCirc);
+            else
+                this.gameObject.transform.DOMove(new Vector3(position.x, position.y - 0.5f + 0.9f, position.z), tweenTime).SetEase(Ease.OutCirc);
         }
 
         public virtual void DoAction(){}
