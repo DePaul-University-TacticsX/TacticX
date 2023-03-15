@@ -68,12 +68,12 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 0, 4);
 
             // Player Army.
-            GamePiece pcKnight        = AddGamePiece(GamePieceType.Knight, 0, 1, new Vector3(0, 0.9f, 0));
-            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2, new Vector3(0, 0.9f, 0));
-            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3, new Vector3(0, 0.9f, 0));
-            GamePiece npcBarbarian0    = AddGamePiece(GamePieceType.Barbarian, 4, 1, new Vector3(0, 0.9f, 0));
-            GamePiece npcBarbarian1    = AddGamePiece(GamePieceType.Barbarian, 4, 2, new Vector3(0, 0.9f, 0));
-            GamePiece npcBarbarian2    = AddGamePiece(GamePieceType.Barbarian, 4, 3, new Vector3(0, 0.9f, 0));
+            GamePiece pcKnight        = AddGamePiece(GamePieceType.Knight, 0, 1, true);
+            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2, true);
+            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3, true);
+            GamePiece npcBarbarian0    = AddGamePiece(GamePieceType.Barbarian, 4, 1, true);
+            GamePiece npcBarbarian1    = AddGamePiece(GamePieceType.Barbarian, 4, 2, true);
+            GamePiece npcBarbarian2    = AddGamePiece(GamePieceType.Barbarian, 4, 3, true);
 
             TurnManager.AddParticipant(pcKnight, Resources.Load<Sprite>("Sprites/Characters/Knights/Character_1/Sword and Shield/Idle"), false);
             TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Sprites/Characters/Archers/Character_1/Idle"), false);
@@ -226,11 +226,9 @@ namespace TacticsX.GridImplementation
             return cell.GetPosition();
         }
 
-        public static GamePiece AddGamePiece(GamePieceType piece, int row, int column, Vector3 positionOffset = new Vector3())
+        public static GamePiece AddGamePiece(GamePieceType piece, int row, int column, bool isSprite = false)
         {
-            //Can't set Vector3.zero as a default for the param
-            if (positionOffset == new Vector3()) positionOffset = Vector3.zero;
-            return Instance.privAddGamePiece(piece, row, column, positionOffset);
+            return Instance.privAddGamePiece(piece, row, column, isSprite);
         }
 
         public static void RemoveGamePiece(GamePiece piece,bool isParticipant)
@@ -238,12 +236,13 @@ namespace TacticsX.GridImplementation
             Instance.privRemoveGamePiece(piece, isParticipant);            
         }
 
-        private GamePiece privAddGamePiece(GamePieceType piece, int row, int column, Vector3 positionOffset)
+        private GamePiece privAddGamePiece(GamePieceType piece, int row, int column, bool isSprite = false)
         {
             GamePiece newGamePiece = (GamePiece) assetFactory.Get(piece);
+            newGamePiece.isSprite = isSprite;
             GridCell cell = grid.FindGridCell(row, column);
             grid.SetNode(newGamePiece, cell);
-            newGamePiece.SetPosition(new Vector3(cell.GetPosition().x + positionOffset.x, cell.GetPosition().y - 0.5f + positionOffset.y, cell.GetPosition().z + positionOffset.z));
+            newGamePiece.SetPosition(cell.GetPosition());
             return newGamePiece;
         }
 
