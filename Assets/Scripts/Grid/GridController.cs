@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace TacticsX.GridImplementation
 {
@@ -9,15 +10,17 @@ namespace TacticsX.GridImplementation
         GridCell selectedCell;
         GamePiece selectedNode;
         ControllerState state = ControllerState.None;
-
-        public GridController()
+        private GameObject canvasMovementUI;
+        
+        public GridController(GameObject canvasMovementUI)
         {
             Instance = this;
+            this.canvasMovementUI = canvasMovementUI;
             Grid.AddSelectedCellChangedObserver(OnSelectedCellChanged);
             TurnManager.AddTurnChangedObserver(OnTurnChanged);
         }
 
-        public static void SetState(ControllerState state)
+        public void SetState(ControllerState state)
         {
             switch(state)
             {
@@ -30,8 +33,17 @@ namespace TacticsX.GridImplementation
                     break;
                 case ControllerState.EndingTurn:
                     TurnManager.NextTurn();
+                    SetMovementUIToCurrentTurn();
                     break;
             }
+        }
+
+        ///We have to do this here, because we can't mess with instantiated objects in the static TurnManager
+        public void SetMovementUIToCurrentTurn() {
+            canvasMovementUI.transform.SetParent(TurnManager.GetCurrentTurn().GamePiece.gameObject.transform);
+
+            //This vector3 places the UI above and in front of the game piece
+            canvasMovementUI.transform.localPosition = new Vector3(840f, 860f, -1250f);
         }
 
         public void SelectCell()
@@ -43,6 +55,7 @@ namespace TacticsX.GridImplementation
 
                 GridManager.Instance.MoveNode(TurnManager.GetCurrentTurn().GamePiece, selectedCell);
                 TurnManager.GetCurrentTurn().GamePiece.MoveToPosition(selectedCell.GetPosition());
+                SetMovementUIToCurrentTurn();
                 TurnManager.GetCurrentTurn().DidMove = true;
             }
             else if(state == ControllerState.Attacking)

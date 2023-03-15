@@ -10,7 +10,7 @@
         MultiattackPowerUp,
         Warrior,
         Archer,
-        Mage
-
+        Knight,
+        Barbarian
     }
 }

@@ -36,7 +36,6 @@ public class TacticsXGameManager : MonoBehaviour {
       Analytics.CustomEvent("Game_Start");
     }
 
-
   private IEnumerator StartupManagers()
   {
       Debug.Log("Starting all Game Managers ... ");

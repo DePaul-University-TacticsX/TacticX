@@ -11,6 +11,7 @@ public abstract class CharacterEntity
     public string name;
     public GameObject entity;
     public int health;
+    public GameObject hurt;
 
     public CharacterEntity(float speed, string prefab_name) {
         this.speed = speed;

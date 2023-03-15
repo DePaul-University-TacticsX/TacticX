@@ -13,11 +13,14 @@ public class RTManager : MonoBehaviour
     public CharacterEntity active_component;
     public int index = 0;
     private static RTManager instance;
-
+    static AudioSource hurt;
 
     // Start is called before the first frame update
     void Start()
     {
+
+        hurt = GetComponent<AudioSource>();
+
 
         // set up a listener on the event that a character was attacked
 
@@ -103,6 +106,7 @@ public class RTManager : MonoBehaviour
 
     public static void DecreaseHealth(CharacterEntity player, int amount) {
       if (player.get_health() > 0) {
+        hurt.Play();
         player.minus_health(amount);
       }
       else {

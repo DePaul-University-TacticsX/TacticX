@@ -27,6 +27,7 @@ namespace TacticsX.GridImplementation
         private int column;
         private List<GamePiece> listPC = new List<GamePiece>();
         private List<GamePiece> listNPC = new List<GamePiece>();
+        public GameObject canvasMovementUI;
 
         private void Awake()
         {
@@ -39,10 +40,14 @@ namespace TacticsX.GridImplementation
             grid = new GridManager(10);
             grid.Build();
 
+            canvasMovementUI = Instantiate(Resources.Load<GameObject>("MovementUI"));
+            canvasMovementUI.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
+            canvasMovementUI.AddComponent<Billboard>();
+
             cameraManager = new GridCameraManager();
             cursorManager = new CursorManager();
             assetFactory = new AssetFactory();
-            gridController = new GridController();
+            gridController = new GridController(canvasMovementUI);
             dialogueManager = new DialogueManager();
 
             cameraManager.SetCameraPosition(4, 4);
@@ -52,34 +57,42 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 4, 4);
 
             //powerups
-            AddGamePiece(GamePieceType.HealthPowerUp, 4, 2);
-            AddGamePiece(GamePieceType.DefencePowerUp, 3, 2);
+            AddGamePiece(GamePieceType.HealthPowerUp, 3, 3);
+            AddGamePiece(GamePieceType.DefencePowerUp, 3, 0);
             AddGamePiece(GamePieceType.DamagePowerUp, 2, 2);
-            AddGamePiece(GamePieceType.MovementPowerUp, 1, 2);
-            AddGamePiece(GamePieceType.MultiattackPowerUp, 1, 3);
+            AddGamePiece(GamePieceType.MovementPowerUp, 1, 0);
+            AddGamePiece(GamePieceType.MultiattackPowerUp, 2, 4);
 
             AddGamePiece(GamePieceType.Well, 0, 0);
             AddGamePiece(GamePieceType.Well, 4, 0);
             AddGamePiece(GamePieceType.Well, 0, 4);
 
             // Player Army.
-            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3);
-            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2);
-            GamePiece pcMage        = AddGamePiece(GamePieceType.Mage, 0, 1);
-            GamePiece npcWarrior    = AddGamePiece(GamePieceType.Warrior, 0, 6);
+            GamePiece pcKnight        = AddGamePiece(GamePieceType.Knight, 0, 1, new Vector3(0, 0.9f, 0));
+            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2, new Vector3(0, 0.9f, 0));
+            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3, new Vector3(0, 0.9f, 0));
+            GamePiece npcBarbarian0    = AddGamePiece(GamePieceType.Barbarian, 4, 1, new Vector3(0, 0.9f, 0));
+            GamePiece npcBarbarian1    = AddGamePiece(GamePieceType.Barbarian, 4, 2, new Vector3(0, 0.9f, 0));
+            GamePiece npcBarbarian2    = AddGamePiece(GamePieceType.Barbarian, 4, 3, new Vector3(0, 0.9f, 0));
 
-            TurnManager.AddParticipant(pcWarrior, Resources.Load<Sprite>("Textures/warrior"), false);
-            TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Textures/archer"), false);
-            TurnManager.AddParticipant(pcMage, Resources.Load<Sprite>("Textures/mage"), false);
-            TurnManager.AddParticipant(npcWarrior, Resources.Load<Sprite>("Textures/warrior"), true);
+            TurnManager.AddParticipant(pcKnight, Resources.Load<Sprite>("Sprites/Characters/Knights/Character_1/Sword and Shield/Idle"), false);
+            TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Sprites/Characters/Archers/Character_1/Idle"), false);
+            TurnManager.AddParticipant(pcWarrior, Resources.Load<Sprite>("Sprites/Characters/Warriors/Character_3/Idle"), false);
+            TurnManager.AddParticipant(npcBarbarian0, Resources.Load<Sprite>("Sprites/Enemies/Barbarian/Idle"), true);
+            TurnManager.AddParticipant(npcBarbarian1, Resources.Load<Sprite>("Sprites/Enemies/Barbarian/Idle"), true);
+            TurnManager.AddParticipant(npcBarbarian2, Resources.Load<Sprite>("Sprites/Enemies/Barbarian/Idle"), true);
 
             listPC.Add(pcWarrior);
             listPC.Add(pcArcher);
-            listPC.Add(pcMage);
+            listPC.Add(pcKnight);
 
-            listNPC.Add(npcWarrior);
+            listNPC.Add(npcBarbarian0);
+            listNPC.Add(npcBarbarian1);
+            listNPC.Add(npcBarbarian2);
 
             TurnManager.Build(true);
+
+            gridController.SetMovementUIToCurrentTurn();
 
             dialogueManager.UpdateDialogueState(DialogueState.Start);
         }
@@ -128,17 +141,17 @@ namespace TacticsX.GridImplementation
 
             if (Input.GetKeyDown(KeyCode.A))
             {
-                GridController.SetState(ControllerState.Attacking);
+                gridController.SetState(ControllerState.Attacking);
             }
 
             if (Input.GetKeyDown(KeyCode.M))
             {
-                GridController.SetState(ControllerState.Moving);
+                gridController.SetState(ControllerState.Moving);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                GridController.SetState(ControllerState.EndingTurn);
+                gridController.SetState(ControllerState.EndingTurn);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
@@ -213,9 +226,11 @@ namespace TacticsX.GridImplementation
             return cell.GetPosition();
         }
 
-        public static GamePiece AddGamePiece(GamePieceType piece,int row,int column)
+        public static GamePiece AddGamePiece(GamePieceType piece, int row, int column, Vector3 positionOffset = new Vector3())
         {
-            return Instance.privAddGamePiece(piece, row, column);
+            //Can't set Vector3.zero as a default for the param
+            if (positionOffset == new Vector3()) positionOffset = Vector3.zero;
+            return Instance.privAddGamePiece(piece, row, column, positionOffset);
         }
 
         public static void RemoveGamePiece(GamePiece piece,bool isParticipant)
@@ -223,12 +238,12 @@ namespace TacticsX.GridImplementation
             Instance.privRemoveGamePiece(piece, isParticipant);            
         }
 
-        private GamePiece privAddGamePiece(GamePieceType piece, int row, int column)
+        private GamePiece privAddGamePiece(GamePieceType piece, int row, int column, Vector3 positionOffset)
         {
             GamePiece newGamePiece = (GamePiece) assetFactory.Get(piece);
             GridCell cell = grid.FindGridCell(row, column);
             grid.SetNode(newGamePiece, cell);
-            newGamePiece.SetPosition(cell.GetPosition());
+            newGamePiece.SetPosition(new Vector3(cell.GetPosition().x + positionOffset.x, cell.GetPosition().y - 0.5f + positionOffset.y, cell.GetPosition().z + positionOffset.z));
             return newGamePiece;
         }
 

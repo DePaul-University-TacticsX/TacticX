@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4032487737127214090}
   - component: {fileID: 3553098383577425097}
   m_Layer: 5
-  m_Name: Warrior_gprt
+  m_Name: Knight_gprt
   m_TagString: Mage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ RectTransform:
   m_GameObject: {fileID: 7769452116949139464}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 3269133506038516300}
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1556678916, guid: 801a3ff8ee6fce82880b6b58adf55283, type: 3}
+  m_Sprite: {fileID: 1262811365, guid: 62f5a6f224816da77af2cab74e2f6c2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

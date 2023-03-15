@@ -28,9 +28,10 @@ namespace TacticsX.GridImplementation
             assetDict[GamePieceType.MovementPowerUp] = Load("MovementPowerUp");
             assetDict[GamePieceType.MultiattackPowerUp] = Load("MultiattackPowerUp");
             assetDict[GamePieceType.Well] = Load("Well_gpenv");
-            assetDict[GamePieceType.Warrior] = Load("Warrior_gprt");
+            assetDict[GamePieceType.Knight] = Load("Knight_gprt");
             assetDict[GamePieceType.Archer] = Load("Archer_gprt");
-            assetDict[GamePieceType.Mage] = Load("Mage_gprt");
+            assetDict[GamePieceType.Warrior] = Load("Warrior_gprt");
+            assetDict[GamePieceType.Barbarian] = Load("Barbarian_gprt");
         }
 
         public Node Get(GamePieceType piece)
@@ -45,10 +46,10 @@ namespace TacticsX.GridImplementation
                 case GamePieceType.MultiattackPowerUp: return new MultiattackPowerUp(prefab);
                 case GamePieceType.DamagePowerUp: return new DamagePowerUp(prefab);
                 case GamePieceType.Well: return new Well_gpenv(prefab);
-                case GamePieceType.Warrior: return new Warrior_gprt(prefab);
+                case GamePieceType.Knight: return new Knight_gprt(prefab);
                 case GamePieceType.Archer: return new Archer_gprt(prefab);
-                case GamePieceType.Mage: return new Mage_gprt(prefab);
-  
+                case GamePieceType.Warrior: return new Warrior_gprt(prefab);
+                case GamePieceType.Barbarian: return new Barbarian_gprt(prefab);
             }
 
             return null;

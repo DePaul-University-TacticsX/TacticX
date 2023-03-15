@@ -41,6 +41,7 @@ public class Enemy  {
     if (this.health > 5) {
       this.health -= num;
       Debug.Log($"SCREAM! Enemy Hit");
+      this.ai.getScream().Play();
       return Alive.YES;
     }
     else if (this.health == 5 ) {

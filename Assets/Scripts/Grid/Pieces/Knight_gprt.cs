@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TacticsX.GridImplementation;
 
-public class Mage_gprt : GamePiece
+public class Knight_gprt : GamePiece
 {
-    public Mage_gprt(GameObject prefab)
+    public Knight_gprt(GameObject prefab)
         : base(prefab)
     {
 
@@ -13,7 +13,7 @@ public class Mage_gprt : GamePiece
 
     public override void DoAction()
     {
-        Debug.Log("Mage Do some action");
+        Debug.Log("Knight Do some action");
         BattleManager.StartBattle(TurnManager.GetCurrentTurn(), TurnManager.FindParticipant(this));
     }
 }
