@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using UnityEngine;
+using System.Collections.Generic;
 using System;
 
 namespace TacticsX.Grid
 {
     public abstract class Node
     {
-        const float GRID_LINE_OFFSET = 0.5f;
-        
         public Cell cell;
 
         protected void Init() {}
@@ -14,7 +13,7 @@ namespace TacticsX.Grid
         public abstract void Show();
         public abstract void Hide();
         public abstract void Destroy();
-        public abstract void SetPosition(float x, float y);
-        public abstract void MoveToPosition(float x, float y);
+        public abstract void SetPosition(float x, float y, float z);
+        public abstract void MoveToPosition(Vector3 position);
     }
 }
