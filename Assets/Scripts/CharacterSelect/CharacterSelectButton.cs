@@ -102,12 +102,6 @@ namespace TacticsX.TeamBuilder
 
         public void UpdateIcons() {
             previewImage.sprite = previewIcons[currentIconIndex];
-            previewImage.sprite = previewIcons[currentIconIndex];
-            previewImage.sprite = previewIcons[currentIconIndex];
-            previewImage.sprite = previewIcons[currentIconIndex];
-            characterImage.sprite = previewIcons[currentIconIndex];
-            characterImage.sprite = previewIcons[currentIconIndex];
-            characterImage.sprite = previewIcons[currentIconIndex];
             characterImage.sprite = previewIcons[currentIconIndex];
         }
 
