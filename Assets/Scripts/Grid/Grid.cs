@@ -68,21 +68,21 @@ namespace TacticsX.GridImplementation
             AddGamePiece(GamePieceType.Well, 0, 4);
 
             // Player Army.
-            GamePiece pcWarrior = AddGamePiece(GamePieceType.Warrior, 0, 3);
-            GamePiece pcArcher = AddGamePiece(GamePieceType.Archer, 0, 2);
-            GamePiece pcMage = AddGamePiece(GamePieceType.Mage, 0, 1);
-            GamePiece npcWarrior = AddGamePiece(GamePieceType.Warrior, 0, 6);
+            GamePiece pcKnight        = AddGamePiece(GamePieceType.Knight, 0, 1);
+            GamePiece pcArcher      = AddGamePiece(GamePieceType.Archer, 0, 2);
+            GamePiece pcWarrior     = AddGamePiece(GamePieceType.Warrior, 0, 3);
+            GamePiece npcBarbarian    = AddGamePiece(GamePieceType.Barbarian, 0, 6);
 
-            TurnManager.AddParticipant(pcWarrior, Resources.Load<Sprite>("Textures/warrior"), false);
-            TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Textures/archer"), false);
-            TurnManager.AddParticipant(pcMage, Resources.Load<Sprite>("Textures/mage"), false);
-            TurnManager.AddParticipant(npcWarrior, Resources.Load<Sprite>("Textures/warrior"), true);
+            TurnManager.AddParticipant(pcKnight, Resources.Load<Sprite>("Sprites/Characters/Knights/Character_1/Sword and Shield/Idle"), false);
+            TurnManager.AddParticipant(pcArcher, Resources.Load<Sprite>("Sprites/Characters/Archers/Character_1/Idle"), false);
+            TurnManager.AddParticipant(pcWarrior, Resources.Load<Sprite>("Sprites/Characters/Warriors/Character_3/Idle"), false);
+            TurnManager.AddParticipant(npcBarbarian, Resources.Load<Sprite>("Sprites/Characters/Warriors/Character_1/Idle"), true);
 
             listPC.Add(pcWarrior);
             listPC.Add(pcArcher);
-            listPC.Add(pcMage);
+            listPC.Add(pcKnight);
 
-            listNPC.Add(npcWarrior);
+            listNPC.Add(npcBarbarian);
 
             TurnManager.Build(true);
 
