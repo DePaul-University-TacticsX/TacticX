@@ -49,12 +49,21 @@ public class EnemyAI : MonoBehaviour {
   // look to calculate where to move, don't look while moving
   public Looking isLooking;  
 
+  AudioSource audioSource;
+  public AudioSource hurts;
 
   public void SetEnemy(Enemy _enemy) {
     this.enemy = _enemy;
   }
 
+  public AudioSource getScream() {
+    return this.audioSource;
+  }
+
   void Start() {    
+
+    // grab the from the prefab
+    audioSource = GetComponent<AudioSource>();
 
     // bounds on sight, closeness, and melee range
     this.radius = 2.0f;    

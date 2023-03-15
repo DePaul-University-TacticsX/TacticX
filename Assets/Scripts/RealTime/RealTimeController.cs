@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class RealTimeController : MonoBehaviour
 {
+
+    AudioSource _audiosource;
+
     // Start is called before the first frame update
-    void Start()
-    {}
+    void Start() {
+      _audiosource = GetComponent<AudioSource>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -20,11 +24,14 @@ public class RealTimeController : MonoBehaviour
         //     RTManager.next_in_line();
         // }
 
+
+
         // Update for Attack
         if (Input.GetKeyDown(KeyCode.Space)) {
           
           // RTManager.getActive().Attack();
 
+          _audiosource.Play();
           EnemyManager.AttackEnemy(this.transform);
 
           
